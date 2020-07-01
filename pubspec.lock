@@ -30,12 +30,12 @@ packages:
     source: hosted
     version: "2.0.0"
   cached_network_image:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: cached_network_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0+1"
+    version: "2.3.0-beta.1+1"
   charcode:
     dependency: transitive
     description:
@@ -92,6 +92,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.8"
+  extended_image:
+    dependency: "direct main"
+    description:
+      name: extended_image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.0"
+  extended_image_library:
+    dependency: transitive
+    description:
+      name: extended_image_library
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3"
   file:
     dependency: transitive
     description:
@@ -177,6 +191,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.1"
+  http_client_helper:
+    dependency: transitive
+    description:
+      name: http_client_helper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   http_parser:
     dependency: transitive
     description:
@@ -248,7 +269,7 @@ packages:
     source: hosted
     version: "0.0.4"
   octo_image:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: octo_image
       url: "https://pub.dartlang.org"

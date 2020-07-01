@@ -14,58 +14,56 @@ class AllPicturesScreeen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Media media = Provider.of<Media>(context);
 
-    return ChangeNotifierProvider(
-      create: (_) => Media(),
-      child: Scaffold(
-        drawer: const AppDrawer(prevScreen: routeName),
-        extendBodyBehindAppBar: true,
-        body: BackgroundGradient(
-          child: CustomScrollView(
-            slivers: <Widget>[
-              const SliverAppBar(
-                title: Text('All Pictures'),
-                floating: true,
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (_, int index) {
-                    if (media.spaceMedias.isEmpty) {
-                      return Container(
-                        height:
-                            MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - kToolbarHeight,
-                        width: double.infinity,
-                        child: const Center(
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(Colors.white),
-                          ),
+    return Scaffold(
+      drawer: const AppDrawer(prevScreen: routeName),
+      extendBodyBehindAppBar: true,
+      body: BackgroundGradient(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            const SliverAppBar(
+              title: Text('All Pictures'),
+              floating: true,
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (_, int index) {
+                  if (media.spaceMedias.isEmpty) {
+                    return Container(
+                      height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - kToolbarHeight,
+                      width: double.infinity,
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Colors.white),
                         ),
-                      );
-                    }
-                    if (index + 1 > media.spaceMedias.length) {
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16.0),
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(Colors.white),
-                          ),
-                        ),
-                      );
-                    }
-                    return CreationAwareWidget(
-                      itemCreated: () {
-                        media.loadMore();
-                      },
-                      child: ImageCard(
-                        index: index,
-                        spaceMedia: media.spaceMedias[index],
                       ),
                     );
-                  },
-                  childCount: media.spaceMedias.length + 1,
-                ),
+                  }
+                  if (index + 1 > media.spaceMedias.length) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                        ),
+                      ),
+                    );
+                  }
+                  return CreationAwareWidget(
+                    itemCreated: () {
+                      if (index + 3 >= media.spaceMedias.length) {
+                        media.loadMore();
+                      }
+                    },
+                    child: ImageCard(
+                      index: index,
+                      spaceMedia: media.spaceMedias[index],
+                    ),
+                  );
+                },
+                childCount: media.spaceMedias.length + 1,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

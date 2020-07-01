@@ -114,7 +114,10 @@ class SpaceMediaImage extends StatelessWidget {
         },
         child: Hero(
           tag: index,
-          child: SpaceDisplayImage(url: spaceMedia.url),
+          child: SpaceDisplayImage(
+            url: spaceMedia.url,
+            type: spaceMedia.type,
+          ),
         ),
       ),
     );

@@ -1,10 +1,8 @@
 import 'package:date_format/date_format.dart' show formatDate, dd, MM, yyyy;
 import 'package:flutter/material.dart';
 import 'package:nasa_apod_app/screens/details_screen.dart';
-import 'package:provider/provider.dart';
 
 import '../constants.dart' show earliestPossibleDate;
-import '../services/media.dart';
 import '../widgets/app_drawer.dart' show AppDrawer;
 import '../widgets/background_gradient.dart';
 import '../widgets/custom_button.dart';
@@ -14,26 +12,23 @@ class TimeMachineScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => Media(),
-      child: Scaffold(
-        drawer: const AppDrawer(prevScreen: TimeMachineScreen.routeName),
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: const Text(
-            'Time Machine',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: Colors.white,
-            ),
+    return Scaffold(
+      drawer: const AppDrawer(prevScreen: TimeMachineScreen.routeName),
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Time Machine',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            color: Colors.white,
           ),
         ),
-        body: BackgroundGradient(
-          height: MediaQuery.of(context).size.height,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.top),
-            child: const TimeMachineContent(prevScreen: routeName),
-          ),
+      ),
+      body: BackgroundGradient(
+        height: MediaQuery.of(context).size.height,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.top),
+          child: const TimeMachineContent(prevScreen: routeName),
         ),
       ),
     );

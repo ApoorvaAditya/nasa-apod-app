@@ -30,8 +30,8 @@ Future<SpaceMedia> getAPOD({DateTime date}) async {
 
   // Check for videos and if find it, store it's information
   else if (videoHtmlList != null && videoHtmlList.isNotEmpty) {
-    url = Utils.convertYoutbeEmbedToLink(videoHtmlList[0].attributes['src']);
     type = 'video';
+    url = Utils.convertYoutbeEmbedToLink(videoHtmlList[0].attributes['src']);
   }
 
   // Get title and credits

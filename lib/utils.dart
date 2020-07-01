@@ -9,10 +9,17 @@ class Utils {
   }
 
   static String convertYoutbeEmbedToLink(String url) {
-    if (url.contains('youtube')) {
-      url.replaceFirst('embed/', 'watch/v=');
+    String thumbnailUrl;
+    thumbnailUrl = url.replaceFirst('embed/', 'watch/v=');
+    if (url.contains('?rel=0')) {
+      thumbnailUrl = thumbnailUrl.replaceFirst('?rel=0', '');
     }
-    return url;
+    return thumbnailUrl;
+  }
+
+  static String getYtThumbnailLink(String url) {
+    final String id = url.split('=')[1];
+    return 'https://img.youtube.com/vi/$id/hqdefault.jpg';
   }
 
   static Future<void> launchURL(String url) async {
@@ -34,7 +41,7 @@ class Utils {
     final List<String> parts = date.split(' ');
     final String year = parts[0];
     final String month = parts[1];
-    final String day = parts[2];
+    final String day = parts[2].length < 2 ? '0${parts[2]}' : parts[2];
     return '$year-${monthToInt(month)}-$day';
   }
 
