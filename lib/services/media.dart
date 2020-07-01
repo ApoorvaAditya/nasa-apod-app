@@ -7,20 +7,13 @@ import '../utils.dart';
 import 'get_apod.dart';
 
 class Media with ChangeNotifier {
-  // Is the media loading data from source? Used to prevent loading if already loading
   bool _isLoading = false;
-  // List of all the SpaceMedia associated
   List<SpaceMedia> _spaceMedias = <SpaceMedia>[];
-
   DateTime _today;
-  DateTime mainDate;
+  int startIndex;
 
-  int aheadIndex;
-  int behindIndex;
-  bool loadAhead;
-  bool loadBehind;
-  final int lengthToLoad;
   final int initialIndex;
+  final int lengthToLoad;
 
   // SpaceMedias getter
   List<SpaceMedia> get spaceMedias {
@@ -31,9 +24,6 @@ class Media with ChangeNotifier {
   Media({
     this.initialIndex = 0,
     this.lengthToLoad = 1,
-    this.loadAhead = false,
-    this.loadBehind = true,
-    this.mainDate,
   }) {
     refresh();
   }
@@ -57,33 +47,16 @@ class Media with ChangeNotifier {
   }
 
   Future<void> _getAPODs() async {
-    if (loadAhead) {
-      for (int i = aheadIndex + 1; i > aheadIndex + lengthToLoad; i++) {
-        final DateTime currentDate = mainDate.add(Duration(days: i));
-        // Get APOD for later days
-        if (currentDate.isBefore(_today)) {
-          final SpaceMedia spaceMedia = await getAPOD(date: currentDate);
-          if (spaceMedia != null) _spaceMedias.insert(0, spaceMedia);
-          notifyListeners();
-        } else {
-          loadAhead = false;
-        }
-      }
-    }
-    if (loadBehind) {
-      for (int i = behindIndex; i < behindIndex + lengthToLoad; i++) {
-        final DateTime currentDate = mainDate.subtract(Duration(days: i));
+    for (int i = startIndex; i < startIndex + lengthToLoad; i++) {
+      final DateTime currentDate = _today.subtract(Duration(days: i));
 
-        if (currentDate.isAfter(earliestPossibleDate)) {
-          // Get APOD for the previous days
-          final SpaceMedia spaceMedia = await getAPOD(date: currentDate);
+      if (currentDate.isAfter(earliestPossibleDate)) {
+        // Get APOD for the previous days
+        final SpaceMedia spaceMedia = await getAPOD(date: currentDate);
 
-          behindIndex += lengthToLoad;
-          if (spaceMedia != null) _spaceMedias.add(spaceMedia);
-          notifyListeners();
-        } else {
-          loadBehind = false;
-        }
+        startIndex += lengthToLoad;
+        if (spaceMedia != null) _spaceMedias.add(spaceMedia);
+        notifyListeners();
       }
     }
   }
@@ -92,12 +65,8 @@ class Media with ChangeNotifier {
     // Get today's date
     final DateTime latestDate = await Utils.getLatesetPostDate();
     _today = latestDate ?? DateTime.now().subtract(const Duration(days: 1));
-    mainDate ??= _today;
     _spaceMedias = <SpaceMedia>[];
-    aheadIndex = initialIndex;
-    behindIndex = initialIndex;
-    loadAhead = true;
-    loadBehind = true;
+    startIndex = initialIndex;
     notifyListeners();
   }
 }

@@ -194,7 +194,7 @@ class SpaceMediaDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return HtmlWidget(
       description,
-      textStyle: TextStyle(
+      textStyle: const TextStyle(
         color: Colors.white,
         fontSize: 16,
       ),

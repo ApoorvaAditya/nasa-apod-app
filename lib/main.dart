@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'services/media.dart';
 import 'screens/all_pictures_screen.dart';
 import 'screens/details_screen.dart';
 import 'screens/submit_screen.dart';

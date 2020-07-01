@@ -15,7 +15,7 @@ class TimeMachineScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => Media(loadAhead: true),
+      create: (_) => Media(),
       child: Scaffold(
         drawer: const AppDrawer(prevScreen: TimeMachineScreen.routeName),
         appBar: AppBar(

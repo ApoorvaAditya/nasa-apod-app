@@ -180,7 +180,7 @@ class SpaceMediaMinimizedDescription extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       softWrap: true,
       textAlign: TextAlign.justify,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
         fontStyle: FontStyle.italic,
       ),
