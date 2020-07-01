@@ -11,10 +11,26 @@ class SavedScreen extends StatelessWidget {
       drawer: const AppDrawer(
         prevScreen: routeName,
       ),
-      appBar: AppBar(
-        title: const Text('Saved'),
+      body: BackgroundGradient(
+        height: MediaQuery.of(context).size.height,
+        child: CustomScrollView(
+          slivers: <Widget>[
+            const SliverAppBar(
+              title: Text('Saved'),
+              floating: true,
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate((_, index) {
+                return Container(
+                  color: Colors.indigo[(index % 10) * 100],
+                  height: 20,
+                  padding: const EdgeInsets.all(8),
+                );
+              }),
+            ),
+          ],
+        ),
       ),
-      body: BackgroundGradient(),
     );
   }
 }

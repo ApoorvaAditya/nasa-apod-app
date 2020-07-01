@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nasa_apod_app/screens/saved_screen.dart';
 import 'package:nasa_apod_app/screens/settings_screen.dart';
@@ -77,6 +78,8 @@ class AppDrawer extends StatelessWidget {
             const Spacer(),
             Divider(
               color: Colors.black,
+              height: 0,
+              thickness: 1,
             ),
             ListTile(
               leading: Icon(

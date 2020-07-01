@@ -33,16 +33,24 @@ class SettingsScreen extends StatelessWidget {
               )
             : ListView(
                 children: <Widget>[
-                  SettingsListTile(
+                  TextSettingsListTile(
                     controller: _albumController,
                     title: 'Album Name',
                     value: prefs.getAlbumName(),
                     subtitle: 'Name of album where downloaded pictures will be stored.',
                     hint: 'Enter album name',
                     onSubmitted: (value) {
-                      prefs.setAlbumName(value);
+                      prefs.setAlbumName(value: value);
                     },
                   ),
+                  SwitchSettingsListTile(
+                    title: 'Download Images on Save',
+                    subtitle: 'Should Images be downloaded when saving pictures?',
+                    value: prefs.getDownloadOnSave(),
+                    onChanged: (value) {
+                      prefs.setDownloadOnSave(value: value);
+                    },
+                  )
                 ],
               ),
       ),
@@ -50,7 +58,47 @@ class SettingsScreen extends StatelessWidget {
   }
 }
 
-class SettingsListTile extends StatelessWidget {
+class SwitchSettingsListTile extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final bool value;
+  final void Function(bool value) onChanged;
+
+  const SwitchSettingsListTile({
+    Key key,
+    this.title,
+    this.subtitle,
+    this.onChanged,
+    this.value,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: const TextStyle(
+          color: Colors.grey,
+        ),
+      ),
+      trailing: Switch(
+        activeColor: Colors.indigo[500],
+        inactiveTrackColor: Colors.grey[700],
+        value: value,
+        onChanged: onChanged,
+      ),
+    );
+  }
+}
+
+class TextSettingsListTile extends StatelessWidget {
   final TextEditingController controller;
   final String title;
   final String subtitle;
@@ -58,7 +106,7 @@ class SettingsListTile extends StatelessWidget {
   final String value;
   final void Function(String value) onSubmitted;
 
-  const SettingsListTile({
+  const TextSettingsListTile({
     Key key,
     this.controller,
     this.title,
@@ -118,9 +166,8 @@ class SettingsListTile extends StatelessWidget {
                       subtitle,
                       textAlign: TextAlign.left,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Colors.grey,
                         fontSize: 16,
-                        fontStyle: FontStyle.italic,
                       ),
                     ),
                     const SizedBox(height: 20),
