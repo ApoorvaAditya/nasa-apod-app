@@ -40,7 +40,6 @@ Future<SpaceMedia> getAPOD({DateTime date}) async {
     title = document.getElementsByTagName('center')[1].children[0].innerHtml.trim();
     credits = document.getElementsByTagName('center')[1].innerHtml;
   }
-
   // Get description
   final List paraList = document.getElementsByTagName('p');
   if (paraList != null && paraList.isNotEmpty) {
@@ -50,7 +49,7 @@ Future<SpaceMedia> getAPOD({DateTime date}) async {
 
   return SpaceMedia(
     date: date,
-    copyright: credits,
+    credits: credits,
     description: description,
     title: title,
     type: type,

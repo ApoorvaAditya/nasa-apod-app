@@ -202,6 +202,13 @@ class SpaceMediaDescription extends StatelessWidget {
         fontSize: 16,
       ),
       hyperlinkColor: Colors.lightBlue,
+      customStylesBuilder: (element) {
+        switch (element.localName) {
+          case 'a':
+            return ['text-decoration', 'none'];
+        }
+        return null;
+      },
     );
   }
 }

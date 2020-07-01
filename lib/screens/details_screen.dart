@@ -32,10 +32,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
       enablePageView = arguments['enablePageView'] as bool;
       spaceMedia = arguments['spaceMedia'] as SpaceMedia;
       index = arguments['index'] as int;
-      _pageController = PageController(
-        initialPage: enablePageView ? index : 0,
-        keepPage: true,
-      );
+      if (enablePageView) {
+        _pageController = PageController(
+          initialPage: enablePageView ? index : 0,
+          keepPage: true,
+        );
+      }
       init = false;
     }
     super.didChangeDependencies();
@@ -43,6 +45,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   void dispose() {
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -58,8 +61,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
       appBar: DetailsAppBar(
-          scaffoldKey: _scaffoldKey,
-          spaceMedia: _pageController.hasClients ? media.spaceMedias[_pageController.page.round()] : spaceMedia),
+        scaffoldKey: _scaffoldKey,
+        spaceMedia: _pageController.hasClients ? media.spaceMedias[_pageController.page.round()] : spaceMedia,
+      ),
       body: BackgroundGradient(
         height: MediaQuery.of(context).size.height,
         child: enablePageView

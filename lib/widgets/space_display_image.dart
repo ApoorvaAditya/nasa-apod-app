@@ -31,8 +31,20 @@ class SpaceDisplayImage extends StatelessWidget {
             );
             break;
           case LoadState.completed:
-            return ExtendedRawImage(
-              image: state.extendedImageInfo?.image,
+            return Stack(
+              children: <Widget>[
+                ExtendedRawImage(
+                  image: state.extendedImageInfo?.image,
+                ),
+                if (type == 'video')
+                  Positioned.fill(
+                    child: Icon(
+                      Icons.play_circle_filled,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  ),
+              ],
             );
             break;
           case LoadState.failed:

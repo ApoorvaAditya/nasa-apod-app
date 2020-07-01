@@ -6,7 +6,7 @@ class BackgroundGradient extends StatelessWidget {
   final double height;
 
   const BackgroundGradient({
-    @required this.child,
+    this.child,
     this.padding,
     this.height,
   });

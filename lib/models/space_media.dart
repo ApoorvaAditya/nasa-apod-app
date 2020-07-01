@@ -7,7 +7,7 @@ class SpaceMedia {
   final String hdImageUrl;
   final String description;
   final String title;
-  final String copyright;
+  final String credits;
 
   SpaceMedia({
     @required this.date,
@@ -15,7 +15,7 @@ class SpaceMedia {
     @required this.url,
     @required this.description,
     @required this.title,
-    @required this.copyright,
+    @required this.credits,
     this.hdImageUrl,
   });
 }

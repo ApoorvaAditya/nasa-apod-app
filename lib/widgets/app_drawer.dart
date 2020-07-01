@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/screens/saved_screen.dart';
+import 'package:nasa_apod_app/screens/settings_screen.dart';
 
 import '../constants.dart';
 import '../screens/all_pictures_screen.dart';
@@ -43,11 +45,6 @@ class AppDrawer extends StatelessWidget {
               ),
             ),
             DrawerListItem(
-              icon: Icons.today,
-              title: 'Astronomy Picture of the Day',
-              prevScreen: prevScreen,
-            ),
-            DrawerListItem(
               icon: Icons.photo_library,
               title: 'All Pictures',
               prevScreen: prevScreen,
@@ -69,12 +66,31 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.bookmark,
               title: 'Saved Pictures',
               prevScreen: prevScreen,
+              routeName: SavedScreen.routeName,
             ),
             DrawerListItem(
               icon: Icons.settings,
               title: 'Settings',
               prevScreen: prevScreen,
+              routeName: SettingsScreen.routeName,
             ),
+            const Spacer(),
+            Divider(
+              color: Colors.black,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.info,
+                color: Colors.white,
+              ),
+              title: const Text(
+                'About',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                showAboutDialog(context: context);
+              },
+            )
           ],
         ),
       ),
