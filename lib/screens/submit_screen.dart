@@ -37,16 +37,14 @@ class _SubmitScreenState extends State<SubmitScreen> {
   }
 
   Future<void> _submitImage() async {
-    if (_formKey.currentState.validate()) {
-      final Email email = Email(
-        recipients: recipients,
-        subject: Strings.emailSubject,
-        body: _desriptionController.text + (_imageUrlController.text.isNotEmpty ? '\n${_imageUrlController.text}' : ''),
-        attachmentPaths: [if (_selectedImage != null) _selectedImage.path],
-        isHTML: false,
-      );
-      await FlutterEmailSender.send(email);
-    }
+    final Email email = Email(
+      recipients: recipients,
+      subject: Strings.emailSubject,
+      body: _desriptionController.text + (_imageUrlController.text.isNotEmpty ? '\n${_imageUrlController.text}' : ''),
+      attachmentPaths: [if (_selectedImage != null) _selectedImage.path],
+      isHTML: false,
+    );
+    await FlutterEmailSender.send(email);
   }
 
   @override
@@ -151,7 +149,11 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   const SizedBox(height: 20),
                   CustomButton(
                     text: Strings.submit,
-                    onPressed: _submitImage,
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        _submitImage();
+                      }
+                    },
                   ),
                 ],
               ),
