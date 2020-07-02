@@ -12,7 +12,7 @@ class Utils {
 
   static String convertYoutbeEmbedToLink(String url) {
     String thumbnailUrl;
-    thumbnailUrl = url.replaceFirst('embed/', 'watch/v=');
+    thumbnailUrl = url.replaceFirst('embed/', 'watch?v=');
     if (url.contains('?rel=0')) {
       thumbnailUrl = thumbnailUrl.replaceFirst('?rel=0', '');
     }
