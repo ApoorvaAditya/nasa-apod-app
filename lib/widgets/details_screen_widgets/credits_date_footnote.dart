@@ -24,7 +24,7 @@ class CreditsDateFootnote extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Container(
-            width: MediaQuery.of(context).size.width * 0.6,
+            width: MediaQuery.of(context).size.width * 0.5,
             child: HtmlWidget(
               spaceMedia.credits.split('<br>')[1].trim(),
               textStyle: const TextStyle(
@@ -33,7 +33,6 @@ class CreditsDateFootnote extends StatelessWidget {
               hyperlinkColor: Colors.white54,
             ),
           ),
-          const Spacer(),
         ] else ...[
           const Text(
             'Public Domain',
@@ -43,8 +42,8 @@ class CreditsDateFootnote extends StatelessWidget {
               color: Colors.white54,
             ),
           ),
-          const Spacer(),
         ],
+        const Spacer(),
         Text(
           DateFormat.yMMMMd().format(spaceMedia.date),
           style: const TextStyle(

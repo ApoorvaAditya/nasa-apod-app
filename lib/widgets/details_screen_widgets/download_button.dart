@@ -13,16 +13,41 @@ class DownloadButton extends StatelessWidget {
   const DownloadButton({this.scaffoldKey, this.url});
 
   Future<void> _saveImage(BuildContext context) async {
-    final Prefs prefs = Provider.of<Prefs>(context);
-    final http.Response response = await http.get(url);
-    final bool success = await ImageSave.saveImage(
-      response.bodyBytes,
-      "jpg",
-      albumName: prefs.getAlbumName(),
-    );
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        content: success ? const Text('Saved Image to $albumName') : const Text('Failed to save image.'),
+        content: const Text('Downloading Image...'),
+        duration: const Duration(
+          days: 365,
+        ),
+        backgroundColor: Colors.black,
+        action: SnackBarAction(
+          label: 'Hide',
+          onPressed: () => scaffoldKey.currentState.hideCurrentSnackBar(),
+        ),
+      ),
+    );
+    final Prefs prefs = Provider.of<Prefs>(context, listen: false);
+    http.Response response;
+    bool errorEncountered = false;
+    bool success = false;
+    try {
+      response = await http.get(url);
+      success = await ImageSave.saveImage(
+        response.bodyBytes,
+        "jpg",
+        albumName: prefs.getAlbumName(),
+      );
+    } catch (_) {
+      errorEncountered = true;
+    }
+
+    scaffoldKey.currentState.hideCurrentSnackBar();
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: (success && !errorEncountered)
+            ? const Text('Saved Image to $albumName')
+            : const Text('Failed to save image.'),
+        backgroundColor: Colors.black,
       ),
     );
   }

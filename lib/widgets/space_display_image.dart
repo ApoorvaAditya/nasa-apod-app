@@ -51,8 +51,12 @@ class SpaceDisplayImage extends StatelessWidget {
               onTap: () {
                 state.reLoadImage();
               },
-              child: Center(
-                child: Icon(Icons.replay),
+              child: Container(
+                height: 300,
+                width: double.infinity,
+                child: Center(
+                  child: Icon(Icons.replay),
+                ),
               ),
             );
             break;

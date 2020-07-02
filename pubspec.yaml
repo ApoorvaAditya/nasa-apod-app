@@ -33,5 +33,6 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/images/
+    - assets/images/nasa-logo.png
+    - assets/images/placeholder.png
   uses-material-design: true

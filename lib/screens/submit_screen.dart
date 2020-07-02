@@ -63,100 +63,98 @@ class _SubmitScreenState extends State<SubmitScreen> {
         title: const Text(Strings.submitScreenTitle),
       ),
       body: BackgroundGradient(
+        padding: const EdgeInsets.all(16),
+        height: Utils.getHeightOfPage(context),
         child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            height: Utils.getHeightOfPage(context),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: _selectedImage == null ? MediaQuery.of(context).size.height * 0.3 : null,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                        color: Colors.white,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: _selectedImage == null ? MediaQuery.of(context).size.height * 0.3 : null,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2,
+                      color: Colors.white,
+                    ),
+                  ),
+                  child: _imageUrlController.text.isNotEmpty
+                      ? NetworkImageForPreview(imageUrlController: _imageUrlController)
+                      : _selectedImage != null
+                          ? FileImageForPreview(selectedImage: _selectedImage)
+                          : const Center(
+                              child: Text(
+                                Strings.noImageSelected,
+                                style: whiteTextStyle,
+                              ),
+                            ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    CustomButton(
+                      icon: Icon(Icons.photo_library),
+                      text: Strings.pickImage,
+                      onPressed: _pickImage,
+                    ),
+                    const SizedBox(width: 20),
+                    const Text(
+                      Strings.or,
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value.isEmpty && _selectedImage == null) {
+                            return Strings.enterValidUrl;
+                          }
+                          return null;
+                        },
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) {
+                          setState(() {});
+                          _descriptionFocusNode.requestFocus();
+                        },
+                        textCapitalization: TextCapitalization.none,
+                        style: whiteTextStyle,
+                        keyboardType: TextInputType.url,
+                        controller: _imageUrlController,
+                        maxLines: 1,
+                        decoration: buildInputDecoration(context, Strings.imageUrlLabel),
                       ),
                     ),
-                    child: _imageUrlController.text.isNotEmpty
-                        ? NetworkImageForPreview(imageUrlController: _imageUrlController)
-                        : _selectedImage != null
-                            ? FileImageForPreview(selectedImage: _selectedImage)
-                            : const Center(
-                                child: Text(
-                                  Strings.noImageSelected,
-                                  style: whiteTextStyle,
-                                ),
-                              ),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      CustomButton(
-                        icon: Icon(Icons.photo_library),
-                        text: Strings.pickImage,
-                        onPressed: _pickImage,
-                      ),
-                      const SizedBox(width: 20),
-                      const Text(
-                        Strings.or,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value.isEmpty && _selectedImage == null) {
-                              return Strings.enterValidUrl;
-                            }
-                            return null;
-                          },
-                          textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (_) {
-                            setState(() {});
-                            _descriptionFocusNode.requestFocus();
-                          },
-                          textCapitalization: TextCapitalization.none,
-                          style: whiteTextStyle,
-                          keyboardType: TextInputType.url,
-                          controller: _imageUrlController,
-                          maxLines: 1,
-                          decoration: buildInputDecoration(context, Strings.imageUrlLabel),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return Strings.enterDescription;
-                      }
-                      return null;
-                    },
-                    focusNode: _descriptionFocusNode,
-                    style: whiteTextStyle,
-                    textCapitalization: TextCapitalization.sentences,
-                    autocorrect: true,
-                    enableSuggestions: true,
-                    keyboardType: TextInputType.text,
-                    controller: _desriptionController,
-                    maxLines: 3,
-                    decoration: buildInputDecoration(context, Strings.descriptionLabel),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomButton(
-                    text: Strings.submit,
-                    onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        _submitImage();
-                      }
-                    },
-                  ),
-                ],
-              ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return Strings.enterDescription;
+                    }
+                    return null;
+                  },
+                  focusNode: _descriptionFocusNode,
+                  style: whiteTextStyle,
+                  textCapitalization: TextCapitalization.sentences,
+                  autocorrect: true,
+                  enableSuggestions: true,
+                  keyboardType: TextInputType.text,
+                  controller: _desriptionController,
+                  maxLines: 3,
+                  decoration: buildInputDecoration(context, Strings.descriptionLabel),
+                ),
+                const SizedBox(height: 20),
+                CustomButton(
+                  text: Strings.submit,
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      _submitImage();
+                    }
+                  },
+                ),
+              ],
             ),
           ),
         ),
@@ -252,15 +250,20 @@ class NetworkImageForPreview extends StatelessWidget {
               onTap: () {
                 state.reLoadImage();
               },
-              child: Column(
-                children: <Widget>[
-                  const Text(
-                    Strings.imagePreviewFailed,
-                    style: whiteTextStyle,
-                  ),
-                  const SizedBox(height: 8),
-                  Icon(Icons.replay),
-                ],
+              child: Container(
+                height: 300,
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      Strings.imagePreviewFailed,
+                      style: whiteTextStyle,
+                    ),
+                    const SizedBox(height: 8),
+                    Icon(Icons.replay),
+                  ],
+                ),
               ),
             );
             break;

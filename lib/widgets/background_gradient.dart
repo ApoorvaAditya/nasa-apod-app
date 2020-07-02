@@ -14,6 +14,8 @@ class BackgroundGradient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: padding,
+      height: height,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [

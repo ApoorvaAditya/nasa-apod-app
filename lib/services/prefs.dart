@@ -7,6 +7,7 @@ class Prefs extends ChangeNotifier {
   // Settings
   String albumNameKey = 'albumName';
   String downloadOnSaveKey = 'downloadOnSave';
+  String downloadHq = 'downloadHq';
 
   Prefs() {
     _getInstance();
@@ -21,6 +22,9 @@ class Prefs extends ChangeNotifier {
     }
     if (!_prefs.containsKey(downloadOnSaveKey)) {
       setDownloadOnSave(value: false);
+    }
+    if (!_prefs.containsKey(downloadHq)) {
+      setDownloadHq(value: false);
     }
     notifyListeners();
   }
@@ -41,5 +45,14 @@ class Prefs extends ChangeNotifier {
 
   bool getDownloadOnSave() {
     return _prefs.getBool(downloadOnSaveKey);
+  }
+
+  void setDownloadHq({bool value}) {
+    _prefs.setBool(downloadHq, value);
+    notifyListeners();
+  }
+
+  bool getDownloadHq() {
+    return _prefs.getBool(downloadHq);
   }
 }

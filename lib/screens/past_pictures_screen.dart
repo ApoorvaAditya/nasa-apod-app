@@ -1,12 +1,14 @@
 import 'package:date_format/date_format.dart' show formatDate, dd, MM, yyyy;
 import 'package:flutter/material.dart';
-import 'package:nasa_apod_app/screens/details_screen.dart';
 
 import '../constants.dart' show earliestPossibleDate, whiteTextStyle;
+import '../models/space_media.dart';
+import '../services/get_apod.dart';
 import '../strings.dart';
 import '../widgets/app_drawer.dart' show AppDrawer;
 import '../widgets/background_gradient.dart';
 import '../widgets/custom_button.dart';
+import 'details_screen.dart';
 
 class PastPicturesScreen extends StatelessWidget {
   static const routeName = '/time-machine';
@@ -60,13 +62,32 @@ class _TimeMachineContentState extends State<TimeMachineContent> {
     }
   }
 
+  Future<void> _getSpaceMedia() async {
+    setState(() {
+      _isLoading = true;
+    });
+    final SpaceMedia spaceMedia = await getAPOD(date: _selectedDate);
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => DetailsScreen(),
+        settings: RouteSettings(arguments: {
+          'enablePageView': false,
+          'spaceMedia': spaceMedia,
+        }),
+      ),
+    );
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         const Text(
-          'Date',
+          Strings.date,
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -84,24 +105,14 @@ class _TimeMachineContentState extends State<TimeMachineContent> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               CustomButton(
-                text: 'Select Date',
+                text: Strings.selectDate,
                 onPressed: () {
                   _selectDate(context);
                 },
               ),
               CustomButton(
-                text: 'Get Pic',
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => DetailsScreen(),
-                      settings: RouteSettings(arguments: {
-                        'date': _selectedDate,
-                        'enablePageView': false,
-                      }),
-                    ),
-                  );
-                },
+                text: Strings.getPic,
+                onPressed: _getSpaceMedia,
               ),
             ],
           )

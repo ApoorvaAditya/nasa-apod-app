@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/widgets/centered_circular_progress_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,29 +30,38 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: BackgroundGradient(
         child: prefs.isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
+            ? const CenteredCircularProgressIndicator()
             : ListView(
                 children: <Widget>[
                   TextSettingsListTile(
                     controller: _albumController,
-                    title: 'Album Name',
+                    title: Strings.albumNameSettingTitle,
                     value: prefs.getAlbumName(),
-                    subtitle: 'Name of album where downloaded pictures will be stored.',
-                    hint: 'Enter album name',
+                    subtitle: Strings.albumNameSettingSubtitle,
+                    hint: Strings.albumNameSettingHint,
                     onSubmitted: (value) {
                       prefs.setAlbumName(value: value);
                     },
                   ),
                   SwitchSettingsListTile(
-                    title: 'Download Images on Save',
-                    subtitle: 'Should Images be downloaded when saving pictures?',
+                    title: Strings.downloadOnSaveSettingTitle,
+                    subtitle: Strings.downloadOnSaveSettingSubtitle,
                     value: prefs.getDownloadOnSave(),
                     onChanged: (value) {
                       prefs.setDownloadOnSave(value: value);
                     },
-                  )
+                  ),
+                  SwitchSettingsListTile(
+                    title: Strings.downloadHqSettingTitle,
+                    subtitle: Strings.downloadHqSettingSubtitle,
+                    enabled: prefs.getDownloadOnSave(),
+                    value: prefs.getDownloadHq(),
+                    onChanged: (value) {
+                      if (prefs.getDownloadOnSave()) {
+                        prefs.setDownloadHq(value: value);
+                      }
+                    },
+                  ),
                 ],
               ),
       ),
@@ -63,14 +73,16 @@ class SwitchSettingsListTile extends StatelessWidget {
   final String title;
   final String subtitle;
   final bool value;
+  final bool enabled;
   final void Function(bool value) onChanged;
 
   const SwitchSettingsListTile({
     Key key,
-    this.title,
-    this.subtitle,
-    this.onChanged,
-    this.value,
+    @required this.title,
+    @required this.subtitle,
+    @required this.onChanged,
+    @required this.value,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -78,20 +90,21 @@ class SwitchSettingsListTile extends StatelessWidget {
     return ListTile(
       title: Text(
         title,
-        style: const TextStyle(
-          color: Colors.white,
+        style: TextStyle(
+          color: enabled ? Colors.white : Colors.grey[800],
           fontWeight: FontWeight.bold,
         ),
       ),
       subtitle: Text(
         subtitle,
-        style: const TextStyle(
-          color: Colors.grey,
+        style: TextStyle(
+          color: enabled ? Colors.grey : Colors.grey[800],
         ),
       ),
       trailing: Switch(
-        activeColor: Colors.indigo[500],
-        inactiveTrackColor: Colors.grey[700],
+        activeColor: enabled ? Colors.indigo[500] : const Color.fromRGBO(0, 24, 85, 1),
+        inactiveThumbColor: enabled ? Colors.white : Colors.grey,
+        inactiveTrackColor: enabled ? Colors.grey[700] : Colors.grey[900],
         value: value,
         onChanged: onChanged,
       ),

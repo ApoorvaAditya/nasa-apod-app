@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/widgets/centered_circular_progress_indicator.dart';
 import 'package:provider/provider.dart' show Provider;
 
 import '../models/space_media.dart';
@@ -52,6 +53,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     final titleTheme = Theme.of(context).textTheme.headline1;
     final double topPadding = MediaQuery.of(context).padding.top;
+    bool pageViewSetup = false;
+    if (_pageController != null) {
+      pageViewSetup = _pageController.hasClients;
+    }
     if (enablePageView) {
       media = Provider.of<Media>(context);
     }
@@ -61,7 +66,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       backgroundColor: Colors.black,
       appBar: DetailsAppBar(
         scaffoldKey: _scaffoldKey,
-        spaceMedia: _pageController.hasClients ? media.spaceMedias[_pageController.page.round()] : spaceMedia,
+        spaceMedia: pageViewSetup ? media.spaceMedias[_pageController.page.round()] : spaceMedia,
       ),
       body: BackgroundGradient(
         height: MediaQuery.of(context).size.height,
@@ -78,9 +83,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       index: i,
                     );
                   }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const CenteredCircularProgressIndicator();
                 },
                 onPageChanged: (page) {
                   if (page > media.spaceMedias.length - 3) {
