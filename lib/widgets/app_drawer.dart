@@ -88,7 +88,7 @@ class AppDrawer extends StatelessWidget {
               ),
               title: const Text(
                 'About',
-                style: TextStyle(color: Colors.white),
+                style: whiteTextStyle,
               ),
               onTap: () {
                 showAboutDialog(context: context);

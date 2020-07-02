@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/space_media.dart';
 import '../services/media.dart';
+import '../strings.dart';
+import '../utils.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/background_gradient.dart';
+import '../widgets/centered_circular_progress_indicator.dart';
 import '../widgets/creation_aware_widget.dart';
 import '../widgets/image_card.dart';
 
@@ -13,6 +17,7 @@ class AllPicturesScreeen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Media media = Provider.of<Media>(context);
+    final List<SpaceMedia> spaceMedias = media.spaceMedias;
 
     return Scaffold(
       drawer: const AppDrawer(prevScreen: routeName),
@@ -21,24 +26,20 @@ class AllPicturesScreeen extends StatelessWidget {
         child: CustomScrollView(
           slivers: <Widget>[
             const SliverAppBar(
-              title: Text('All Pictures'),
+              title: Text(Strings.allPicturesScreenTitle),
               floating: true,
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (_, int index) {
-                  if (media.spaceMedias.isEmpty) {
+                  if (spaceMedias.isEmpty) {
                     return Container(
-                      height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - kToolbarHeight,
+                      height: Utils.getHeightOfPage(context),
                       width: double.infinity,
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                        ),
-                      ),
+                      child: const CenteredCircularProgressIndicator(),
                     );
                   }
-                  if (index + 1 > media.spaceMedias.length) {
+                  if (index + 1 > spaceMedias.length) {
                     return const Padding(
                       padding: EdgeInsets.symmetric(vertical: 16.0),
                       child: Center(
@@ -50,17 +51,17 @@ class AllPicturesScreeen extends StatelessWidget {
                   }
                   return CreationAwareWidget(
                     itemCreated: () {
-                      if (index + 3 >= media.spaceMedias.length) {
+                      if (index + 3 >= spaceMedias.length) {
                         media.loadMore();
                       }
                     },
                     child: ImageCard(
                       index: index,
-                      spaceMedia: media.spaceMedias[index],
+                      spaceMedia: spaceMedias[index],
                     ),
                   );
                 },
-                childCount: media.spaceMedias.length + 1,
+                childCount: spaceMedias.length + 1,
               ),
             ),
           ],

@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:html/parser.dart' as html;
 import 'package:http/http.dart' show Response, get;
 import 'package:url_launcher/url_launcher.dart' show canLaunch, launch;
@@ -35,6 +37,11 @@ class Utils {
     if (repsonse.statusCode >= 400) return null;
     final parsed = html.parse(repsonse.body);
     return DateTime.parse(convertDateToParsable(parsed.getElementsByTagName('p')[1].innerHtml.split('\n')[2]));
+  }
+
+  static double getHeightOfPage(BuildContext context) {
+    final MediaQueryData mediaQuery = MediaQuery.of(context);
+    return mediaQuery.size.height - mediaQuery.padding.top - kToolbarHeight;
   }
 
   static String convertDateToParsable(String date) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/constants.dart';
 
 class CustomButton extends StatelessWidget {
   final void Function() onPressed;
@@ -28,9 +29,7 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: TextStyle(
-          color: Colors.white,
-        ),
+        style: whiteTextStyle,
       ),
     );
   }

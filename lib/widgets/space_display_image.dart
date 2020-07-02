@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:nasa_apod_app/widgets/centered_circular_progress_indicator.dart';
 
 import '../utils.dart';
 
@@ -25,9 +26,7 @@ class SpaceDisplayImage extends StatelessWidget {
             return Container(
               height: 300,
               width: double.infinity,
-              child: const Center(
-                child: CircularProgressIndicator(),
-              ),
+              child: const CenteredCircularProgressIndicator(),
             );
             break;
           case LoadState.completed:

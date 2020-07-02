@@ -2,7 +2,7 @@ import 'package:date_format/date_format.dart' show formatDate, dd, MM, yyyy;
 import 'package:flutter/material.dart';
 import 'package:nasa_apod_app/screens/details_screen.dart';
 
-import '../constants.dart' show earliestPossibleDate;
+import '../constants.dart' show earliestPossibleDate, whiteTextStyle;
 import '../widgets/app_drawer.dart' show AppDrawer;
 import '../widgets/background_gradient.dart';
 import '../widgets/custom_button.dart';
@@ -19,9 +19,7 @@ class TimeMachineScreen extends StatelessWidget {
         title: const Text(
           'Time Machine',
           textAlign: TextAlign.start,
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          style: whiteTextStyle,
         ),
       ),
       body: BackgroundGradient(

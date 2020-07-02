@@ -129,9 +129,7 @@ class TextSettingsListTile extends StatelessWidget {
       ),
       trailing: Text(
         value,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
+        style: whiteTextStyle,
       ),
       onTap: () {
         showModalBottomSheet(
@@ -208,15 +206,11 @@ class BottomSheetTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      style: const TextStyle(
-        color: Colors.white,
-      ),
+      style: whiteTextStyle,
       cursorColor: Colors.white,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(
-          color: Colors.white,
-        ),
+        labelStyle: whiteTextStyle,
         hintText: hint,
         hintStyle: TextStyle(
           color: Colors.white30,

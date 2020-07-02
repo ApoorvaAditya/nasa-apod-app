@@ -1,11 +1,16 @@
 import 'dart:io';
 
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../constants.dart';
+import '../strings.dart';
+import '../utils.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/background_gradient.dart';
+import '../widgets/centered_circular_progress_indicator.dart';
 import '../widgets/custom_button.dart';
 
 class SubmitScreen extends StatefulWidget {
@@ -24,20 +29,20 @@ class _SubmitScreenState extends State<SubmitScreen> {
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
-    final PickedFile pickedImage =
-        await picker.getImage(source: ImageSource.gallery);
+    final PickedFile pickedImage = await picker.getImage(source: ImageSource.gallery);
     setState(() {
       _selectedImage = File(pickedImage.path);
+      _imageUrlController.clear();
     });
   }
 
   Future<void> _submitImage() async {
     if (_formKey.currentState.validate()) {
       final Email email = Email(
-        recipients: ['apoorvaufo3@gmail.com'],
-        subject: 'NASA Submission',
-        body: _desriptionController.text,
-        attachmentPaths: [_selectedImage.path],
+        recipients: recipients,
+        subject: Strings.emailSubject,
+        body: _desriptionController.text + (_imageUrlController.text.isNotEmpty ? '\n${_imageUrlController.text}' : ''),
+        attachmentPaths: [if (_selectedImage != null) _selectedImage.path],
         isHTML: false,
       );
       await FlutterEmailSender.send(email);
@@ -48,6 +53,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
   void dispose() {
     _imageUrlController.dispose();
     _desriptionController.dispose();
+    _descriptionFocusNode.dispose();
     super.dispose();
   }
 
@@ -56,41 +62,35 @@ class _SubmitScreenState extends State<SubmitScreen> {
     return Scaffold(
       drawer: const AppDrawer(prevScreen: SubmitScreen.routeName),
       appBar: AppBar(
-        title: const Text('Submit your Picture to NASA APOD'),
-        backgroundColor: Colors.black,
-      ), //MainAppBar(title: 'Submit your picture to NASA APOD'),
+        title: const Text(Strings.submitScreenTitle),
+      ),
       body: BackgroundGradient(
         child: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(16),
-            height: MediaQuery.of(context).size.height -
-                kToolbarHeight -
-                MediaQuery.of(context).padding.top,
+            height: Utils.getHeightOfPage(context),
             child: Form(
               key: _formKey,
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: _selectedImage == null
-                        ? MediaQuery.of(context).size.height * 0.3
-                        : null,
+                    height: _selectedImage == null ? MediaQuery.of(context).size.height * 0.3 : null,
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 2,
                         color: Colors.white,
                       ),
                     ),
-                    child: _selectedImage != null
-                        ? Image.file(
-                            _selectedImage,
-                            fit: BoxFit.contain,
-                          )
-                        : const Center(
-                            child: Text(
-                              'No Image Selected',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
+                    child: _imageUrlController.text.isNotEmpty
+                        ? NetworkImageForPreview(imageUrlController: _imageUrlController)
+                        : _selectedImage != null
+                            ? FileImageForPreview(selectedImage: _selectedImage)
+                            : const Center(
+                                child: Text(
+                                  Strings.noImageSelected,
+                                  style: whiteTextStyle,
+                                ),
+                              ),
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -117,15 +117,15 @@ class _SubmitScreenState extends State<SubmitScreen> {
                           },
                           textInputAction: TextInputAction.next,
                           onFieldSubmitted: (_) {
+                            setState(() {});
                             _descriptionFocusNode.requestFocus();
                           },
                           textCapitalization: TextCapitalization.none,
-                          style: const TextStyle(color: Colors.white),
+                          style: whiteTextStyle,
                           keyboardType: TextInputType.url,
                           controller: _imageUrlController,
                           maxLines: 1,
-                          decoration:
-                              buildInputDecoration(context, 'Enter Image URL'),
+                          decoration: buildInputDecoration(context, 'Enter Image URL'),
                         ),
                       ),
                     ],
@@ -139,15 +139,14 @@ class _SubmitScreenState extends State<SubmitScreen> {
                       return null;
                     },
                     focusNode: _descriptionFocusNode,
-                    style: const TextStyle(color: Colors.white),
+                    style: whiteTextStyle,
                     textCapitalization: TextCapitalization.sentences,
                     autocorrect: true,
                     enableSuggestions: true,
                     keyboardType: TextInputType.text,
                     controller: _desriptionController,
                     maxLines: 3,
-                    decoration:
-                        buildInputDecoration(context, 'Image Description'),
+                    decoration: buildInputDecoration(context, 'Image Description'),
                   ),
                   const SizedBox(height: 20),
                   CustomButton(
@@ -164,11 +163,118 @@ class _SubmitScreenState extends State<SubmitScreen> {
   }
 }
 
+class FileImageForPreview extends StatelessWidget {
+  const FileImageForPreview({
+    Key key,
+    @required File selectedImage,
+  })  : _selectedImage = selectedImage,
+        super(key: key);
+
+  final File _selectedImage;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExtendedImage.file(
+      _selectedImage,
+      fit: BoxFit.contain,
+      loadStateChanged: (ExtendedImageState state) {
+        switch (state.extendedImageLoadState) {
+          case LoadState.loading:
+            return Container(
+              height: 300,
+              width: double.infinity,
+              child: const CenteredCircularProgressIndicator(),
+            );
+            break;
+          case LoadState.completed:
+            return ExtendedRawImage(
+              image: state.extendedImageInfo?.image,
+            );
+            break;
+          case LoadState.failed:
+            return GestureDetector(
+              onTap: () {
+                state.reLoadImage();
+              },
+              child: Column(
+                children: <Widget>[
+                  const Text(
+                    Strings.imagePreviewFailed,
+                    style: whiteTextStyle,
+                  ),
+                  Center(
+                    child: Icon(Icons.replay),
+                  ),
+                ],
+              ),
+            );
+            break;
+          default:
+            return null;
+        }
+      },
+    );
+  }
+}
+
+class NetworkImageForPreview extends StatelessWidget {
+  const NetworkImageForPreview({
+    Key key,
+    @required TextEditingController imageUrlController,
+  })  : _imageUrlController = imageUrlController,
+        super(key: key);
+
+  final TextEditingController _imageUrlController;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExtendedImage.network(
+      _imageUrlController.text,
+      fit: BoxFit.contain,
+      loadStateChanged: (ExtendedImageState state) {
+        switch (state.extendedImageLoadState) {
+          case LoadState.loading:
+            return Container(
+              height: 300,
+              width: double.infinity,
+              child: const CenteredCircularProgressIndicator(),
+            );
+            break;
+          case LoadState.completed:
+            return ExtendedRawImage(
+              image: state.extendedImageInfo?.image,
+            );
+            break;
+          case LoadState.failed:
+            return GestureDetector(
+              onTap: () {
+                state.reLoadImage();
+              },
+              child: Column(
+                children: <Widget>[
+                  const Text(
+                    Strings.imagePreviewFailed,
+                    style: whiteTextStyle,
+                  ),
+                  const SizedBox(height: 8),
+                  Icon(Icons.replay),
+                ],
+              ),
+            );
+            break;
+          default:
+            return null;
+        }
+      },
+    );
+  }
+}
+
 InputDecoration buildInputDecoration(BuildContext context, String labelText) {
   return InputDecoration(
     alignLabelWithHint: true,
     labelText: labelText,
-    labelStyle: const TextStyle(color: Colors.white),
+    labelStyle: whiteTextStyle,
     enabledBorder: const OutlineInputBorder(
       borderSide: BorderSide(
         color: Colors.white,
