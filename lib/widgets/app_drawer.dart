@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nasa_apod_app/screens/saved_screen.dart';
-import 'package:nasa_apod_app/screens/settings_screen.dart';
 
 import '../constants.dart';
 import '../screens/all_pictures_screen.dart';
-import '../screens/details_screen.dart';
+import '../screens/past_pictures_screen.dart';
+import '../screens/saved_screen.dart';
+import '../screens/settings_screen.dart';
 import '../screens/submit_screen.dart';
-import '../screens/time_machine_screen.dart';
+import '../strings.dart';
 import 'background_gradient.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -24,54 +24,33 @@ class AppDrawer extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: MediaQuery.of(context).padding.top),
             DrawerHeaderImage(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: ListTile(
-                leading: Icon(
-                  Icons.today,
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                title: Text(
-                  'Astronomy Picture of the Day',
-                  style: whiteTextStyle,
-                ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => DetailsScreen(),
-                      settings: const RouteSettings(arguments: {}),
-                    ),
-                  );
-                },
-              ),
-            ),
             DrawerListItem(
               icon: Icons.photo_library,
-              title: 'All Pictures',
+              title: Strings.allPicturesScreenTitle,
               prevScreen: prevScreen,
               routeName: AllPicturesScreeen.routeName,
             ),
             DrawerListItem(
-              icon: Icons.timer,
-              title: 'Time Machine',
+              icon: Icons.calendar_today,
+              title: Strings.pastPicturesScreenTitle,
               prevScreen: prevScreen,
-              routeName: TimeMachineScreen.routeName,
+              routeName: PastPicturesScreen.routeName,
             ),
             DrawerListItem(
               icon: Icons.file_upload,
-              title: 'Submit your Picture to APOD',
+              title: Strings.submitScreenTitle,
               prevScreen: prevScreen,
               routeName: SubmitScreen.routeName,
             ),
             DrawerListItem(
               icon: Icons.bookmark,
-              title: 'Saved Pictures',
+              title: Strings.savedScreenTitle,
               prevScreen: prevScreen,
               routeName: SavedScreen.routeName,
             ),
             DrawerListItem(
               icon: Icons.settings,
-              title: 'Settings',
+              title: Strings.settingsScreenTitle,
               prevScreen: prevScreen,
               routeName: SettingsScreen.routeName,
             ),

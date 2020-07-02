@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 import '../services/prefs.dart';
+import '../strings.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/background_gradient.dart';
 
@@ -24,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
         prevScreen: routeName,
       ),
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: const Text(Strings.settingsScreenTitle),
       ),
       body: BackgroundGradient(
         child: prefs.isLoading

@@ -3,21 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:nasa_apod_app/screens/details_screen.dart';
 
 import '../constants.dart' show earliestPossibleDate, whiteTextStyle;
+import '../strings.dart';
 import '../widgets/app_drawer.dart' show AppDrawer;
 import '../widgets/background_gradient.dart';
 import '../widgets/custom_button.dart';
 
-class TimeMachineScreen extends StatelessWidget {
+class PastPicturesScreen extends StatelessWidget {
   static const routeName = '/time-machine';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(prevScreen: TimeMachineScreen.routeName),
+      drawer: const AppDrawer(prevScreen: PastPicturesScreen.routeName),
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text(
-          'Time Machine',
+          Strings.pastPicturesScreenTitle,
           textAlign: TextAlign.start,
           style: whiteTextStyle,
         ),
@@ -94,7 +95,10 @@ class _TimeMachineContentState extends State<TimeMachineContent> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => DetailsScreen(),
-                      settings: const RouteSettings(arguments: {}),
+                      settings: RouteSettings(arguments: {
+                        'date': _selectedDate,
+                        'enablePageView': false,
+                      }),
                     ),
                   );
                 },

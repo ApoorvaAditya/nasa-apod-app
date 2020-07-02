@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nasa_apod_app/widgets/app_drawer.dart';
 import 'package:nasa_apod_app/widgets/background_gradient.dart';
 
+import '../strings.dart';
+
 class SavedScreen extends StatelessWidget {
   static const routeName = '/saved';
 
@@ -16,7 +18,7 @@ class SavedScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: <Widget>[
             const SliverAppBar(
-              title: Text('Saved'),
+              title: Text(Strings.savedScreenTitle),
               floating: true,
             ),
             SliverList(

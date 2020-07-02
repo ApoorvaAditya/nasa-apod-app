@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_apod_app/screens/saved_screen.dart';
-import 'package:nasa_apod_app/services/prefs.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/all_pictures_screen.dart';
 import 'screens/details_screen.dart';
+import 'screens/past_pictures_screen.dart';
+import 'screens/saved_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/submit_screen.dart';
-import 'screens/time_machine_screen.dart';
 import 'services/media.dart';
+import 'services/prefs.dart';
 import 'strings.dart';
 
 void main() => runApp(MyApp());
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           initialRoute: AllPicturesScreeen.routeName,
           routes: {
             AllPicturesScreeen.routeName: (_) => AllPicturesScreeen(),
-            TimeMachineScreen.routeName: (_) => TimeMachineScreen(),
+            PastPicturesScreen.routeName: (_) => PastPicturesScreen(),
             SubmitScreen.routeName: (_) => SubmitScreen(),
             DetailsScreen.routeName: (_) => DetailsScreen(),
             SavedScreen.routeName: (_) => SavedScreen(),

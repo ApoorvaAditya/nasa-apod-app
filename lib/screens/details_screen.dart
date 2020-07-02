@@ -21,7 +21,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
   SpaceMedia spaceMedia;
   int index;
   Media media;
-  DateTime date;
 
   bool init = true;
 
@@ -45,7 +44,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController?.dispose();
     super.dispose();
   }
 
