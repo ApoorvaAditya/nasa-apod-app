@@ -1,16 +1,6 @@
-# nasa_apod_app
+# NASA Astronomy Picture of the Day App
 
-A new Flutter project.
+An Android App created in Flutter which interacts with NASA's Astronomy Picture of the Day API and displays the result in a lazy list and allows users to read details about the Picture and download and share them.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+<img alt="Home Screen" src="https://i.imgur.com/zJALwJe.png" width="300"> <img alt="Details Screen" src="https://i.imgur.com/bjOZu0K.png" width="300"> <img alt="App Drawer" src="https://i.imgur.com/hPs5yRV.png" width="300"> <img alt="" src="https://i.imgur.com/tMr9snW.png" width="300"> <img alt="" src="https://i.imgur.com/rikbQmK.png" width="300">
