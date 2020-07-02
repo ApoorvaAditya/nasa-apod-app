@@ -129,7 +129,7 @@ class DrawerListItem extends StatelessWidget {
           if (prevScreen == routeName) {
             Navigator.of(context).pop();
           } else {
-            Navigator.of(context).pushNamed(routeName);
+            Navigator.of(context).pushReplacementNamed(routeName);
           }
         },
       ),

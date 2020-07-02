@@ -29,40 +29,41 @@ class AllPicturesScreeen extends StatelessWidget {
               title: Text(Strings.allPicturesScreenTitle),
               floating: true,
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (_, int index) {
-                  if (spaceMedias.isEmpty) {
-                    return Container(
-                      height: Utils.getHeightOfPage(context),
-                      width: double.infinity,
-                      child: const CenteredCircularProgressIndicator(),
-                    );
-                  }
-                  if (index + 1 > spaceMedias.length) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                        ),
+            SliverAnimatedList(
+              itemBuilder: (_, index, animation) {
+                if (spaceMedias.isEmpty) {
+                  return Container(
+                    height: Utils.getHeightOfPage(context),
+                    width: double.infinity,
+                    child: const CenteredCircularProgressIndicator(),
+                  );
+                }
+                if (index + 1 > spaceMedias.length) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
                       ),
-                    );
-                  }
-                  return CreationAwareWidget(
-                    itemCreated: () {
-                      if (index + 3 >= spaceMedias.length) {
-                        media.loadMore();
-                      }
-                    },
+                    ),
+                  );
+                }
+                return CreationAwareWidget(
+                  itemCreated: () {
+                    if (index + 3 >= spaceMedias.length) {
+                      media.loadMore();
+                    }
+                  },
+                  child: FadeTransition(
+                    opacity: animation,
                     child: ImageCard(
                       index: index,
                       spaceMedia: spaceMedias[index],
                     ),
-                  );
-                },
-                childCount: spaceMedias.length + 1,
-              ),
+                  ),
+                );
+              },
+              initialItemCount: spaceMedias.length + 1,
             ),
           ],
         ),

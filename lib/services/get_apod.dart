@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:date_format/date_format.dart' show formatDate, yy, mm, dd;
-import 'package:html/parser.dart';
+import 'package:html/parser.dart' show parse;
+import 'package:html/dom.dart' show Document;
 import 'package:http/http.dart' show Response, get;
 
 import '../models/space_media.dart';
@@ -12,9 +15,14 @@ Future<SpaceMedia> getAPOD({DateTime date}) async {
   final String dateString = formatDate(date, [yy, mm, dd]);
 
   // Get page and parse it
-  final Response response = await get('https://apod.nasa.gov/apod/ap$dateString.html');
-  final document = parse(response.body);
-
+  Response response;
+  Document document;
+  try {
+    response = await get('https://apod.nasa.gov/apod/ap$dateString.html');
+    document = parse(response.body);
+  } on SocketException {
+    rethrow;
+  }
   // If encounter error, return null
   if (response.statusCode >= 400) return null;
 

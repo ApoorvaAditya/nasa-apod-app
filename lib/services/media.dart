@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:flutter/material.dart';
 
@@ -51,9 +53,13 @@ class Media with ChangeNotifier {
       final DateTime currentDate = _today.subtract(Duration(days: i));
 
       if (currentDate.isAfter(earliestPossibleDate)) {
+        SpaceMedia spaceMedia;
         // Get APOD for the previous days
-        final SpaceMedia spaceMedia = await getAPOD(date: currentDate);
-
+        try {
+          spaceMedia = await getAPOD(date: currentDate);
+        } on SocketException {
+          print('yeet');
+        }
         startIndex += lengthToLoad;
         if (spaceMedia != null) _spaceMedias.add(spaceMedia);
         notifyListeners();

@@ -98,12 +98,12 @@ class _SubmitScreenState extends State<SubmitScreen> {
                     children: <Widget>[
                       CustomButton(
                         icon: Icon(Icons.photo_library),
-                        text: 'Pick Image',
+                        text: Strings.pickImage,
                         onPressed: _pickImage,
                       ),
                       const SizedBox(width: 20),
                       const Text(
-                        'OR',
+                        Strings.or,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       const SizedBox(width: 20),
@@ -111,7 +111,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                         child: TextFormField(
                           validator: (value) {
                             if (value.isEmpty && _selectedImage == null) {
-                              return 'Please enter a valid URL';
+                              return Strings.enterValidUrl;
                             }
                             return null;
                           },
@@ -125,7 +125,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                           keyboardType: TextInputType.url,
                           controller: _imageUrlController,
                           maxLines: 1,
-                          decoration: buildInputDecoration(context, 'Enter Image URL'),
+                          decoration: buildInputDecoration(context, Strings.imageUrlLabel),
                         ),
                       ),
                     ],
@@ -134,7 +134,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   TextFormField(
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter a description';
+                        return Strings.enterDescription;
                       }
                       return null;
                     },
@@ -146,11 +146,11 @@ class _SubmitScreenState extends State<SubmitScreen> {
                     keyboardType: TextInputType.text,
                     controller: _desriptionController,
                     maxLines: 3,
-                    decoration: buildInputDecoration(context, 'Image Description'),
+                    decoration: buildInputDecoration(context, Strings.descriptionLabel),
                   ),
                   const SizedBox(height: 20),
                   CustomButton(
-                    text: 'Submit',
+                    text: Strings.submit,
                     onPressed: _submitImage,
                   ),
                 ],
