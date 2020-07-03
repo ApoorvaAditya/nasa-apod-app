@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:nasa_apod_app/widgets/details_screen_widgets/wallpaper_button.dart';
 
 import '../../models/space_media.dart';
 import '../../screens/image_screen.dart';
@@ -65,6 +66,10 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
         IconButton(
           icon: Icon(Icons.bookmark_border),
           onPressed: () {},
+        ),
+        WallpaperButton(
+          url: spaceMedia.hdImageUrl,
+          scaffoldKey: scaffoldKey,
         ),
         if (spaceMedia.type == 'image')
           DownloadButton(
@@ -196,7 +201,7 @@ class SpaceMediaDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HtmlWidget(
-      description,
+      '<p>$description</p>',
       textStyle: const TextStyle(
         color: Colors.white,
         fontSize: 16,
@@ -206,6 +211,8 @@ class SpaceMediaDescription extends StatelessWidget {
         switch (element.localName) {
           case 'a':
             return ['text-decoration', 'none'];
+          case 'p':
+            return ['text-align', 'justify'];
         }
         return null;
       },

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../constants.dart';
@@ -23,9 +24,15 @@ class SubmitScreen extends StatefulWidget {
 class _SubmitScreenState extends State<SubmitScreen> {
   File _selectedImage;
   final TextEditingController _imageUrlController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
   final TextEditingController _desriptionController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final FocusNode _titleFocusNode = FocusNode();
   final FocusNode _descriptionFocusNode = FocusNode();
+  final FocusNode _timeFocusNode = FocusNode();
+  final FocusNode _locationFocusNode = FocusNode();
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -50,8 +57,16 @@ class _SubmitScreenState extends State<SubmitScreen> {
   @override
   void dispose() {
     _imageUrlController.dispose();
+    _titleController.dispose();
     _desriptionController.dispose();
+    _timeController.dispose();
+    _locationController.dispose();
+
+    _titleFocusNode.dispose();
     _descriptionFocusNode.dispose();
+    _timeFocusNode.dispose();
+    _locationFocusNode.dispose();
+
     super.dispose();
   }
 
@@ -93,17 +108,14 @@ class _SubmitScreenState extends State<SubmitScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    CustomButton(
-                      icon: Icon(Icons.photo_library),
-                      text: Strings.pickImage,
-                      onPressed: _pickImage,
-                    ),
+                    PickImageButton(onPressed: _pickImage),
                     const SizedBox(width: 20),
                     const Text(
                       Strings.or,
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     const SizedBox(width: 20),
+                    //* Image URL
                     Expanded(
                       child: TextFormField(
                         validator: (value) {
@@ -115,7 +127,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                         textInputAction: TextInputAction.next,
                         onFieldSubmitted: (_) {
                           setState(() {});
-                          _descriptionFocusNode.requestFocus();
+                          _titleFocusNode.requestFocus();
                         },
                         textCapitalization: TextCapitalization.none,
                         style: whiteTextStyle,
@@ -128,6 +140,31 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
+                //* Image Title
+                TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return Strings.enterTitle;
+                    }
+                    return null;
+                  },
+                  focusNode: _titleFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (_) {
+                    _descriptionFocusNode.requestFocus();
+                  },
+                  style: whiteTextStyle,
+                  textCapitalization: TextCapitalization.words,
+                  autocorrect: false,
+                  enableSuggestions: true,
+                  keyboardType: TextInputType.text,
+                  controller: _titleController,
+                  maxLines: 1,
+                  decoration: buildInputDecoration(context, Strings.titleLabel),
+                ),
+
+                const SizedBox(height: 20),
+                //* Image Description
                 TextFormField(
                   validator: (value) {
                     if (value.isEmpty) {
@@ -136,6 +173,10 @@ class _SubmitScreenState extends State<SubmitScreen> {
                     return null;
                   },
                   focusNode: _descriptionFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (_) {
+                    _timeFocusNode.requestFocus();
+                  },
                   style: whiteTextStyle,
                   textCapitalization: TextCapitalization.sentences,
                   autocorrect: true,
@@ -146,6 +187,48 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   decoration: buildInputDecoration(context, Strings.descriptionLabel),
                 ),
                 const SizedBox(height: 20),
+                //* Image Time
+                TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return Strings.enterTime;
+                    }
+                    return null;
+                  },
+                  focusNode: _timeFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (_) {
+                    _locationFocusNode.requestFocus();
+                  },
+                  style: whiteTextStyle,
+                  textCapitalization: TextCapitalization.sentences,
+                  autocorrect: false,
+                  enableSuggestions: true,
+                  keyboardType: TextInputType.text,
+                  controller: _timeController,
+                  maxLines: 1,
+                  decoration: buildInputDecoration(context, Strings.timeLabel),
+                ),
+                const SizedBox(height: 20),
+                //* Image Location
+                TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return Strings.enterLocation;
+                    }
+                    return null;
+                  },
+                  focusNode: _locationFocusNode,
+                  style: whiteTextStyle,
+                  textCapitalization: TextCapitalization.sentences,
+                  autocorrect: false,
+                  enableSuggestions: true,
+                  keyboardType: TextInputType.text,
+                  controller: _locationController,
+                  maxLines: 1,
+                  decoration: buildInputDecoration(context, Strings.locationLabel),
+                ),
+                const SizedBox(height: 20),
                 CustomButton(
                   text: Strings.submit,
                   onPressed: () {
@@ -154,11 +237,40 @@ class _SubmitScreenState extends State<SubmitScreen> {
                     }
                   },
                 ),
+                const SizedBox(height: 20),
+                HtmlWidget(
+                  Strings.methodsTosubmit,
+                  hyperlinkColor: Colors.blue,
+                  textStyle: whiteTextStyle,
+                  customStylesBuilder: (element) {
+                    switch (element.localName) {
+                      case 'a':
+                        return ['text-decoration', 'none'];
+                      case 'p':
+                        return ['text-align', 'justify'];
+                    }
+                    return null;
+                  },
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class PickImageButton extends StatelessWidget {
+  final void Function() onPressed;
+
+  const PickImageButton({Key key, this.onPressed}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return CustomButton(
+      icon: Icon(Icons.photo_library),
+      text: Strings.pickImage,
+      onPressed: onPressed,
     );
   }
 }

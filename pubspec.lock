@@ -161,7 +161,7 @@ packages:
     source: hosted
     version: "0.5.0"
   flutter_cache_manager:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
@@ -630,6 +630,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4+1"
+  wallpaper_manager:
+    dependency: "direct main"
+    description:
+      name: wallpaper_manager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.7"
   webview_flutter:
     dependency: transitive
     description:

@@ -2,13 +2,24 @@ Screens:
     ☐ All Pictures Screen
         ✔ Sliver App Bar @done (26/6/2020, 3:09:32 pm)
         ☐ Ripple on Pictures
-    ☐ Time Machine Screen
+    ✔ Past Pictures Screen @done (3/7/2020, 12:58:42 am)
     ☐ Submit Screen
+        ☐ Add info dialog on submitting
     ☐ Saved Screen
-    ☐ Astronomy Picture of the Day Screen
-    ☐ Details Screen
-        ☐ Share Button
-        ☐ Download Button
-        ☐ Save Button
-    ☐ Image Screen
+    ☐ Setting Screen
+        ☐ Add Font Size setting
+    ✔ Details Screen @done (3/7/2020, 1:01:12 am)
+        ✔ Share Button @done (3/7/2020, 1:01:07 am)
+        ✔ Download Button @done (3/7/2020, 1:01:09 am)
+        ✔ Save Button @done (3/7/2020, 1:01:10 am)
+    ✔ Image Screen @done (3/7/2020, 1:01:49 am)
 
+Other Tasks:
+    ☐ RefreshIndicator
+    ☐ Error Handling
+    ☐ Retry request on reconnect
+
+Bugs:
+    ☐ Loading stops on reconnect
+    ☐ Backing out of last page view shows red Screen
+    ☐ AppDrawer slight white outline

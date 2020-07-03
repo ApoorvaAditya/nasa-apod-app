@@ -36,7 +36,6 @@ class Media with ChangeNotifier {
   }
 
   Future<void> loadMore() async {
-    print('Loading more');
     if (_isLoading) {
       return Future.value();
     }
@@ -59,7 +58,6 @@ class Media with ChangeNotifier {
         try {
           spaceMedia = await getAPOD(date: currentDate);
         } on SocketException {
-          print('SocketException');
           rethrow;
         }
         startIndex += lengthToLoad;
