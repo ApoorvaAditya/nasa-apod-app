@@ -68,8 +68,9 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
           onPressed: () {},
         ),
         WallpaperButton(
-          url: spaceMedia.hdImageUrl,
+          url: spaceMedia.hdImageUrl ?? spaceMedia.url,
           scaffoldKey: scaffoldKey,
+          context: context,
         ),
         if (spaceMedia.type == 'image')
           DownloadButton(
