@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'screens/all_pictures_screen.dart';
 import 'screens/details_screen.dart';
@@ -14,9 +14,7 @@ import 'services/prefs.dart';
 import 'strings.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final applicationDirectory = await getApplicationDocumentsDirectory();
-  Hive.init(applicationDirectory.path);
+  await Hive.initFlutter();
   runApp(MyApp());
 }
 
