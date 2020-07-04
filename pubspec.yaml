@@ -31,9 +31,13 @@ dependencies:
   image: ^2.1.13
   path_provider: ^1.6.11
   material_design_icons_flutter: ^4.0.5345
+  hive_flutter: ^0.3.0+2
 
 dev_dependencies:
   lint: ^1.0.0
+  hive_generator: ^0.7.0+2
+  build_runner: ^1.10.0
+
 
 flutter:
   assets:

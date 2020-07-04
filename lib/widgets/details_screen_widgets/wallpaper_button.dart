@@ -176,7 +176,7 @@ class WallpaperButton extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text(
+                const Text(
                   'Set Wallpaper',
                   textAlign: TextAlign.center,
                   style: TextStyle(
