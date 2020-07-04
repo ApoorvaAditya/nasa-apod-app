@@ -28,10 +28,11 @@ dependencies:
   wallpaper_manager: ^1.0.7
   flutter_cache_manager: ^1.4.1
   hive: ^1.4.1+1
+  image: ^2.1.13
+  path_provider: ^1.6.11
+  material_design_icons_flutter: ^4.0.5345
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   lint: ^1.0.0
 
 flutter:

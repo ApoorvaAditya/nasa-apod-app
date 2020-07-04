@@ -1,6 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum WallpaperCropMethod {
+  fillWholeScreen,
+  alwaysFitHeight,
+  alwaysFitWidth,
+  alwaysFit,
+}
+
+enum DefaultWallpaperScreen {
+  alwaysAsk,
+  homeScreen,
+  lockScreen,
+  bothScreens,
+}
+
 class Prefs extends ChangeNotifier {
   SharedPreferences _prefs;
   bool isLoading = true;
@@ -8,6 +22,9 @@ class Prefs extends ChangeNotifier {
   String albumNameKey = 'albumName';
   String downloadOnSaveKey = 'downloadOnSave';
   String downloadHq = 'downloadHq';
+  String wallpaperCropMethod = 'wallpaperCropMethod';
+  String automaticWallpapers = 'automaticWallpapers';
+  String defaultWallpaperScreen = 'defaultWallpaperScreen';
 
   Prefs() {
     _getInstance();
@@ -17,6 +34,11 @@ class Prefs extends ChangeNotifier {
     isLoading = true;
     _prefs = await SharedPreferences.getInstance();
     isLoading = false;
+    initializeValues();
+    notifyListeners();
+  }
+
+  void initializeValues() {
     if (!_prefs.containsKey(albumNameKey)) {
       setAlbumName(value: 'Astronomy Pictures');
     }
@@ -26,7 +48,15 @@ class Prefs extends ChangeNotifier {
     if (!_prefs.containsKey(downloadHq)) {
       setDownloadHq(value: false);
     }
-    notifyListeners();
+    if (!_prefs.containsKey(wallpaperCropMethod)) {
+      setWallpaperCropMethod(value: WallpaperCropMethod.alwaysFit);
+    }
+    if (!_prefs.containsKey(automaticWallpapers)) {
+      setAutomaticWallpaper(value: false);
+    }
+    if (!_prefs.containsKey(defaultWallpaperScreen)) {
+      setDefaultWallpaperScreen(value: DefaultWallpaperScreen.alwaysAsk);
+    }
   }
 
   void setAlbumName({@required String value}) {
@@ -34,25 +64,45 @@ class Prefs extends ChangeNotifier {
     notifyListeners();
   }
 
-  String getAlbumName() {
-    return _prefs.getString(albumNameKey);
-  }
-
   void setDownloadOnSave({@required bool value}) {
     _prefs.setBool(downloadOnSaveKey, value);
     notifyListeners();
   }
 
-  bool getDownloadOnSave() {
-    return _prefs.getBool(downloadOnSaveKey);
-  }
-
-  void setDownloadHq({bool value}) {
+  void setDownloadHq({@required bool value}) {
     _prefs.setBool(downloadHq, value);
     notifyListeners();
   }
 
-  bool getDownloadHq() {
-    return _prefs.getBool(downloadHq);
+  void setWallpaperCropMethod({WallpaperCropMethod value}) {
+    _prefs.setInt(wallpaperCropMethod, value.index);
+    notifyListeners();
   }
+
+  void setAutomaticWallpaper({bool value}) {
+    _prefs.setBool(automaticWallpapers, value);
+    notifyListeners();
+  }
+
+  void setDefaultWallpaperScreen({DefaultWallpaperScreen value}) {
+    _prefs.setInt(defaultWallpaperScreen, value.index);
+    notifyListeners();
+  }
+
+  bool getDownloadOnSave() => _prefs.getBool(downloadOnSaveKey);
+
+  bool getDownloadHq() => _prefs.getBool(downloadHq);
+
+  String getAlbumName() => _prefs.getString(albumNameKey);
+
+  WallpaperCropMethod getWallpaperCropMethod() => WallpaperCropMethod.values[_prefs.getInt(wallpaperCropMethod)];
+
+  int getWallpaperCropMethodIndex() => _prefs.getInt(wallpaperCropMethod);
+
+  bool getAutomaticWallpapers() => _prefs.getBool(automaticWallpapers);
+
+  int getDefaultWallpaperScreenIndex() => _prefs.getInt(defaultWallpaperScreen);
+
+  DefaultWallpaperScreen getDefaultWallpaperScreen() =>
+      DefaultWallpaperScreen.values[_prefs.getInt(defaultWallpaperScreen)];
 }

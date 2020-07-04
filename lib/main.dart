@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'screens/all_pictures_screen.dart';
 import 'screens/details_screen.dart';
@@ -11,7 +13,12 @@ import 'services/media.dart';
 import 'services/prefs.dart';
 import 'strings.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final applicationDirectory = await getApplicationDocumentsDirectory();
+  Hive.init(applicationDirectory.path);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
