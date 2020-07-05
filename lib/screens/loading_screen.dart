@@ -4,6 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../constants.dart';
 import '../models/space_media.dart';
+import '../services/saved_provider.dart';
+import '../services/settings_provider.dart';
 import '../widgets/background_gradient.dart';
 import '../widgets/centered_circular_progress_indicator.dart';
 import 'all_pictures_screen.dart';
@@ -14,8 +16,8 @@ class LoadingScreen extends StatelessWidget {
   Future<void> initializePrefsAndHive() async {
     await Hive.initFlutter();
     Hive.registerAdapter(SpaceMediaAdapter());
-    await Hive.openBox('saved');
-    await Hive.openBox('settings');
+    await Hive.openBox(SavedProvider.savedBoxName);
+    await Hive.openBox(SettingsProvider.settingsBoxName);
   }
 
   @override
@@ -32,9 +34,9 @@ class LoadingScreen extends StatelessWidget {
           body: BackgroundGradient(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const CenteredCircularProgressIndicator(),
-                const SizedBox(height: 16),
+              children: const <Widget>[
+                CenteredCircularProgressIndicator(),
+                SizedBox(height: 16),
                 Text(
                   'Loading',
                   style: whiteTextStyle,

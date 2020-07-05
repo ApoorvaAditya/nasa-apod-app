@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/screens/all_pictures_screen.dart';
+import 'package:nasa_apod_app/services/saved_provider.dart';
 import 'package:nasa_apod_app/widgets/centered_circular_progress_indicator.dart';
 import 'package:provider/provider.dart' show Provider;
 
@@ -19,7 +21,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   PageController _pageController;
   bool enablePageView = false;
+  List spaceMedias;
   SpaceMedia spaceMedia;
+  String comingFrom;
   int index;
   Media media;
 
@@ -32,6 +36,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       enablePageView = arguments['enablePageView'] as bool;
       spaceMedia = arguments['spaceMedia'] as SpaceMedia;
       index = arguments['index'] as int;
+      comingFrom = arguments['comingFrom'] as String;
       if (enablePageView) {
         _pageController = PageController(
           initialPage: enablePageView ? index : 0,
@@ -58,7 +63,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
       pageViewSetup = _pageController.hasClients;
     }
     if (enablePageView) {
-      media = Provider.of<Media>(context);
+      if (comingFrom == AllPicturesScreeen.routeName) {
+        media = Provider.of<Media>(context);
+      } else {
+        spaceMedias = Provider.of<SavedProvider>(context).spaceMedias;
+      }
     }
     return Scaffold(
       key: _scaffoldKey,
@@ -71,26 +80,39 @@ class _DetailsScreenState extends State<DetailsScreen> {
       body: BackgroundGradient(
         height: MediaQuery.of(context).size.height,
         child: enablePageView
-            ? PageView.builder(
-                itemCount: media.spaceMedias.length + 1,
-                controller: _pageController,
-                itemBuilder: (ctx, i) {
-                  if (i < media.spaceMedias.length) {
-                    return DetailPage(
-                      spaceMedia: media.spaceMedias[i],
-                      topPadding: topPadding,
-                      titleTheme: titleTheme,
-                      index: i,
-                    );
-                  }
-                  return const CenteredCircularProgressIndicator();
-                },
-                onPageChanged: (page) {
-                  if (page > media.spaceMedias.length - 3) {
-                    media.loadMore();
-                  }
-                },
-              )
+            ? (media != null
+                ? PageView.builder(
+                    itemCount: media.spaceMedias.length + 1,
+                    controller: _pageController,
+                    itemBuilder: (_, i) {
+                      if (i < media.spaceMedias.length) {
+                        return DetailPage(
+                          spaceMedia: media.spaceMedias[i],
+                          topPadding: topPadding,
+                          titleTheme: titleTheme,
+                          index: i,
+                        );
+                      }
+                      return const CenteredCircularProgressIndicator();
+                    },
+                    onPageChanged: (page) {
+                      if (page > media.spaceMedias.length - 3) {
+                        media.loadMore();
+                      }
+                    },
+                  )
+                : PageView.builder(
+                    itemCount: spaceMedias.length,
+                    controller: _pageController,
+                    itemBuilder: (_, i) {
+                      return DetailPage(
+                        index: i,
+                        spaceMedia: spaceMedias[i] as SpaceMedia,
+                        titleTheme: titleTheme,
+                        topPadding: topPadding,
+                      );
+                    },
+                  ))
             : DetailPage(
                 spaceMedia: spaceMedia,
                 topPadding: topPadding,

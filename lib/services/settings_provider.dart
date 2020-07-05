@@ -16,7 +16,7 @@ enum DefaultWallpaperScreen {
 }
 
 class SettingsProvider with ChangeNotifier {
-  static const settingsBoxName = 'settings';
+  static const String settingsBoxName = 'settings';
 
   String albumNameKey = 'albumName';
   String downloadOnSaveKey = 'downloadOnSave';
@@ -24,6 +24,7 @@ class SettingsProvider with ChangeNotifier {
   String wallpaperCropMethod = 'wallpaperCropMethod';
   String automaticWallpapers = 'automaticWallpapers';
   String defaultWallpaperScreen = 'defaultWallpaperScreen';
+  String dailyNotifications = 'dailyNotifications';
 
   Box _box;
 
@@ -50,6 +51,9 @@ class SettingsProvider with ChangeNotifier {
     }
     if (!_box.containsKey(defaultWallpaperScreen)) {
       setDefaultWallpaperScreen(value: DefaultWallpaperScreen.alwaysAsk);
+    }
+    if (!_box.containsKey(dailyNotifications)) {
+      setDailyNotifications(value: true);
     }
   }
 
@@ -83,6 +87,11 @@ class SettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setDailyNotifications({bool value}) {
+    _box.put(dailyNotifications, value);
+    notifyListeners();
+  }
+
   bool getDownloadOnSave() => _box.get(downloadOnSaveKey) as bool;
 
   bool getDownloadHq() => _box.get(downloadHq) as bool;
@@ -99,4 +108,6 @@ class SettingsProvider with ChangeNotifier {
 
   DefaultWallpaperScreen getDefaultWallpaperScreen() =>
       DefaultWallpaperScreen.values[_box.get(defaultWallpaperScreen) as int];
+
+  bool getDailyNotifications() => _box.get(dailyNotifications) as bool;
 }

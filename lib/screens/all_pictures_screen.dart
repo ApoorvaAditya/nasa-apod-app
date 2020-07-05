@@ -103,6 +103,7 @@ class _AllPicturesScreeenState extends State<AllPicturesScreeen> {
                     child: ImageCard(
                       index: index,
                       spaceMedia: spaceMedias[index],
+                      comingFrom: AllPicturesScreeen.routeName,
                     ),
                   );
                 },

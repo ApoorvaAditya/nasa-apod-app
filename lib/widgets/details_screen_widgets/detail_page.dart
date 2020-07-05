@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:nasa_apod_app/services/hive_provider.dart';
+import '../../services/saved_provider.dart';
+import 'save_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/space_media.dart';
@@ -50,7 +51,7 @@ class DetailPage extends StatelessWidget {
   }
 }
 
-class DetailsAppBar extends StatefulWidget with PreferredSizeWidget {
+class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final SpaceMedia spaceMedia;
 
@@ -61,48 +62,29 @@ class DetailsAppBar extends StatefulWidget with PreferredSizeWidget {
   }) : super(key: key);
 
   @override
-  _DetailsAppBarState createState() => _DetailsAppBarState();
-
-  @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
-}
 
-class _DetailsAppBarState extends State<DetailsAppBar> {
   @override
   Widget build(BuildContext context) {
-    final hiveProvider = Provider.of<SavedProvider>(context);
-    bool toggle = false;
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
       actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            toggle ? Icons.bookmark : Icons.bookmark_border,
-          ),
-          onPressed: () {
-            if (toggle) {
-              hiveProvider.removeSpaceMedia(widget.spaceMedia.date);
-            } else {
-              hiveProvider.addSpaceMedia(widget.spaceMedia);
-            }
-            setState(() {
-              toggle = !toggle;
-            });
-          },
+        SaveButton(
+          spaceMedia: spaceMedia,
         ),
         WallpaperButton(
-          url: widget.spaceMedia.hdImageUrl ?? widget.spaceMedia.url,
-          scaffoldKey: widget.scaffoldKey,
+          url: spaceMedia.hdImageUrl ?? spaceMedia.url,
+          scaffoldKey: scaffoldKey,
           context: context,
         ),
-        if (widget.spaceMedia.type == 'image')
+        if (spaceMedia.type == 'image')
           DownloadButton(
-            scaffoldKey: widget.scaffoldKey,
-            url: widget.spaceMedia.hdImageUrl ?? widget.spaceMedia.url,
+            scaffoldKey: scaffoldKey,
+            url: spaceMedia.hdImageUrl ?? spaceMedia.url,
           ),
         ShareButton(
-          url: widget.spaceMedia.url,
+          url: spaceMedia.url,
         ),
       ],
     );

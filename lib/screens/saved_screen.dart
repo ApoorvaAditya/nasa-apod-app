@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_apod_app/widgets/image_card.dart';
 import 'package:provider/provider.dart';
 
-import '../services/hive_provider.dart';
+import '../models/space_media.dart';
+import '../services/saved_provider.dart';
 import '../strings.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/background_gradient.dart';
+import '../widgets/image_card.dart';
 
 class SavedScreen extends StatelessWidget {
   static const routeName = '/saved';
@@ -30,17 +31,15 @@ class SavedScreen extends StatelessWidget {
                 (_, index) {
                   return ImageCard(
                     index: index,
-                    spaceMedia: savedProvider.savedList[index],
+                    comingFrom: SavedScreen.routeName,
+                    spaceMedia: savedProvider.spaceMedias[index] as SpaceMedia,
                   );
                 },
-                childCount: savedProvider.savedList.length,
+                childCount: savedProvider.spaceMedias.length,
               ),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: savedProvider.clear,
       ),
     );
   }

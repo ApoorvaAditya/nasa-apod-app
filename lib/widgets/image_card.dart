@@ -9,11 +9,13 @@ class ImageCard extends StatelessWidget {
   static const double cardBorderRadius = 10;
   final int index;
   final SpaceMedia spaceMedia;
+  final String comingFrom;
 
   const ImageCard({
     Key key,
     @required this.index,
     @required this.spaceMedia,
+    @required this.comingFrom,
   }) : super(key: key);
 
   @override
@@ -24,6 +26,7 @@ class ImageCard extends StatelessWidget {
           'enablePageView': true,
           'spaceMedia': spaceMedia,
           'index': index,
+          'comingFrom': comingFrom,
         });
       },
       child: Card(

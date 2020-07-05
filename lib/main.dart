@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:nasa_apod_app/screens/loading_screen.dart';
-import 'package:nasa_apod_app/services/settings_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/all_pictures_screen.dart';
 import 'screens/details_screen.dart';
+import 'screens/loading_screen.dart';
 import 'screens/past_pictures_screen.dart';
 import 'screens/saved_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/submit_screen.dart';
-import 'services/hive_provider.dart';
 import 'services/media.dart';
+import 'services/saved_provider.dart';
+import 'services/settings_provider.dart';
 import 'strings.dart';
 
 void main() => runApp(MyApp());
@@ -37,9 +37,7 @@ class _MyAppState extends State<MyApp> {
         providers: [
           ChangeNotifierProvider<Media>(create: (_) => Media()),
           ChangeNotifierProvider<SavedProvider>(create: (_) => SavedProvider()),
-          ChangeNotifierProvider<SettingsProvider>(
-            create: (_) => SettingsProvider(),
-          )
+          ChangeNotifierProvider<SettingsProvider>(create: (_) => SettingsProvider())
         ],
         child: MaterialApp(
           title: Strings.appTitle,
