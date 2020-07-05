@@ -33,7 +33,11 @@ class ImageCard extends StatelessWidget {
         ),
         child: Stack(
           children: <Widget>[
-            CardImage(index: index, url: spaceMedia.url, type: spaceMedia.type),
+            CardImage(
+              index: index,
+              url: spaceMedia.url,
+              type: spaceMedia.type,
+            ),
             const TextBackground(cardBorderRadius: cardBorderRadius),
             SpaceMediaMinimizedDetails(
               index: index,
@@ -52,7 +56,12 @@ class CardImage extends StatelessWidget {
   final String url;
   final String type;
 
-  const CardImage({Key key, this.index, this.url, this.type}) : super(key: key);
+  const CardImage({
+    Key key,
+    this.index,
+    this.url,
+    this.type,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

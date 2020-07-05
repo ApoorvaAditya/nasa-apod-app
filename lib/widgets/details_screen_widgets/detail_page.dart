@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:nasa_apod_app/widgets/details_screen_widgets/wallpaper_button.dart';
+import 'package:nasa_apod_app/services/hive_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/space_media.dart';
 import '../../screens/image_screen.dart';
@@ -9,6 +10,7 @@ import '../../widgets/space_display_image.dart';
 import '../details_screen_widgets/download_button.dart';
 import '../details_screen_widgets/share_button.dart';
 import 'credits_date_footnote.dart';
+import 'wallpaper_button.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({
@@ -48,7 +50,7 @@ class DetailPage extends StatelessWidget {
   }
 }
 
-class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
+class DetailsAppBar extends StatefulWidget with PreferredSizeWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final SpaceMedia spaceMedia;
 
@@ -57,35 +59,54 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
     this.scaffoldKey,
     this.spaceMedia,
   }) : super(key: key);
+
+  @override
+  _DetailsAppBarState createState() => _DetailsAppBarState();
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+}
+
+class _DetailsAppBarState extends State<DetailsAppBar> {
   @override
   Widget build(BuildContext context) {
+    final hiveProvider = Provider.of<SavedProvider>(context);
+    bool toggle = false;
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
       actions: <Widget>[
         IconButton(
-          icon: Icon(Icons.bookmark_border),
-          onPressed: () {},
+          icon: Icon(
+            toggle ? Icons.bookmark : Icons.bookmark_border,
+          ),
+          onPressed: () {
+            if (toggle) {
+              hiveProvider.removeSpaceMedia(widget.spaceMedia.date);
+            } else {
+              hiveProvider.addSpaceMedia(widget.spaceMedia);
+            }
+            setState(() {
+              toggle = !toggle;
+            });
+          },
         ),
         WallpaperButton(
-          url: spaceMedia.hdImageUrl ?? spaceMedia.url,
-          scaffoldKey: scaffoldKey,
+          url: widget.spaceMedia.hdImageUrl ?? widget.spaceMedia.url,
+          scaffoldKey: widget.scaffoldKey,
           context: context,
         ),
-        if (spaceMedia.type == 'image')
+        if (widget.spaceMedia.type == 'image')
           DownloadButton(
-            scaffoldKey: scaffoldKey,
-            url: spaceMedia.hdImageUrl ?? spaceMedia.url,
+            scaffoldKey: widget.scaffoldKey,
+            url: widget.spaceMedia.hdImageUrl ?? widget.spaceMedia.url,
           ),
         ShareButton(
-          url: spaceMedia.url,
+          url: widget.spaceMedia.url,
         ),
       ],
     );
   }
-
-  @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
 
 class SpaceMediaImage extends StatelessWidget {

@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image/image.dart' as img;
+import 'package:nasa_apod_app/services/settings_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaper_manager/wallpaper_manager.dart';
 
 import '../../constants.dart';
-import '../../services/prefs.dart';
 
 class WallpaperButton extends StatelessWidget {
   final String url;
@@ -68,8 +68,9 @@ class WallpaperButton extends StatelessWidget {
   Future<File> cropWallpaper(File file) async {
     final Directory cacheDirectory = await getTemporaryDirectory();
     final String imagePath = '${cacheDirectory.path}/wallpaper.png';
-    final Prefs prefs = Provider.of<Prefs>(context);
-    final wallpaperCropMethod = prefs.getWallpaperCropMethod();
+
+    final SettingsProvider settings = Provider.of<SettingsProvider>(context, listen: false);
+    final wallpaperCropMethod = settings.getWallpaperCropMethod();
 
     final img.Image rawWallpaper = img.decodeImage(file.readAsBytesSync());
     final int imageHeight = rawWallpaper.height;
@@ -242,8 +243,8 @@ class WallpaperButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Prefs prefs = Provider.of<Prefs>(context);
-    final DefaultWallpaperScreen screen = prefs.getDefaultWallpaperScreen();
+    final SettingsProvider settings = Provider.of<SettingsProvider>(context, listen: false);
+    final DefaultWallpaperScreen screen = settings.getDefaultWallpaperScreen();
     return IconButton(
       icon: Icon(Icons.wallpaper),
       onPressed: () {

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_apod_app/widgets/app_drawer.dart';
-import 'package:nasa_apod_app/widgets/background_gradient.dart';
+import 'package:nasa_apod_app/widgets/image_card.dart';
+import 'package:provider/provider.dart';
 
+import '../services/hive_provider.dart';
 import '../strings.dart';
+import '../widgets/app_drawer.dart';
+import '../widgets/background_gradient.dart';
 
 class SavedScreen extends StatelessWidget {
   static const routeName = '/saved';
 
   @override
   Widget build(BuildContext context) {
+    final SavedProvider savedProvider = Provider.of<SavedProvider>(context);
     return Scaffold(
       drawer: const AppDrawer(
         prevScreen: routeName,
@@ -22,16 +26,21 @@ class SavedScreen extends StatelessWidget {
               floating: true,
             ),
             SliverList(
-              delegate: SliverChildBuilderDelegate((_, index) {
-                return Container(
-                  color: Colors.indigo[(index % 10) * 100],
-                  height: 20,
-                  padding: const EdgeInsets.all(8),
-                );
-              }),
+              delegate: SliverChildBuilderDelegate(
+                (_, index) {
+                  return ImageCard(
+                    index: index,
+                    spaceMedia: savedProvider.savedList[index],
+                  );
+                },
+                childCount: savedProvider.savedList.length,
+              ),
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: savedProvider.clear,
       ),
     );
   }

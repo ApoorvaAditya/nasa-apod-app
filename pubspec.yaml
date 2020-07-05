@@ -22,7 +22,6 @@ dependencies:
   url_launcher: ^5.4.11
   flutter_widget_from_html: ^0.4.1
   extended_image: ^0.9.0
-  shared_preferences: ^0.5.7+3
   connectivity: ^0.4.8
   dio: ^3.0.9
   wallpaper_manager: ^1.0.7

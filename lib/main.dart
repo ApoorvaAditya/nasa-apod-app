@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:nasa_apod_app/screens/loading_screen.dart';
+import 'package:nasa_apod_app/services/settings_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/all_pictures_screen.dart';
 import 'screens/details_screen.dart';
@@ -9,16 +10,24 @@ import 'screens/past_pictures_screen.dart';
 import 'screens/saved_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/submit_screen.dart';
+import 'services/hive_provider.dart';
 import 'services/media.dart';
-import 'services/prefs.dart';
 import 'strings.dart';
 
-Future<void> main() async {
-  await Hive.initFlutter();
-  runApp(MyApp());
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
+class _MyAppState extends State<MyApp> {
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Title(
@@ -27,7 +36,10 @@ class MyApp extends StatelessWidget {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider<Media>(create: (_) => Media()),
-          ChangeNotifierProvider<Prefs>(create: (_) => Prefs()),
+          ChangeNotifierProvider<SavedProvider>(create: (_) => SavedProvider()),
+          ChangeNotifierProvider<SettingsProvider>(
+            create: (_) => SettingsProvider(),
+          )
         ],
         child: MaterialApp(
           title: Strings.appTitle,
@@ -45,7 +57,7 @@ class MyApp extends StatelessWidget {
             iconTheme: const IconThemeData(color: Colors.white),
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          initialRoute: AllPicturesScreeen.routeName,
+          initialRoute: LoadingScreen.routeName,
           routes: {
             AllPicturesScreeen.routeName: (_) => AllPicturesScreeen(),
             PastPicturesScreen.routeName: (_) => PastPicturesScreen(),
@@ -53,6 +65,7 @@ class MyApp extends StatelessWidget {
             DetailsScreen.routeName: (_) => DetailsScreen(),
             SavedScreen.routeName: (_) => SavedScreen(),
             SettingsScreen.routeName: (_) => SettingsScreen(),
+            LoadingScreen.routeName: (_) => LoadingScreen(),
           },
         ),
       ),

@@ -4,11 +4,10 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
-import '../services/prefs.dart';
+import '../services/settings_provider.dart';
 import '../strings.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/background_gradient.dart';
-import '../widgets/centered_circular_progress_indicator.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const routeName = '/settings';
@@ -16,7 +15,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final prefs = Provider.of<Prefs>(context);
+    final SettingsProvider settings = Provider.of<SettingsProvider>(context);
     return Scaffold(
       drawer: const AppDrawer(
         prevScreen: routeName,
@@ -25,110 +24,108 @@ class SettingsScreen extends StatelessWidget {
         title: const Text(Strings.settingsScreenTitle),
       ),
       body: BackgroundGradient(
-        child: prefs.isLoading
-            ? const CenteredCircularProgressIndicator()
-            : ListView(
-                children: <Widget>[
-                  const SettingsGroupListTile(
-                    title: 'Download Settings',
-                  ),
-                  const Divider(
-                    color: Colors.white,
-                    height: 1,
-                    indent: 16,
-                    endIndent: 16,
-                  ),
-                  TextSettingsListTile(
-                    controller: _albumController,
-                    title: Strings.albumNameSettingTitle,
-                    value: prefs.getAlbumName(),
-                    subtitle: Strings.albumNameSettingSubtitle,
-                    hint: Strings.albumNameSettingHint,
-                    onSubmitted: (value) {
-                      prefs.setAlbumName(value: value);
-                    },
-                  ),
-                  SwitchSettingsListTile(
-                    title: Strings.downloadOnSaveSettingTitle,
-                    subtitle: Strings.downloadOnSaveSettingSubtitle,
-                    value: prefs.getDownloadOnSave(),
-                    onChanged: (value) {
-                      prefs.setDownloadOnSave(value: value);
-                    },
-                  ),
-                  SwitchSettingsListTile(
-                    title: Strings.downloadHqSettingTitle,
-                    subtitle: Strings.downloadHqSettingSubtitle,
-                    enabled: prefs.getDownloadOnSave(),
-                    value: prefs.getDownloadHq(),
-                    onChanged: (value) {
-                      if (prefs.getDownloadOnSave()) {
-                        prefs.setDownloadHq(value: value);
-                      }
-                    },
-                  ),
-                  const SettingsGroupListTile(
-                    title: 'Wallpaper Settings',
-                  ),
-                  const Divider(
-                    color: Colors.white,
-                    height: 1,
-                    indent: 16,
-                    endIndent: 16,
-                  ),
-                  const SizedBox(height: 8),
-                  SwitchSettingsListTile(
-                    value: prefs.getAutomaticWallpapers(),
-                    title: 'Set Wallpapers Automatically',
-                    subtitle: 'Download latest image every day and set it as the wallpaper',
-                    onChanged: (value) {
-                      prefs.setAutomaticWallpaper(value: value);
-                    },
-                  ),
-                  ListSettingsListTile(
-                    title: 'Wallpaper Fit',
-                    subtitle: 'How wallpapers should fit on screen',
-                    index: prefs.getWallpaperCropMethodIndex(),
-                    enumToStrings: const {
-                      WallpaperCropMethod.fillWholeScreen: 'Fill whole screen',
-                      WallpaperCropMethod.alwaysFitHeight: 'Always fit image vertically',
-                      WallpaperCropMethod.alwaysFitWidth: 'Always fit image horizontally',
-                      WallpaperCropMethod.alwaysFit: 'Always fit whole image',
-                    },
-                    icons: const [
-                      MdiIcons.arrowExpandAll,
-                      MdiIcons.arrowExpandVertical,
-                      MdiIcons.arrowExpandHorizontal,
-                      Icons.fullscreen,
-                    ],
-                    onTap: (index) {
-                      Navigator.of(context).pop();
-                      prefs.setWallpaperCropMethod(value: WallpaperCropMethod.values[index]);
-                    },
-                  ),
-                  ListSettingsListTile(
-                    title: 'Default Screen(s) for Wallpapers',
-                    subtitle: 'Set which screen(s) to set wallpaper on when you click on the wallpaper button',
-                    index: prefs.getDefaultWallpaperScreenIndex(),
-                    enumToStrings: const {
-                      DefaultWallpaperScreen.alwaysAsk: 'Always Ask',
-                      DefaultWallpaperScreen.homeScreen: 'Home Screen',
-                      DefaultWallpaperScreen.lockScreen: 'Lock Screen',
-                      DefaultWallpaperScreen.bothScreens: 'Both Screens',
-                    },
-                    icons: const [
-                      MdiIcons.commentQuestion,
-                      Icons.home,
-                      Icons.screen_lock_portrait,
-                      Icons.filter,
-                    ],
-                    onTap: (index) {
-                      Navigator.of(context).pop();
-                      prefs.setDefaultWallpaperScreen(value: DefaultWallpaperScreen.values[index]);
-                    },
-                  ),
-                ],
-              ),
+        child: ListView(
+          children: <Widget>[
+            const SettingsGroupListTile(
+              title: 'Download Settings',
+            ),
+            const Divider(
+              color: Colors.white,
+              height: 1,
+              indent: 16,
+              endIndent: 16,
+            ),
+            TextSettingsListTile(
+              controller: _albumController,
+              title: Strings.albumNameSettingTitle,
+              value: settings.getAlbumName(),
+              subtitle: Strings.albumNameSettingSubtitle,
+              hint: Strings.albumNameSettingHint,
+              onSubmitted: (value) {
+                settings.setAlbumName(value: value);
+              },
+            ),
+            SwitchSettingsListTile(
+              title: Strings.downloadOnSaveSettingTitle,
+              subtitle: Strings.downloadOnSaveSettingSubtitle,
+              value: settings.getDownloadOnSave(),
+              onChanged: (value) {
+                settings.setDownloadOnSave(value: value);
+              },
+            ),
+            SwitchSettingsListTile(
+              title: Strings.downloadHqSettingTitle,
+              subtitle: Strings.downloadHqSettingSubtitle,
+              enabled: settings.getDownloadOnSave(),
+              value: settings.getDownloadHq(),
+              onChanged: (value) {
+                if (settings.getDownloadOnSave()) {
+                  settings.setDownloadHq(value: value);
+                }
+              },
+            ),
+            const SettingsGroupListTile(
+              title: 'Wallpaper Settings',
+            ),
+            const Divider(
+              color: Colors.white,
+              height: 1,
+              indent: 16,
+              endIndent: 16,
+            ),
+            const SizedBox(height: 8),
+            SwitchSettingsListTile(
+              value: settings.getAutomaticWallpapers(),
+              title: 'Set Wallpapers Automatically',
+              subtitle: 'Download latest image every day and set it as the wallpaper',
+              onChanged: (value) {
+                settings.setAutomaticWallpaper(value: value);
+              },
+            ),
+            ListSettingsListTile(
+              title: 'Wallpaper Fit',
+              subtitle: 'How wallpapers should fit on screen',
+              index: settings.getWallpaperCropMethodIndex(),
+              enumToStrings: const {
+                WallpaperCropMethod.fillWholeScreen: 'Fill whole screen',
+                WallpaperCropMethod.alwaysFitHeight: 'Always fit image vertically',
+                WallpaperCropMethod.alwaysFitWidth: 'Always fit image horizontally',
+                WallpaperCropMethod.alwaysFit: 'Always fit whole image',
+              },
+              icons: const [
+                MdiIcons.arrowExpandAll,
+                MdiIcons.arrowExpandVertical,
+                MdiIcons.arrowExpandHorizontal,
+                Icons.fullscreen,
+              ],
+              onTap: (index) {
+                Navigator.of(context).pop();
+                settings.setWallpaperCropMethod(value: WallpaperCropMethod.values[index]);
+              },
+            ),
+            ListSettingsListTile(
+              title: 'Default Screen(s) for Wallpapers',
+              subtitle: 'Set which screen(s) to set wallpaper on when you click on the wallpaper button',
+              index: settings.getDefaultWallpaperScreenIndex(),
+              enumToStrings: const {
+                DefaultWallpaperScreen.alwaysAsk: 'Always Ask',
+                DefaultWallpaperScreen.homeScreen: 'Home Screen',
+                DefaultWallpaperScreen.lockScreen: 'Lock Screen',
+                DefaultWallpaperScreen.bothScreens: 'Both Screens',
+              },
+              icons: const [
+                MdiIcons.commentQuestion,
+                Icons.home,
+                Icons.screen_lock_portrait,
+                Icons.filter,
+              ],
+              onTap: (index) {
+                Navigator.of(context).pop();
+                settings.setDefaultWallpaperScreen(value: DefaultWallpaperScreen.values[index]);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

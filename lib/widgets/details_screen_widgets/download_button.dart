@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_save/image_save.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/prefs.dart';
+import '../../services/settings_provider.dart';
 
 class DownloadButton extends StatelessWidget {
   static const String albumName = 'Astronomy Pictures';
@@ -26,7 +26,8 @@ class DownloadButton extends StatelessWidget {
         ),
       ),
     );
-    final Prefs prefs = Provider.of<Prefs>(context, listen: false);
+
+    final SettingsProvider settings = Provider.of<SettingsProvider>(context, listen: false);
     http.Response response;
     bool errorEncountered = false;
     bool success = false;
@@ -35,7 +36,7 @@ class DownloadButton extends StatelessWidget {
       success = await ImageSave.saveImage(
         response.bodyBytes,
         "jpg",
-        albumName: prefs.getAlbumName(),
+        albumName: settings.getAlbumName(),
       );
     } catch (_) {
       errorEncountered = true;
