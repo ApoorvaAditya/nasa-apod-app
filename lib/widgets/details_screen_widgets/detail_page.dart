@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/space_media.dart';
 import '../../screens/image_screen.dart';
+import '../../services/settings_provider.dart';
 import '../../utils.dart';
 import '../../widgets/space_display_image.dart';
 import '../details_screen_widgets/download_button.dart';
@@ -205,11 +207,12 @@ class SpaceMediaDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsProvider settings = Provider.of<SettingsProvider>(context);
     return HtmlWidget(
       '<p>$description</p>',
-      textStyle: const TextStyle(
+      textStyle: TextStyle(
         color: Colors.white,
-        fontSize: 16,
+        fontSize: settings.getFontSize(),
       ),
       hyperlinkColor: Colors.lightBlue,
       customStylesBuilder: (element) {

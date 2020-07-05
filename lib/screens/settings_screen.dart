@@ -35,18 +35,13 @@ class SettingsScreen extends StatelessWidget {
               indent: 16,
               endIndent: 16,
             ),
-            const ListTile(
-              title: Text(
-                'Font Size',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              trailing: Text(
-                '16',
-                style: whiteTextStyle,
-              ),
+            FontListTile(
+              title: 'Font Size',
+              selectedFontIndex: FontListTile.fontSizes.indexOf(settings.getFontSize()),
+              onTap: (int index) {
+                Navigator.of(context).pop();
+                settings.setFontSize(value: FontListTile.fontSizes[index]);
+              },
             ),
             const SettingsGroupListTile(
               title: 'Download Settings',
@@ -168,6 +163,96 @@ class SettingsScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class FontListTile extends StatelessWidget {
+  final String title;
+  final int selectedFontIndex;
+  final void Function(int index) onTap;
+  static const List<double> fontSizes = [
+    10,
+    12,
+    14,
+    16,
+    18,
+    20,
+    22,
+    24,
+  ];
+
+  const FontListTile({
+    Key key,
+    this.title,
+    this.selectedFontIndex,
+    this.onTap,
+  }) : super(key: key);
+
+  List<Widget> buildFontOfFontTiles() {
+    final List<Widget> widgets = [];
+    for (int i = 0; i < fontSizes.length; i++) {
+      widgets.add(
+        ListTileWithIndex(
+          icons: null,
+          index: i,
+          title: fontSizes[i].toString(),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: fontSizes[i],
+          ),
+          onTap: onTap,
+        ),
+      );
+    }
+    return widgets;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: Text(
+        fontSizes[selectedFontIndex].toString(),
+        style: whiteTextStyle,
+      ),
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (_) => Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: darkBlue,
+              border: Border(
+                top: BorderSide(
+                  color: Colors.white54,
+                ),
+              ),
+            ),
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                ...buildFontOfFontTiles(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -304,23 +389,27 @@ class ListTileWithIndex extends StatelessWidget {
     @required this.index,
     @required this.title,
     this.onTap,
+    this.style,
   }) : super(key: key);
 
   final List<IconData> icons;
   final int index;
   final String title;
   final void Function(int index) onTap;
+  final TextStyle style;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(
-        icons[index],
-        color: Colors.white,
-      ),
+      leading: icons != null
+          ? Icon(
+              icons[index],
+              color: Colors.white,
+            )
+          : null,
       title: Text(
         title,
-        style: whiteTextStyle,
+        style: style ?? whiteTextStyle,
       ),
       onTap: () {
         onTap(index);

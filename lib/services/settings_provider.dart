@@ -25,6 +25,7 @@ class SettingsProvider with ChangeNotifier {
   String automaticWallpapers = 'automaticWallpapers';
   String defaultWallpaperScreen = 'defaultWallpaperScreen';
   String dailyNotifications = 'dailyNotifications';
+  String fontSize = 'fontSize';
 
   Box _box;
 
@@ -54,6 +55,9 @@ class SettingsProvider with ChangeNotifier {
     }
     if (!_box.containsKey(dailyNotifications)) {
       setDailyNotifications(value: true);
+    }
+    if (!_box.containsKey(fontSize)) {
+      setFontSize(value: 16.0);
     }
   }
 
@@ -92,6 +96,11 @@ class SettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setFontSize({double value}) {
+    _box.put(fontSize, value);
+    notifyListeners();
+  }
+
   bool getDownloadOnSave() => _box.get(downloadOnSaveKey) as bool;
 
   bool getDownloadHq() => _box.get(downloadHq) as bool;
@@ -110,4 +119,6 @@ class SettingsProvider with ChangeNotifier {
       DefaultWallpaperScreen.values[_box.get(defaultWallpaperScreen) as int];
 
   bool getDailyNotifications() => _box.get(dailyNotifications) as bool;
+
+  double getFontSize() => _box.get(fontSize) as double;
 }
