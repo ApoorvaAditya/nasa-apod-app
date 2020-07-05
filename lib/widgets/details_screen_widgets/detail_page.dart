@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import '../../services/saved_provider.dart';
-import 'save_button.dart';
-import 'package:provider/provider.dart';
 
 import '../../models/space_media.dart';
 import '../../screens/image_screen.dart';
@@ -11,6 +8,7 @@ import '../../widgets/space_display_image.dart';
 import '../details_screen_widgets/download_button.dart';
 import '../details_screen_widgets/share_button.dart';
 import 'credits_date_footnote.dart';
+import 'save_button.dart';
 import 'wallpaper_button.dart';
 
 class DetailPage extends StatelessWidget {
@@ -54,11 +52,13 @@ class DetailPage extends StatelessWidget {
 class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final SpaceMedia spaceMedia;
+  final String comingFrom;
 
   DetailsAppBar({
     Key key,
-    this.scaffoldKey,
-    this.spaceMedia,
+    @required this.scaffoldKey,
+    @required this.spaceMedia,
+    @required this.comingFrom,
   }) : super(key: key);
 
   @override
@@ -72,6 +72,7 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
       actions: <Widget>[
         SaveButton(
           spaceMedia: spaceMedia,
+          comingFrom: comingFrom,
         ),
         WallpaperButton(
           url: spaceMedia.hdImageUrl ?? spaceMedia.url,

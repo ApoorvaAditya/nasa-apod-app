@@ -31,28 +31,26 @@ class SavedProvider with ChangeNotifier {
   }
 
   void addSpaceMedia(SpaceMedia spaceMedia) {
-    print('adding: ${spaceMedia.date.toString()}');
     final String spaceMediaKey = spaceMedia.date.toString();
     if (!_box.containsKey(spaceMediaKey)) {
       spaceMedias.add(spaceMedia);
       dates.add(spaceMedia.date);
       _box.put(spaceMediaKey, spaceMedia);
+      _box.put(dateListKey, dates);
     }
     notifyListeners();
   }
 
-  void removeSpaceMedia({
-    @required SpaceMedia spaceMedia,
-    @required BuildContext context,
-  }) {
-    print('deleting: ${spaceMedia.date.toString()}');
-
-    Navigator.of(context).pop();
+  void removeSpaceMedia({@required SpaceMedia spaceMedia, BuildContext context}) {
+    if (context != null) {
+      Navigator.of(context).pop();
+    }
     final String spaceMediaKey = spaceMedia.date.toString();
     if (_box.containsKey(spaceMediaKey)) {
       spaceMedias.removeWhere((element) => element.date == spaceMedia.date);
       dates.removeWhere((element) => element == spaceMedia.date);
       _box.delete(spaceMediaKey);
+      _box.put(dateListKey, dates);
     }
     notifyListeners();
   }

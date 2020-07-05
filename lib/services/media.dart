@@ -49,12 +49,12 @@ class Media with ChangeNotifier {
   }
 
   Future<void> _getAPODs() async {
-    for (int i = startIndex; i < startIndex + lengthToLoad; i++) {
+    final int fixedIndex = startIndex;
+    for (int i = fixedIndex; i < fixedIndex + lengthToLoad; i++) {
       final DateTime currentDate = _today.subtract(Duration(days: i));
 
       if (currentDate.isAfter(earliestPossibleDate)) {
         SpaceMedia spaceMedia;
-        // Get APOD for the previous days
         try {
           spaceMedia = await getAPOD(date: currentDate);
         } on SocketException {

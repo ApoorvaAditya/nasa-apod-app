@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/screens/saved_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/space_media.dart';
@@ -6,10 +7,12 @@ import '../../services/saved_provider.dart';
 
 class SaveButton extends StatefulWidget {
   final SpaceMedia spaceMedia;
+  final String comingFrom;
 
   const SaveButton({
     Key key,
-    this.spaceMedia,
+    @required this.spaceMedia,
+    @required this.comingFrom,
   }) : super(key: key);
   @override
   _SaveButtonState createState() => _SaveButtonState();
@@ -31,7 +34,7 @@ class _SaveButtonState extends State<SaveButton> {
         } else {
           savedProvider.removeSpaceMedia(
             spaceMedia: widget.spaceMedia,
-            context: context,
+            context: widget.comingFrom == SavedScreen.routeName ? context : null,
           );
         }
         setState(() {

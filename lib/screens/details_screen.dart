@@ -66,7 +66,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
       if (comingFrom == AllPicturesScreeen.routeName) {
         media = Provider.of<Media>(context);
       } else {
-        spaceMedias = Provider.of<SavedProvider>(context).spaceMedias;
+        final SavedProvider savedProvider = Provider.of<SavedProvider>(context);
+        spaceMedias = savedProvider.spaceMedias;
       }
     }
     return Scaffold(
@@ -75,7 +76,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
       backgroundColor: Colors.black,
       appBar: DetailsAppBar(
         scaffoldKey: _scaffoldKey,
-        spaceMedia: pageViewSetup ? media.spaceMedias[_pageController.page.round()] : spaceMedia,
+        spaceMedia: pageViewSetup
+            ? (media != null
+                ? media.spaceMedias[_pageController.page.round()]
+                : spaceMedias[_pageController.page.round()] as SpaceMedia)
+            : spaceMedia,
+        comingFrom: comingFrom,
       ),
       body: BackgroundGradient(
         height: MediaQuery.of(context).size.height,

@@ -17,6 +17,8 @@ class LoadingScreen extends StatelessWidget {
     await Hive.initFlutter();
     Hive.registerAdapter(SpaceMediaAdapter());
     await Hive.openBox(SavedProvider.savedBoxName);
+    await Hive.deleteBoxFromDisk(SavedProvider.savedBoxName);
+    await Hive.openBox(SavedProvider.savedBoxName);
     await Hive.openBox(SettingsProvider.settingsBoxName);
   }
 

@@ -84,12 +84,19 @@ class _AllPicturesScreeenState extends State<AllPicturesScreeen> {
                       ),
                     );
                   } else if (index + 1 > spaceMedias.length && !connected) {
-                    return const Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'Cannot Load More',
-                          style: whiteTextStyle,
+                    return CreationAwareWidget(
+                      itemCreated: () {
+                        if (index + 3 >= spaceMedias.length) {
+                          media.loadMore();
+                        }
+                      },
+                      child: const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Cannot Load More',
+                            style: whiteTextStyle,
+                          ),
                         ),
                       ),
                     );
