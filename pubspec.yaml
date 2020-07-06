@@ -36,7 +36,12 @@ dev_dependencies:
   lint: ^1.0.0
   hive_generator: ^0.7.0+2
   build_runner: ^1.10.0
+  flutter_launcher_icons: "^0.7.3"
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: assets/icon/icon.png
 
 flutter:
   assets:
