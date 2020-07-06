@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nasa_apod_app/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -63,74 +64,79 @@ class _AllPicturesScreeenState extends State<AllPicturesScreeen> {
       drawer: const AppDrawer(prevScreen: AllPicturesScreeen.routeName),
       extendBodyBehindAppBar: true,
       body: BackgroundGradient(
-        child: CustomScrollView(
-          controller: _autoController,
-          slivers: <Widget>[
-            SliverAppBar(
-              title: Text(Strings.allPicturesScreenTitle),
-              floating: true,
-              bottom: connected ? null : LostConnectionBar(),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (_, index) {
-                  if (spaceMedias.isEmpty) {
-                    return Container(
-                      height: Utils.getHeightOfPage(context),
-                      width: double.infinity,
-                      child: const CenteredCircularProgressIndicator(),
-                    );
-                  }
-                  if (index + 1 > spaceMedias.length && connected) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                        ),
-                      ),
-                    );
-                  } else if (index + 1 > spaceMedias.length && !connected) {
-                    return CreationAwareWidget(
-                      itemCreated: () {
-                        if (index + 3 >= spaceMedias.length) {
-                          media.loadMore();
-                        }
-                      },
-                      child: const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            'Cannot Load More',
-                            style: whiteTextStyle,
+        child: LiquidPullToRefresh(
+          onRefresh: media != null ? media.refresh : () async {},
+          color: darkBlue,
+          height: 150,
+          child: CustomScrollView(
+            controller: _autoController,
+            slivers: <Widget>[
+              SliverAppBar(
+                title: Text(Strings.allPicturesScreenTitle),
+                floating: true,
+                bottom: connected ? null : LostConnectionBar(),
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (_, index) {
+                    if (spaceMedias.isEmpty) {
+                      return Container(
+                        height: Utils.getHeightOfPage(context),
+                        width: double.infinity,
+                        child: const CenteredCircularProgressIndicator(),
+                      );
+                    }
+                    if (index + 1 > spaceMedias.length && connected) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
                           ),
                         ),
+                      );
+                    } else if (index + 1 > spaceMedias.length && !connected) {
+                      return CreationAwareWidget(
+                        itemCreated: () {
+                          if (index + 3 >= spaceMedias.length) {
+                            media.loadMore();
+                          }
+                        },
+                        child: const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Cannot Load More',
+                              style: whiteTextStyle,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return AutoScrollTag(
+                      key: ValueKey(index),
+                      controller: _autoController,
+                      index: index,
+                      child: CreationAwareWidget(
+                        itemCreated: () {
+                          if (index + 3 >= spaceMedias.length) {
+                            media.loadMore();
+                          }
+                        },
+                        child: ImageCard(
+                          index: index,
+                          spaceMedia: spaceMedias[index],
+                          comingFrom: AllPicturesScreeen.routeName,
+                          scrollToFunction: scrollToIndex,
+                        ),
                       ),
                     );
-                  }
-                  return AutoScrollTag(
-                    key: ValueKey(index),
-                    controller: _autoController,
-                    index: index,
-                    child: CreationAwareWidget(
-                      itemCreated: () {
-                        if (index + 3 >= spaceMedias.length) {
-                          media.loadMore();
-                        }
-                      },
-                      child: ImageCard(
-                        index: index,
-                        spaceMedia: spaceMedias[index],
-                        comingFrom: AllPicturesScreeen.routeName,
-                        scrollToFunction: scrollToIndex,
-                      ),
-                    ),
-                  );
-                },
-                childCount: spaceMedias.length + 1,
+                  },
+                  childCount: spaceMedias.length + 1,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

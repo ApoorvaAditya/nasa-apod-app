@@ -32,6 +32,8 @@ dependencies:
   material_design_icons_flutter: ^4.0.5345
   hive_flutter: ^0.3.0+2
   scroll_to_index: ^1.0.6
+  liquid_pull_to_refresh: ^2.0.0
+  app_review: ^1.1.2
 
 dev_dependencies:
   lint: ^1.0.0

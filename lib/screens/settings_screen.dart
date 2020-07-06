@@ -1,3 +1,4 @@
+import 'package:app_review/app_review.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -157,6 +158,21 @@ class SettingsScreen extends StatelessWidget {
               value: settings.getDailyNotifications(),
               onChanged: (value) {
                 settings.setDailyNotifications(value: value);
+              },
+            ),
+            const SettingsGroupListTile(
+              title: 'Other Settings',
+            ),
+            const Divider(
+              color: Colors.white,
+              height: 1,
+              indent: 16,
+              endIndent: 16,
+            ),
+            ButtonListTile(
+              title: 'Write a Review!',
+              onTap: () {
+                AppReview.storeListing;
               },
             ),
             const SizedBox(height: 8),
@@ -543,6 +559,37 @@ class TextSettingsListTile extends StatelessWidget {
           backgroundColor: Colors.white,
         );
       },
+    );
+  }
+}
+
+class ButtonListTile extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final void Function() onTap;
+
+  const ButtonListTile({
+    Key key,
+    this.title,
+    this.subtitle,
+    this.onTap,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: whiteTextStyle,
+      ),
+      subtitle: subtitle != null
+          ? Text(
+              subtitle,
+              style: const TextStyle(
+                color: Colors.grey,
+              ),
+            )
+          : null,
+      onTap: onTap,
     );
   }
 }

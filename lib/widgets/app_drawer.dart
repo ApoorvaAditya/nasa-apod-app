@@ -97,7 +97,7 @@ class DrawerHeaderImage extends StatelessWidget {
       width: double.infinity,
       child: Center(
         child: Image.asset(
-          'assets/icon/icon.png',
+          'assets/icon/icon_small.png',
           fit: BoxFit.contain,
           height: 150,
           errorBuilder: (_, __, ___) => Image.network(
