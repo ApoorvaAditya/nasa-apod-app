@@ -70,7 +70,17 @@ class AppDrawer extends StatelessWidget {
                 style: whiteTextStyle,
               ),
               onTap: () {
-                showAboutDialog(context: context);
+                showAboutDialog(
+                  context: context,
+                  applicationIcon: Image.asset(
+                    'assets/icon/icon_small.png',
+                    fit: BoxFit.contain,
+                    height: 50,
+                  ),
+                  applicationName: 'NASA APOD',
+                  applicationVersion: '1.0.0',
+                  applicationLegalese: 'Yeet yeet',
+                );
               },
             )
           ],
@@ -87,8 +97,9 @@ class DrawerHeaderImage extends StatelessWidget {
       width: double.infinity,
       child: Center(
         child: Image.asset(
-          'assets/images/nasa-logo.png',
+          'assets/icon/icon.png',
           fit: BoxFit.contain,
+          height: 150,
           errorBuilder: (_, __, ___) => Image.network(
             'https://www.nasa.gov/sites/default/files/thumbnails/image/nasa-logo-web-rgb.png',
             fit: BoxFit.contain,

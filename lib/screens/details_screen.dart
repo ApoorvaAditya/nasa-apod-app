@@ -20,6 +20,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   PageController _pageController;
+  double currentPageValue = 0.0;
   bool enablePageView = false;
   List spaceMedias;
   SpaceMedia spaceMedia;
@@ -42,6 +43,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
           initialPage: enablePageView ? index : 0,
           keepPage: true,
         );
+        _pageController.addListener(() {
+          setState(() {
+            currentPageValue = _pageController.page;
+          });
+        });
       }
       init = false;
     }
@@ -50,6 +56,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   void dispose() {
+    _pageController?.removeListener(() {
+      setState(() {
+        currentPageValue = _pageController.page;
+      });
+    });
     _pageController?.dispose();
     super.dispose();
   }
@@ -78,10 +89,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
         scaffoldKey: _scaffoldKey,
         spaceMedia: pageViewSetup
             ? (media != null
-                ? media.spaceMedias[_pageController.page.round()]
-                : spaceMedias[_pageController.page.round()] as SpaceMedia)
+                ? currentPageValue < media.spaceMedias.length
+                    ? media.spaceMedias[currentPageValue.floor()]
+                    : media.spaceMedias.last
+                : currentPageValue < spaceMedias.length
+                    ? spaceMedias[currentPageValue.floor()] as SpaceMedia
+                    : spaceMedias.last as SpaceMedia)
             : spaceMedia,
         comingFrom: comingFrom,
+        index: currentPageValue.floor(),
       ),
       body: BackgroundGradient(
         height: MediaQuery.of(context).size.height,

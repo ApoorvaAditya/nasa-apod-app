@@ -31,6 +31,7 @@ dependencies:
   path_provider: ^1.6.11
   material_design_icons_flutter: ^4.0.5345
   hive_flutter: ^0.3.0+2
+  scroll_to_index: ^1.0.6
 
 dev_dependencies:
   lint: ^1.0.0
@@ -45,6 +46,7 @@ flutter_icons:
 
 flutter:
   assets:
+    - assets/icon/icon_small.png
     - assets/images/nasa-logo.png
     - assets/images/placeholder.png
   uses-material-design: true

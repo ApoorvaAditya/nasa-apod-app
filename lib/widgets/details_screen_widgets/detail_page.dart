@@ -55,12 +55,14 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final SpaceMedia spaceMedia;
   final String comingFrom;
+  final int index;
 
   DetailsAppBar({
     Key key,
     @required this.scaffoldKey,
     @required this.spaceMedia,
     @required this.comingFrom,
+    this.index,
   }) : super(key: key);
 
   @override
@@ -71,6 +73,14 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back,
+        ),
+        onPressed: () {
+          Navigator.pop(context, index);
+        },
+      ),
       actions: <Widget>[
         SaveButton(
           spaceMedia: spaceMedia,

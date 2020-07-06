@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart' show parseFragment;
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../models/space_media.dart';
 import '../screens/details_screen.dart' show DetailsScreen;
@@ -10,24 +11,27 @@ class ImageCard extends StatelessWidget {
   final int index;
   final SpaceMedia spaceMedia;
   final String comingFrom;
+  final void Function(int idx) scrollToFunction;
 
   const ImageCard({
     Key key,
     @required this.index,
     @required this.spaceMedia,
     @required this.comingFrom,
+    this.scrollToFunction,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed(DetailsScreen.routeName, arguments: {
+      onTap: () async {
+        final indexOfViewedItem = await Navigator.of(context).pushNamed(DetailsScreen.routeName, arguments: {
           'enablePageView': true,
           'spaceMedia': spaceMedia,
           'index': index,
           'comingFrom': comingFrom,
         });
+        scrollToFunction(indexOfViewedItem as int);
       },
       child: Card(
         color: Colors.black,
