@@ -20,10 +20,22 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       child: BackgroundGradient(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: MediaQuery.of(context).padding.top),
             DrawerHeaderImage(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+              child: Text(
+                'NASA Astronomy Picture of the Day',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             DrawerListItem(
               icon: Icons.photo_library,
               title: Strings.allPicturesScreenTitle,
@@ -36,12 +48,12 @@ class AppDrawer extends StatelessWidget {
               prevScreen: prevScreen,
               routeName: PastPicturesScreen.routeName,
             ),
-            DrawerListItem(
-              icon: Icons.file_upload,
-              title: Strings.submitScreenTitle,
-              prevScreen: prevScreen,
-              routeName: SubmitScreen.routeName,
-            ),
+            // DrawerListItem(
+            //   icon: Icons.file_upload,
+            //   title: Strings.submitScreenTitle,
+            //   prevScreen: prevScreen,
+            //   routeName: SubmitScreen.routeName,
+            // ),
             DrawerListItem(
               icon: Icons.bookmark,
               title: Strings.savedScreenTitle,

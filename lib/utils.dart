@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart' as html;
 import 'package:http/http.dart' show Response, get;
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart' show canLaunch, launch;
 
 class Utils {
@@ -32,7 +33,7 @@ class Utils {
     }
   }
 
-  static Future<DateTime> getLatesetPostDate() async {
+  static Future<DateTime> get getLatesetPostDate async {
     final Response repsonse = await get('https://apod.nasa.gov/apod/astropix.html');
     if (repsonse.statusCode >= 400) return null;
     final parsed = html.parse(repsonse.body);
@@ -93,5 +94,10 @@ class Utils {
       default:
         return '01';
     }
+  }
+
+  static Future<String> get localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
   }
 }

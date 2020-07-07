@@ -69,7 +69,7 @@ class Media with ChangeNotifier {
 
   Future<void> clearCachedData() async {
     // Get today's date
-    final DateTime latestDate = await Utils.getLatesetPostDate();
+    final DateTime latestDate = await Utils.getLatesetPostDate;
     _today = latestDate ?? DateTime.now().subtract(const Duration(days: 1));
     _spaceMedias = <SpaceMedia>[];
     startIndex = initialIndex;

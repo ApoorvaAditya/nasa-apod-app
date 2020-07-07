@@ -1,7 +1,12 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/space_media.dart';
+import '../utils.dart';
 
 class SavedProvider with ChangeNotifier {
   static const String savedBoxName = 'saved';
@@ -62,5 +67,31 @@ class SavedProvider with ChangeNotifier {
       dates.removeWhere((element) => element == date);
       _box.delete(spaceMediaKey);
     }
+  }
+
+  Future<void> saveSpaceMediaImage(SpaceMedia spaceMedia) async {
+    final http.Response response = await http.get(spaceMedia.hdImageUrl ?? spaceMedia.url);
+    final String path = await Utils.localPath;
+    File('$path/${spaceMedia.date.toString()}.png').writeAsBytes(response.bodyBytes);
+  }
+
+  Future<Uint8List> getSpaceMediaImage(SpaceMedia spaceMedia) async {
+    final String path = await Utils.localPath;
+    return File('$path/${spaceMedia.date.toString()}.png').readAsBytes();
+  }
+
+  Future<Uint8List> getSpaceMediaImageFromDate(DateTime date) async {
+    final String path = await Utils.localPath;
+    return File('$path/${date.toString()}.png').readAsBytes();
+  }
+
+  Future<void> deleteSpaceMediaImage(SpaceMedia spaceMedia) async {
+    final String path = await Utils.localPath;
+    File('$path/${spaceMedia.date.toString()}.png').delete();
+  }
+
+  Future<void> deleteSpaceMediaImageFromDate(DateTime date) async {
+    final String path = await Utils.localPath;
+    File('$path/${date.toString()}.png').delete();
   }
 }

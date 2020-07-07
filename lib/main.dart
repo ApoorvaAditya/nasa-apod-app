@@ -38,6 +38,7 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider<Media>(create: (_) => Media()),
           ChangeNotifierProvider<SavedProvider>(create: (_) => SavedProvider()),
           ChangeNotifierProvider<SettingsProvider>(create: (_) => SettingsProvider())
+          //ProxyProvider()
         ],
         child: MaterialApp(
           title: Strings.appTitle,

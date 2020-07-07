@@ -63,25 +63,25 @@ class SettingsScreen extends StatelessWidget {
                 settings.setAlbumName(value: value);
               },
             ),
-            SwitchSettingsListTile(
-              title: Strings.downloadOnSaveSettingTitle,
-              subtitle: Strings.downloadOnSaveSettingSubtitle,
-              value: settings.getDownloadOnSave(),
-              onChanged: (value) {
-                settings.setDownloadOnSave(value: value);
-              },
-            ),
-            SwitchSettingsListTile(
-              title: Strings.downloadHqSettingTitle,
-              subtitle: Strings.downloadHqSettingSubtitle,
-              enabled: settings.getDownloadOnSave(),
-              value: settings.getDownloadHq(),
-              onChanged: (value) {
-                if (settings.getDownloadOnSave()) {
-                  settings.setDownloadHq(value: value);
-                }
-              },
-            ),
+            // SwitchSettingsListTile(
+            //   title: Strings.downloadOnSaveSettingTitle,
+            //   subtitle: Strings.downloadOnSaveSettingSubtitle,
+            //   value: settings.getDownloadOnSave(),
+            //   onChanged: (value) {
+            //     settings.setDownloadOnSave(value: value);
+            //   },
+            // ),
+            // SwitchSettingsListTile(
+            //   title: Strings.downloadHqSettingTitle,
+            //   subtitle: Strings.downloadHqSettingSubtitle,
+            //   enabled: settings.getDownloadOnSave(),
+            //   value: settings.getDownloadHq(),
+            //   onChanged: (value) {
+            //     if (settings.getDownloadOnSave()) {
+            //       settings.setDownloadHq(value: value);
+            //     }
+            //   },
+            // ),
             const SettingsGroupListTile(
               title: 'Wallpaper Settings',
             ),
@@ -92,14 +92,14 @@ class SettingsScreen extends StatelessWidget {
               endIndent: 16,
             ),
             const SizedBox(height: 8),
-            SwitchSettingsListTile(
-              value: settings.getAutomaticWallpapers(),
-              title: 'Set Wallpapers Automatically',
-              subtitle: 'Download latest image every day and set it as the wallpaper',
-              onChanged: (value) {
-                settings.setAutomaticWallpaper(value: value);
-              },
-            ),
+            // SwitchSettingsListTile(
+            //   value: settings.getAutomaticWallpapers(),
+            //   title: 'Set Wallpapers Automatically',
+            //   subtitle: 'Download latest image every day and set it as the wallpaper',
+            //   onChanged: (value) {
+            //     settings.setAutomaticWallpaper(value: value);
+            //   },
+            // ),
             ListSettingsListTile(
               title: 'Wallpaper Fit',
               subtitle: 'How wallpapers should fit on screen',
@@ -142,24 +142,24 @@ class SettingsScreen extends StatelessWidget {
                 settings.setDefaultWallpaperScreen(value: DefaultWallpaperScreen.values[index]);
               },
             ),
-            const SettingsGroupListTile(
-              title: 'Notification Settings',
-            ),
-            const Divider(
-              color: Colors.white,
-              height: 1,
-              indent: 16,
-              endIndent: 16,
-            ),
-            const SizedBox(height: 8),
-            SwitchSettingsListTile(
-              title: 'Daily Notifications',
-              subtitle: 'Send notification whenever new image is available?',
-              value: settings.getDailyNotifications(),
-              onChanged: (value) {
-                settings.setDailyNotifications(value: value);
-              },
-            ),
+            // const SettingsGroupListTile(
+            //   title: 'Notification Settings',
+            // ),
+            // const Divider(
+            //   color: Colors.white,
+            //   height: 1,
+            //   indent: 16,
+            //   endIndent: 16,
+            // ),
+            // const SizedBox(height: 8),
+            // SwitchSettingsListTile(
+            //   title: 'Daily Notifications',
+            //   subtitle: 'Send notification whenever new image is available?',
+            //   value: settings.getDailyNotifications(),
+            //   onChanged: (value) {
+            //     settings.setDailyNotifications(value: value);
+            //   },
+            // ),
             const SettingsGroupListTile(
               title: 'Other Settings',
             ),
