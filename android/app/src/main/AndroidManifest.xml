@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="NASA APOD"
+        android:label="Astronomy Picture of the Day"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
