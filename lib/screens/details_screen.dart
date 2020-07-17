@@ -71,6 +71,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     final titleTheme = Theme.of(context).textTheme.headline1;
     final double topPadding = MediaQuery.of(context).padding.top;
     bool pageViewWasSetup = false;
+
     if (_pageController != null) {
       pageViewWasSetup = _pageController.hasClients;
     }
@@ -82,66 +83,76 @@ class _DetailsScreenState extends State<DetailsScreen> {
         spaceMedias = savedProvider.spaceMedias;
       }
     }
-    return Scaffold(
-      key: _scaffoldKey,
-      extendBodyBehindAppBar: true,
-      backgroundColor: Colors.black,
-      appBar: DetailsAppBar(
-        scaffoldKey: _scaffoldKey,
-        spaceMedia: pageViewWasSetup
-            ? (media != null
-                ? currentPageValue < media.spaceMedias.length
-                    ? media.spaceMedias[currentPageValue.floor()]
-                    : media.spaceMedias.last
-                : currentPageValue < spaceMedias.length
-                    ? spaceMedias[currentPageValue.floor()] as SpaceMedia
-                    : spaceMedias.last as SpaceMedia)
-            : spaceMedia,
-        comingFrom: comingFrom,
-        index: currentPageValue.floor(),
-      ),
-      body: BackgroundGradient(
-        height: MediaQuery.of(context).size.height,
-        child: enablePageView
-            ? (media != null
-                ? PageView.builder(
-                    itemCount: media.spaceMedias.length + 1,
-                    controller: _pageController,
-                    itemBuilder: (_, i) {
-                      if (i < media.spaceMedias.length) {
+
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(
+          context,
+          currentPageValue.floor(),
+        );
+        return true;
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        extendBodyBehindAppBar: true,
+        backgroundColor: Colors.black,
+        appBar: DetailsAppBar(
+          scaffoldKey: _scaffoldKey,
+          spaceMedia: pageViewWasSetup
+              ? (media != null
+                  ? currentPageValue < media.spaceMedias.length
+                      ? media.spaceMedias[currentPageValue.floor()]
+                      : media.spaceMedias.last
+                  : currentPageValue < spaceMedias.length
+                      ? spaceMedias[currentPageValue.floor()] as SpaceMedia
+                      : spaceMedias.last as SpaceMedia)
+              : spaceMedia,
+          comingFrom: comingFrom,
+          index: currentPageValue.floor(),
+        ),
+        body: BackgroundGradient(
+          height: MediaQuery.of(context).size.height,
+          child: enablePageView
+              ? (media != null
+                  ? PageView.builder(
+                      itemCount: media.spaceMedias.length + 1,
+                      controller: _pageController,
+                      itemBuilder: (_, i) {
+                        if (i < media.spaceMedias.length) {
+                          return DetailPage(
+                            spaceMedia: media.spaceMedias[i],
+                            topPadding: topPadding,
+                            titleTheme: titleTheme,
+                            index: i,
+                          );
+                        }
+                        return const CenteredCircularProgressIndicator();
+                      },
+                      onPageChanged: (page) {
+                        if (page > media.spaceMedias.length - 3) {
+                          media.loadMore();
+                        }
+                      },
+                    )
+                  : PageView.builder(
+                      itemCount: spaceMedias.length,
+                      controller: _pageController,
+                      itemBuilder: (_, i) {
                         return DetailPage(
-                          spaceMedia: media.spaceMedias[i],
-                          topPadding: topPadding,
-                          titleTheme: titleTheme,
                           index: i,
+                          spaceMedia: spaceMedias[i] as SpaceMedia,
+                          titleTheme: titleTheme,
+                          topPadding: topPadding,
                         );
-                      }
-                      return const CenteredCircularProgressIndicator();
-                    },
-                    onPageChanged: (page) {
-                      if (page > media.spaceMedias.length - 3) {
-                        media.loadMore();
-                      }
-                    },
-                  )
-                : PageView.builder(
-                    itemCount: spaceMedias.length,
-                    controller: _pageController,
-                    itemBuilder: (_, i) {
-                      return DetailPage(
-                        index: i,
-                        spaceMedia: spaceMedias[i] as SpaceMedia,
-                        titleTheme: titleTheme,
-                        topPadding: topPadding,
-                      );
-                    },
-                  ))
-            : DetailPage(
-                spaceMedia: spaceMedia,
-                topPadding: topPadding,
-                titleTheme: titleTheme,
-                index: 0,
-              ),
+                      },
+                    ))
+              : DetailPage(
+                  spaceMedia: spaceMedia,
+                  topPadding: topPadding,
+                  titleTheme: titleTheme,
+                  index: 0,
+                ),
+        ),
       ),
     );
   }
