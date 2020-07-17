@@ -44,12 +44,17 @@ class _SubmitScreenState extends State<SubmitScreen> {
   }
 
   Future<void> _submitImage() async {
+    final String emailBody = '${_titleController.text}\n${_desriptionController.text}\n' +
+        (_imageUrlController.text.isEmpty
+            ? 'The image is attached to this email'
+            : 'Image: <a href="${_imageUrlController.text}">${_titleController.text}</a>') +
+        'Time taken: ${_timeController.text}\nLocation Taken: ${_locationController.text}';
     final Email email = Email(
       recipients: recipients,
       subject: Strings.emailSubject,
-      body: _desriptionController.text + (_imageUrlController.text.isNotEmpty ? '\n${_imageUrlController.text}' : ''),
+      body: emailBody,
       attachmentPaths: [if (_selectedImage != null) _selectedImage.path],
-      isHTML: false,
+      isHTML: true,
     );
     await FlutterEmailSender.send(email);
   }
