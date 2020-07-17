@@ -142,24 +142,24 @@ class SettingsScreen extends StatelessWidget {
                 settings.setDefaultWallpaperScreen(value: DefaultWallpaperScreen.values[index]);
               },
             ),
-            // const SettingsGroupListTile(
-            //   title: 'Notification Settings',
-            // ),
-            // const Divider(
-            //   color: Colors.white,
-            //   height: 1,
-            //   indent: 16,
-            //   endIndent: 16,
-            // ),
-            // const SizedBox(height: 8),
-            // SwitchSettingsListTile(
-            //   title: 'Daily Notifications',
-            //   subtitle: 'Send notification whenever new image is available?',
-            //   value: settings.getDailyNotifications(),
-            //   onChanged: (value) {
-            //     settings.setDailyNotifications(value: value);
-            //   },
-            // ),
+            const SettingsGroupListTile(
+              title: 'Notification Settings',
+            ),
+            const Divider(
+              color: Colors.white,
+              height: 1,
+              indent: 16,
+              endIndent: 16,
+            ),
+            const SizedBox(height: 8),
+            SwitchSettingsListTile(
+              title: 'Daily Notifications',
+              subtitle: 'Send notification whenever new image is available?',
+              value: settings.getDailyNotifications(),
+              onChanged: (value) {
+                settings.setDailyNotifications(value: value);
+              },
+            ),
             const SettingsGroupListTile(
               title: 'Other Settings',
             ),

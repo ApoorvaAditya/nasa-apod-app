@@ -190,7 +190,7 @@ class WallpaperButton extends StatelessWidget {
                     Icons.home,
                     color: Colors.white,
                   ),
-                  title: Text(
+                  title: const Text(
                     'Home Screen Only',
                     style: whiteTextStyle,
                   ),
@@ -204,7 +204,7 @@ class WallpaperButton extends StatelessWidget {
                     Icons.screen_lock_portrait,
                     color: Colors.white,
                   ),
-                  title: Text(
+                  title: const Text(
                     'Lock Screen Only',
                     style: whiteTextStyle,
                   ),
@@ -218,7 +218,7 @@ class WallpaperButton extends StatelessWidget {
                     Icons.filter,
                     color: Colors.white,
                   ),
-                  title: Text(
+                  title: const Text(
                     'Both Screens',
                     style: whiteTextStyle,
                   ),

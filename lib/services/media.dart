@@ -40,8 +40,6 @@ class Media with ChangeNotifier {
       return Future.value();
     }
     _isLoading = true;
-    // ignore: avoid_print
-    print('loading');
     return _getAPODs().then((_) {
       _isLoading = false;
       notifyListeners();

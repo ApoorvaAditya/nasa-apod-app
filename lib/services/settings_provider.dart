@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:nasa_apod_app/utils.dart';
 
 enum WallpaperCropMethod {
   fillWholeScreen,
@@ -26,6 +27,7 @@ class SettingsProvider with ChangeNotifier {
   String defaultWallpaperScreen = 'defaultWallpaperScreen';
   String dailyNotifications = 'dailyNotifications';
   String fontSize = 'fontSize';
+  String latestDate = 'latestDate';
 
   Box _box;
 
@@ -58,6 +60,9 @@ class SettingsProvider with ChangeNotifier {
     }
     if (!_box.containsKey(fontSize)) {
       setFontSize(value: 16.0);
+    }
+    if (!_box.containsKey(latestDate)) {
+      Utils.getLatesetPostDate.then((value) => setLatestDate(value: value));
     }
   }
 
@@ -101,6 +106,10 @@ class SettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setLatestDate({DateTime value}) {
+    _box.put(latestDate, value);
+  }
+
   bool getDownloadOnSave() => _box.get(downloadOnSaveKey) as bool;
 
   bool getDownloadHq() => _box.get(downloadHq) as bool;
@@ -121,4 +130,6 @@ class SettingsProvider with ChangeNotifier {
   bool getDailyNotifications() => _box.get(dailyNotifications) as bool;
 
   double getFontSize() => _box.get(fontSize) as double;
+
+  DateTime getLatestDate() => _box.get(latestDate) as DateTime;
 }

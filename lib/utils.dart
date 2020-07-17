@@ -5,6 +5,7 @@ import 'package:http/http.dart' show Response, get;
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart' show canLaunch, launch;
 
+// ignore: avoid_classes_with_only_static_members
 class Utils {
   static String removeNewLinesAndExtraSpace(String text) {
     if (text == null) return '';

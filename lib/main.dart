@@ -13,6 +13,7 @@ import 'services/media.dart';
 import 'services/saved_provider.dart';
 import 'services/settings_provider.dart';
 import 'strings.dart';
+// import 'utils.dart';
 
 void main() => runApp(MyApp());
 
@@ -58,7 +59,9 @@ class _MyAppState extends State<MyApp> {
           ),
           initialRoute: LoadingScreen.routeName,
           routes: {
-            AllPicturesScreeen.routeName: (_) => AllPicturesScreeen(),
+            AllPicturesScreeen.routeName: (_) => AllPicturesScreeen(
+                  showNotification: () {},
+                ),
             PastPicturesScreen.routeName: (_) => PastPicturesScreen(),
             SubmitScreen.routeName: (_) => SubmitScreen(),
             DetailsScreen.routeName: (_) => DetailsScreen(),

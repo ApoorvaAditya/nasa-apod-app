@@ -34,6 +34,7 @@ dependencies:
   app_review: ^1.1.2
   background_fetch: ^0.6.0
   scroll_to_index: ^1.0.6
+  flutter_local_notifications: ^1.4.4+2
 
 dev_dependencies:
   lint: ^1.0.0

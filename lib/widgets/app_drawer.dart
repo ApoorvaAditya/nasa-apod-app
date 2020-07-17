@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
               child: Text(
-                'NASA Astronomy Picture of the Day',
+                'Astronomy Picture of the Day',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
