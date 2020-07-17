@@ -52,7 +52,10 @@ class _AllPicturesScreeenState extends State<AllPicturesScreeen> {
   }
 
   void scrollToIndex(int index) {
-    _autoController.scrollToIndex(index, preferPosition: AutoScrollPosition.begin);
+    _autoController.scrollToIndex(
+      index,
+      preferPosition: AutoScrollPosition.begin,
+    );
   }
 
   @override

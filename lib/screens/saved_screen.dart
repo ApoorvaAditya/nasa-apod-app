@@ -15,7 +15,10 @@ class SavedScreen extends StatelessWidget {
   final AutoScrollController _autoController = AutoScrollController();
 
   void scrollToIndex(int index) {
-    _autoController.scrollToIndex(index, preferPosition: AutoScrollPosition.begin);
+    _autoController.scrollToIndex(
+      index,
+      preferPosition: AutoScrollPosition.begin,
+    );
   }
 
   @override

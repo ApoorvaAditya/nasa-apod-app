@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_apod_app/screens/all_pictures_screen.dart';
-import 'package:nasa_apod_app/services/saved_provider.dart';
-import 'package:nasa_apod_app/widgets/centered_circular_progress_indicator.dart';
 import 'package:provider/provider.dart' show Provider;
 
 import '../models/space_media.dart';
 import '../services/media.dart' show Media;
+import '../services/saved_provider.dart';
 import '../widgets/background_gradient.dart';
+import '../widgets/centered_circular_progress_indicator.dart';
 import '../widgets/details_screen_widgets/detail_page.dart';
+import 'all_pictures_screen.dart';
 
 class DetailsScreen extends StatefulWidget {
   static const routeName = '/details-screen';
@@ -39,6 +39,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       index = arguments['index'] as int;
       comingFrom = arguments['comingFrom'] as String;
       if (enablePageView) {
+        currentPageValue = index.toDouble();
         _pageController = PageController(
           initialPage: enablePageView ? index : 0,
           keepPage: true,
@@ -69,9 +70,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     final titleTheme = Theme.of(context).textTheme.headline1;
     final double topPadding = MediaQuery.of(context).padding.top;
-    bool pageViewSetup = false;
+    bool pageViewWasSetup = false;
     if (_pageController != null) {
-      pageViewSetup = _pageController.hasClients;
+      pageViewWasSetup = _pageController.hasClients;
     }
     if (enablePageView) {
       if (comingFrom == AllPicturesScreeen.routeName) {
@@ -87,7 +88,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       backgroundColor: Colors.black,
       appBar: DetailsAppBar(
         scaffoldKey: _scaffoldKey,
-        spaceMedia: pageViewSetup
+        spaceMedia: pageViewWasSetup
             ? (media != null
                 ? currentPageValue < media.spaceMedias.length
                     ? media.spaceMedias[currentPageValue.floor()]

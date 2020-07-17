@@ -78,6 +78,7 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
           Icons.arrow_back,
         ),
         onPressed: () {
+          print(index);
           Navigator.pop(context, index);
         },
       ),

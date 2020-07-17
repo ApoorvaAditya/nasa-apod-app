@@ -89,9 +89,9 @@ class AppDrawer extends StatelessWidget {
                     fit: BoxFit.contain,
                     height: 50,
                   ),
-                  applicationName: 'NASA APOD',
-                  applicationVersion: '1.0.0',
-                  applicationLegalese: 'Yeet yeet',
+                  applicationName: 'Astronomy Picture of the Day',
+                  applicationVersion: '1.1.0',
+                  applicationLegalese: 'See, save, and learn about awe-inspiring and beautiful space pictures',
                 );
               },
             )

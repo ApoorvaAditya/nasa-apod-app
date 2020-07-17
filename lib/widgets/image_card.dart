@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart' show parseFragment;
-import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../models/space_media.dart';
 import '../screens/details_screen.dart' show DetailsScreen;

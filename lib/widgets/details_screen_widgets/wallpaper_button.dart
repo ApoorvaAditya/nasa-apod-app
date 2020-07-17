@@ -15,7 +15,6 @@ class WallpaperButton extends StatelessWidget {
   final String url;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final BuildContext context;
-  static const BOTH_SCREENS = 3;
 
   const WallpaperButton({
     Key key,
@@ -46,12 +45,7 @@ class WallpaperButton extends StatelessWidget {
 
     String result;
     try {
-      if (location < 3) {
-        result = await WallpaperManager.setWallpaperFromFile(croppedWallpaperImage.path, location);
-      } else {
-        result = await WallpaperManager.setWallpaperFromFile(croppedWallpaperImage.path, WallpaperManager.HOME_SCREEN);
-        result = await WallpaperManager.setWallpaperFromFile(croppedWallpaperImage.path, WallpaperManager.LOCK_SCREEN);
-      }
+      result = await WallpaperManager.setWallpaperFromFile(croppedWallpaperImage.path, location);
     } on PlatformException {
       result = 'Failed to get wallpaper';
     }
@@ -230,7 +224,7 @@ class WallpaperButton extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.of(context).pop();
-                    setWallpaper(BOTH_SCREENS);
+                    setWallpaper(WallpaperManager.BOTH_SCREENS);
                   },
                 ),
               ],
