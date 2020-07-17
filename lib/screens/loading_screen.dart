@@ -144,16 +144,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => AllPicturesScreeen(
-                showNotification: () {
-                  showNotification(
-                    title: 'New Image Available',
-                    body: 'Yeet',
-                  );
-                },
-              ),
-            ));
+            Navigator.of(context).pushReplacementNamed(AllPicturesScreeen.routeName);
           });
         }
         return Scaffold(

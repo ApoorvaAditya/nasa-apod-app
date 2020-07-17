@@ -20,10 +20,6 @@ import '../widgets/image_card.dart';
 class AllPicturesScreeen extends StatefulWidget {
   static const routeName = '/all-pics';
 
-  final Function showNotification;
-
-  const AllPicturesScreeen({Key key, this.showNotification}) : super(key: key);
-
   @override
   _AllPicturesScreeenState createState() => _AllPicturesScreeenState();
 }
@@ -145,12 +141,6 @@ class _AllPicturesScreeenState extends State<AllPicturesScreeen> {
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          widget.showNotification();
-        },
-        child: Icon(Icons.alarm),
       ),
     );
   }
