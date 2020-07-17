@@ -44,11 +44,12 @@ class _SubmitScreenState extends State<SubmitScreen> {
   }
 
   Future<void> _submitImage() async {
-    final String emailBody = '${_titleController.text}\n${_desriptionController.text}\n' +
-        (_imageUrlController.text.isEmpty
-            ? 'The image is attached to this email'
-            : 'Image: <a href="${_imageUrlController.text}">${_titleController.text}</a>') +
-        'Time taken: ${_timeController.text}\nLocation Taken: ${_locationController.text}';
+    final String emailBody =
+        'Title: ${_titleController.text}<br><br>Description: ${_desriptionController.text}<br><br>' +
+            (_imageUrlController.text.isEmpty
+                ? 'The image is attached to this email'
+                : 'Image: <a href="${_imageUrlController.text}">${_imageUrlController.text}</a>') +
+            '<br><br>Time taken: ${_timeController.text}<br>Location Taken: ${_locationController.text}';
     final Email email = Email(
       recipients: recipients,
       subject: Strings.emailSubject,
@@ -131,6 +132,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                         },
                         textInputAction: TextInputAction.next,
                         onFieldSubmitted: (_) {
+                          _selectedImage = null;
                           setState(() {});
                           _titleFocusNode.requestFocus();
                         },
