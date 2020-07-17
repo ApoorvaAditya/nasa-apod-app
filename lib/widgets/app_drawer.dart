@@ -48,12 +48,12 @@ class AppDrawer extends StatelessWidget {
               prevScreen: prevScreen,
               routeName: PastPicturesScreen.routeName,
             ),
-            // DrawerListItem(
-            //   icon: Icons.file_upload,
-            //   title: Strings.submitScreenTitle,
-            //   prevScreen: prevScreen,
-            //   routeName: SubmitScreen.routeName,
-            // ),
+            DrawerListItem(
+              icon: Icons.file_upload,
+              title: Strings.submitScreenTitle,
+              prevScreen: prevScreen,
+              routeName: SubmitScreen.routeName,
+            ),
             DrawerListItem(
               icon: Icons.bookmark,
               title: Strings.savedScreenTitle,

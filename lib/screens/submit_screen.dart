@@ -233,23 +233,51 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   text: Strings.submit,
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      _submitImage();
+                      showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: const Text(
+                            'Note',
+                            style: whiteTextStyle,
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                'Cancel',
+                                style: whiteTextStyle,
+                              ),
+                            ),
+                            FlatButton(
+                              onPressed: _submitImage,
+                              child: const Text(
+                                'Continue',
+                                style: whiteTextStyle,
+                              ),
+                            ),
+                          ],
+                          content: SingleChildScrollView(
+                            child: HtmlWidget(
+                              Strings.methodsTosubmit,
+                              hyperlinkColor: Colors.blue,
+                              textStyle: whiteTextStyle,
+                              customStylesBuilder: (element) {
+                                switch (element.localName) {
+                                  case 'a':
+                                    return ['text-decoration', 'none'];
+                                  case 'p':
+                                    return ['text-align', 'justify'];
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          backgroundColor: darkBlue,
+                        ),
+                      );
                     }
-                  },
-                ),
-                const SizedBox(height: 20),
-                HtmlWidget(
-                  Strings.methodsTosubmit,
-                  hyperlinkColor: Colors.blue,
-                  textStyle: whiteTextStyle,
-                  customStylesBuilder: (element) {
-                    switch (element.localName) {
-                      case 'a':
-                        return ['text-decoration', 'none'];
-                      case 'p':
-                        return ['text-align', 'justify'];
-                    }
-                    return null;
                   },
                 ),
               ],
