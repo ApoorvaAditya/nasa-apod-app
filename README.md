@@ -3,13 +3,21 @@
 See beautiful and amazing space pictures and read about them with a sleek and smooth UI. This app is based on NASA's Astronomy Picture of the Day.
 
 Features:
+
 • Swipe through pictures without going back to main page every time
+
 • Save/Bookmark pictures you like
+
 • Download pictures to your phone
+
 • Submit your own pictures
+
 • Set picture as wallpapers
+
 • Notifications of new pictures
+
 • Look up picture of a specific date (try out your birthday!)
+
 • Automatically set new picture as wallpaper everyday
 
 ## Screenshots
