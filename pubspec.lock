@@ -1160,9 +1160,11 @@ packages:
   wallpaper_manager:
     dependency: "direct main"
     description:
-      name: wallpaper_manager
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "2175f248eae48a0a3f85715ac7e7dbc35b790278"
+      url: "https://github.com/codenameakshay/wallpaper_manager.git"
+    source: git
     version: "1.0.10"
   watcher:
     dependency: transitive
