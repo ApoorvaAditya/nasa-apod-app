@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
 import 'package:nasa_apod_app/screens/saved_screen.dart';
+import 'package:nasa_apod_app/services/saved_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/space_media.dart';
-import '../../services/saved_provider.dart';
 
 class SaveButton extends StatefulWidget {
   final SpaceMedia spaceMedia;

@@ -41,7 +41,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
         currentPageValue = index.toDouble();
         _pageController = PageController(
           initialPage: enablePageView ? index : 0,
-          keepPage: true,
         );
         _pageController.addListener(() {
           setState(() {

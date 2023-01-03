@@ -65,7 +65,7 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
   }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
       elevation: 0,
       backgroundColor: Colors.transparent,
       leading: IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.arrow_back,
         ),
         onPressed: () {
@@ -166,9 +166,9 @@ class SpaceTextColumn extends StatelessWidget {
           titleTheme: titleTheme,
           index: index,
         ),
-        Divider(color: Colors.white54),
+        const Divider(color: Colors.white54),
         SpaceMediaDescription(description: spaceMedia.description),
-        Divider(color: Colors.white54),
+        const Divider(color: Colors.white54),
         CreditsDateFootnote(spaceMedia: spaceMedia)
       ],
     );
@@ -223,13 +223,12 @@ class SpaceMediaDescription extends StatelessWidget {
         color: Colors.white,
         fontSize: settings.getFontSize(),
       ),
-      hyperlinkColor: Colors.lightBlue,
       customStylesBuilder: (element) {
         switch (element.localName) {
           case 'a':
-            return ['text-decoration', 'none'];
+            return {'text-decoration': 'none', 'color': 'blue'};
           case 'p':
-            return ['text-align', 'justify'];
+            return {'text-align': 'justify'};
         }
         return null;
       },

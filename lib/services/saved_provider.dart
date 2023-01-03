@@ -4,15 +4,14 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:nasa_apod_app/models/space_media.dart';
 import 'package:nasa_apod_app/utils.dart';
 
 class SavedProvider with ChangeNotifier {
   static const String savedBoxName = 'saved';
   String dateListKey = 'dateList';
-  List dates;
-  List spaceMedias = [];
+  List<DateTime> dates;
+  List<SpaceMedia> spaceMedias = [];
   Box _box;
 
   SavedProvider() {
@@ -23,14 +22,14 @@ class SavedProvider with ChangeNotifier {
 
   void initializeValues() {
     if (_box.containsKey(dateListKey)) {
-      dates = _box.get(dateListKey) as List;
+      dates = _box.get(dateListKey) as List<DateTime>;
     } else {
       dates = [];
       _box.put(dateListKey, []);
     }
     if (_box.keys.length > 1) {
       for (final date in dates) {
-        spaceMedias.add(_box.get(date.toString()));
+        spaceMedias.add(_box.get(date.toString()) as SpaceMedia);
       }
     }
   }
@@ -70,7 +69,7 @@ class SavedProvider with ChangeNotifier {
   }
 
   Future<void> saveSpaceMediaImage(SpaceMedia spaceMedia) async {
-    final http.Response response = await http.get(spaceMedia.hdImageUrl ?? spaceMedia.url);
+    final http.Response response = await http.get(Uri(path: spaceMedia.hdImageUrl ?? spaceMedia.url));
     final String path = await Utils.localPath;
     File('$path/${spaceMedia.date.toString()}.png').writeAsBytes(response.bodyBytes);
   }

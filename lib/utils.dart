@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:html/parser.dart' as html;
 import 'package:http/http.dart' show Response, get;
 import 'package:path_provider/path_provider.dart';
-import 'package:url_launcher/url_launcher.dart' show canLaunch, launch;
+import 'package:url_launcher/url_launcher_string.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class Utils {
@@ -26,15 +26,15 @@ class Utils {
   }
 
   static Future<void> launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
     } else {
       throw 'Could not launch $url';
     }
   }
 
   static Future<DateTime> get getLatesetPostDate async {
-    final Response repsonse = await get('https://apod.nasa.gov/apod/astropix.html');
+    final Response repsonse = await get(Uri(path: 'https://apod.nasa.gov/apod/astropix.html'));
     if (repsonse.statusCode >= 400) return null;
     final parsed = html.parse(repsonse.body);
     return DateTime.parse(convertDateToParsable(parsed.getElementsByTagName('p')[1].innerHtml.split('\n')[2]));

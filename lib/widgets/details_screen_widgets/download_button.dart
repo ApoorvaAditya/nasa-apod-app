@@ -12,7 +12,7 @@ class DownloadButton extends StatelessWidget {
   const DownloadButton({this.scaffoldKey, this.url});
 
   Future<void> _saveImage(BuildContext context) async {
-    scaffoldKey.currentState.showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: const Text('Downloading Image...'),
         duration: const Duration(
@@ -21,7 +21,7 @@ class DownloadButton extends StatelessWidget {
         backgroundColor: Colors.black,
         action: SnackBarAction(
           label: 'Hide',
-          onPressed: () => scaffoldKey.currentState.hideCurrentSnackBar(),
+          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
         ),
       ),
     );
@@ -31,7 +31,7 @@ class DownloadButton extends StatelessWidget {
     bool errorEncountered = false;
     bool success = false;
     try {
-      response = await http.get(url);
+      response = await http.get(Uri(path: url));
       success = await ImageSave.saveImage(
         response.bodyBytes,
         "jpg",
@@ -41,8 +41,8 @@ class DownloadButton extends StatelessWidget {
       errorEncountered = true;
     }
 
-    scaffoldKey.currentState.hideCurrentSnackBar();
-    scaffoldKey.currentState.showSnackBar(
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: (success && !errorEncountered)
             ? const Text('Saved Image to $albumName')
@@ -55,7 +55,7 @@ class DownloadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.file_download),
+      icon: const Icon(Icons.file_download),
       onPressed: () {
         _saveImage(context);
       },

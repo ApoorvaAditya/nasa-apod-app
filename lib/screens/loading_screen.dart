@@ -49,8 +49,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
     const initializationSettings =
         InitializationSettings(android: androidInitializationSettings, iOS: iosInitializationSettings);
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onSelectNotification);
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onSelectNotification,
+    );
   }
 
   Future<void> onSelectNotification(NotificationResponse notificationResponse) async {

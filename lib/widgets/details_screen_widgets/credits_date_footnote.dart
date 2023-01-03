@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:intl/intl.dart' show DateFormat;
-
 import 'package:nasa_apod_app/models/space_media.dart';
 
 class CreditsDateFootnote extends StatelessWidget {
@@ -18,19 +17,25 @@ class CreditsDateFootnote extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         if (spaceMedia.credits != null) ...[
-          Icon(
+          const Icon(
             Icons.copyright,
             color: Colors.white54,
           ),
           const SizedBox(width: 10),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width * 0.5,
             child: HtmlWidget(
               spaceMedia.credits.split('<br>')[1].trim(),
               textStyle: const TextStyle(
                 color: Colors.white54,
               ),
-              hyperlinkColor: Colors.white54,
+              customStylesBuilder: (element) {
+                switch (element.localName) {
+                  case 'a':
+                    return {'color': "FFFFFF"};
+                }
+                return null;
+              },
             ),
           ),
         ] else ...[

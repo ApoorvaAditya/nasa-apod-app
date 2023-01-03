@@ -74,7 +74,7 @@ class _AllPicturesScreeenState extends State<AllPicturesScreeen> {
             controller: _autoController,
             slivers: <Widget>[
               SliverAppBar(
-                title: Text(Strings.allPicturesScreenTitle),
+                title: const Text(Strings.allPicturesScreenTitle),
                 floating: true,
                 bottom: connected ? null : LostConnectionBar(),
               ),
@@ -82,7 +82,7 @@ class _AllPicturesScreeenState extends State<AllPicturesScreeen> {
                 delegate: SliverChildBuilderDelegate(
                   (_, index) {
                     if (spaceMedias.isEmpty) {
-                      return Container(
+                      return SizedBox(
                         height: Utils.getHeightOfPage(context),
                         width: double.infinity,
                         child: const CenteredCircularProgressIndicator(),

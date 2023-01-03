@@ -241,7 +241,7 @@ class FontListTile extends StatelessWidget {
           context: context,
           builder: (_) => Container(
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: darkBlue,
               border: Border(
                 top: BorderSide(
@@ -250,7 +250,6 @@ class FontListTile extends StatelessWidget {
               ),
             ),
             child: ListView(
-              scrollDirection: Axis.vertical,
               shrinkWrap: true,
               children: [
                 Text(
@@ -356,7 +355,7 @@ class ListSettingsListTile extends StatelessWidget {
           context: context,
           builder: (_) => Container(
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: darkBlue,
               border: Border(
                 top: BorderSide(
@@ -514,7 +513,7 @@ class TextSettingsListTile extends StatelessWidget {
           isScrollControlled: true,
           builder: (context) => Container(
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: darkBlue,
               border: Border(
                 top: BorderSide(
@@ -619,7 +618,7 @@ class BottomSheetTextField extends StatelessWidget {
           labelText: label,
           labelStyle: whiteTextStyle,
           hintText: hint,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Colors.white30,
           ),
           focusedBorder: buildWhiteOutlineBorder(),

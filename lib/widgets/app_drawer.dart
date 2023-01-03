@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:nasa_apod_app/constants.dart';
 import 'package:nasa_apod_app/screens/all_pictures_screen.dart';
 import 'package:nasa_apod_app/screens/past_pictures_screen.dart';
@@ -19,12 +18,11 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       child: BackgroundGradient(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: MediaQuery.of(context).padding.top),
             DrawerHeaderImage(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
               child: Text(
                 'Astronomy Picture of the Day',
                 textAlign: TextAlign.center,
@@ -66,13 +64,13 @@ class AppDrawer extends StatelessWidget {
               routeName: SettingsScreen.routeName,
             ),
             const Spacer(),
-            Divider(
+            const Divider(
               color: Colors.black,
               height: 0,
               thickness: 1,
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.info,
                 color: Colors.white,
               ),
@@ -104,7 +102,7 @@ class AppDrawer extends StatelessWidget {
 class DrawerHeaderImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Center(
         child: Image.asset(

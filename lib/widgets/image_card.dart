@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart' show parseFragment;
-
 import 'package:nasa_apod_app/models/space_media.dart';
 import 'package:nasa_apod_app/screens/details_screen.dart' show DetailsScreen;
 import 'package:nasa_apod_app/widgets/space_display_image.dart';
@@ -24,12 +23,15 @@ class ImageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final indexOfViewedItem = await Navigator.of(context).pushNamed(DetailsScreen.routeName, arguments: {
-          'enablePageView': true,
-          'spaceMedia': spaceMedia,
-          'index': index,
-          'comingFrom': comingFrom,
-        });
+        final indexOfViewedItem = await Navigator.of(context).pushNamed(
+          DetailsScreen.routeName,
+          arguments: {
+            'enablePageView': true,
+            'spaceMedia': spaceMedia,
+            'index': index,
+            'comingFrom': comingFrom,
+          },
+        );
         scrollToFunction(indexOfViewedItem as int);
       },
       child: Card(
@@ -104,10 +106,10 @@ class TextBackground extends StatelessWidget {
         child: Container(
           width: MediaQuery.of(context).size.width - 8,
           height: 150,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.black87, Colors.black12, Colors.transparent],
-              stops: const [0.0, 0.7, 1.0],
+              stops: [0.0, 0.7, 1.0],
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
             ),
@@ -135,7 +137,7 @@ class SpaceMediaMinimizedDetails extends StatelessWidget {
     return Positioned(
       bottom: 25,
       left: 25,
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.85,
         child: Column(
           children: <Widget>[

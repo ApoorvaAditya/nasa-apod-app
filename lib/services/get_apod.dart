@@ -17,7 +17,7 @@ Future<SpaceMedia> getAPOD({DateTime date}) async {
   Response response;
   Document document;
   try {
-    response = await get('https://apod.nasa.gov/apod/ap$dateString.html');
+    response = await get(Uri(path: 'https://apod.nasa.gov/apod/ap$dateString.html'));
     document = parse(response.body);
   } on SocketException {
     rethrow;

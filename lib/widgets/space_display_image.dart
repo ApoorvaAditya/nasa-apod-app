@@ -17,15 +17,14 @@ class SpaceDisplayImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExtendedImage.network(
       type == 'image' ? url : Utils.getYtThumbnailLink(url),
-      cache: true,
       fit: BoxFit.contain,
       loadStateChanged: (ExtendedImageState state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
-            return Container(
+            return const SizedBox(
               height: 300,
               width: double.infinity,
-              child: const CenteredCircularProgressIndicator(),
+              child: CenteredCircularProgressIndicator(),
             );
             break;
           case LoadState.completed:
@@ -35,7 +34,7 @@ class SpaceDisplayImage extends StatelessWidget {
                   image: state.extendedImageInfo?.image,
                 ),
                 if (type == 'video')
-                  Positioned.fill(
+                  const Positioned.fill(
                     child: Icon(
                       Icons.play_circle_filled,
                       color: Colors.white,
@@ -50,7 +49,7 @@ class SpaceDisplayImage extends StatelessWidget {
               onTap: () {
                 state.reLoadImage();
               },
-              child: Container(
+              child: const SizedBox(
                 height: 300,
                 width: double.infinity,
                 child: Center(

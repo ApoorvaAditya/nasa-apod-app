@@ -11,21 +11,25 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (icon != null) {
-      return RaisedButton.icon(
+      return ElevatedButton.icon(
         icon: icon,
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        textColor: Colors.white,
-        elevation: 10,
-        color: const Color.fromRGBO(0, 24, 57, 1),
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          elevation: 10,
+          foregroundColor: Colors.white,
+          backgroundColor: const Color.fromRGBO(0, 24, 57, 1),
+        ),
         label: Text(
           text,
         ),
         onPressed: onPressed,
       );
     }
-    return RaisedButton(
-      elevation: 10,
-      color: const Color.fromRGBO(0, 24, 57, 1),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        elevation: 10,
+        backgroundColor: const Color.fromRGBO(0, 24, 57, 1),
+      ),
       onPressed: onPressed,
       child: Text(
         text,

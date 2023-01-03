@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:share/share.dart' show Share;    
+import 'package:share/share.dart' show Share;
 
 class ShareButton extends StatelessWidget {
   const ShareButton({
@@ -12,7 +12,7 @@ class ShareButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.share),
+      icon: const Icon(Icons.share),
       onPressed: () {
         Share.share(url);
       },

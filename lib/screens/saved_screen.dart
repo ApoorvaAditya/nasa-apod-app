@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nasa_apod_app/models/space_media.dart';
 import 'package:nasa_apod_app/services/saved_provider.dart';
 import 'package:nasa_apod_app/strings.dart';
 import 'package:nasa_apod_app/widgets/app_drawer.dart';
@@ -46,7 +45,7 @@ class SavedScreen extends StatelessWidget {
                     child: ImageCard(
                       index: index,
                       comingFrom: SavedScreen.routeName,
-                      spaceMedia: savedProvider.spaceMedias[index] as SpaceMedia,
+                      spaceMedia: savedProvider.spaceMedias[index],
                       scrollToFunction: scrollToIndex,
                     ),
                   );

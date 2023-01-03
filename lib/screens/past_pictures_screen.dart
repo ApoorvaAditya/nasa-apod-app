@@ -69,10 +69,12 @@ class _TimeMachineContentState extends State<TimeMachineContent> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => DetailsScreen(),
-        settings: RouteSettings(arguments: {
-          'enablePageView': false,
-          'spaceMedia': spaceMedia,
-        }),
+        settings: RouteSettings(
+          arguments: {
+            'enablePageView': false,
+            'spaceMedia': spaceMedia,
+          },
+        ),
       ),
     );
     setState(() {

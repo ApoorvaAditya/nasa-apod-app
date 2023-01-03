@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image/image.dart' as img;
+import 'package:nasa_apod_app/constants.dart';
 import 'package:nasa_apod_app/services/settings_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaper_manager/wallpaper_manager.dart';
-
-import '../../constants.dart';
 
 class WallpaperButton extends StatelessWidget {
   final String url;
@@ -24,7 +23,7 @@ class WallpaperButton extends StatelessWidget {
   }) : super(key: key);
 
   Future<void> setWallpaper(int location) async {
-    scaffoldKey.currentState.showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: const Text('Downloading Image'),
         duration: const Duration(days: 365),
@@ -32,7 +31,7 @@ class WallpaperButton extends StatelessWidget {
         action: SnackBarAction(
           label: 'Hide',
           onPressed: () {
-            scaffoldKey.currentState.hideCurrentSnackBar();
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
           },
         ),
       ),
@@ -50,8 +49,8 @@ class WallpaperButton extends StatelessWidget {
       result = 'Failed to get wallpaper';
     }
 
-    scaffoldKey.currentState.hideCurrentSnackBar();
-    scaffoldKey.currentState.showSnackBar(
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(result),
         backgroundColor: Colors.black,
@@ -186,7 +185,7 @@ class WallpaperButton extends StatelessWidget {
                   color: Colors.white,
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.home,
                     color: Colors.white,
                   ),
@@ -200,7 +199,7 @@ class WallpaperButton extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.screen_lock_portrait,
                     color: Colors.white,
                   ),
@@ -214,7 +213,7 @@ class WallpaperButton extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.filter,
                     color: Colors.white,
                   ),
@@ -240,7 +239,7 @@ class WallpaperButton extends StatelessWidget {
     final SettingsProvider settings = Provider.of<SettingsProvider>(context, listen: false);
     final DefaultWallpaperScreen screen = settings.getDefaultWallpaperScreen();
     return IconButton(
-      icon: Icon(Icons.wallpaper),
+      icon: const Icon(Icons.wallpaper),
       onPressed: () {
         if (screen == DefaultWallpaperScreen.alwaysAsk) {
           askUser(context);

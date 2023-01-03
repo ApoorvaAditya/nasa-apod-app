@@ -20,7 +20,7 @@ class ImageScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: Container(
-        decoration: BoxDecoration(color: Colors.black),
+        decoration: const BoxDecoration(color: Colors.black),
         child: Center(
           child: PhotoView(
             heroAttributes: PhotoViewHeroAttributes(tag: index),
