@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
 import 'package:photo_view/photo_view.dart' show PhotoView, PhotoViewHeroAttributes;
-
-import '../models/space_media.dart';
 
 class ImageScreen extends StatelessWidget {
   final SpaceMedia spaceMedia;

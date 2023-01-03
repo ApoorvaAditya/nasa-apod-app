@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_save/image_save.dart';
+import 'package:nasa_apod_app/services/settings_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../../services/settings_provider.dart';
 
 class DownloadButton extends StatelessWidget {
   static const String albumName = 'Astronomy Pictures';

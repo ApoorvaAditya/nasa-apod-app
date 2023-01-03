@@ -2,11 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
-import '../models/space_media.dart';
-import '../utils.dart';
-import 'get_apod.dart';
+import 'package:nasa_apod_app/constants.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
+import 'package:nasa_apod_app/services/get_apod.dart';
+import 'package:nasa_apod_app/utils.dart';
 
 class Media with ChangeNotifier {
   bool _isLoading = false;

@@ -1,14 +1,12 @@
 import 'package:app_review/app_review.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:nasa_apod_app/constants.dart';
+import 'package:nasa_apod_app/services/settings_provider.dart';
+import 'package:nasa_apod_app/strings.dart';
+import 'package:nasa_apod_app/widgets/app_drawer.dart';
+import 'package:nasa_apod_app/widgets/background_gradient.dart';
 import 'package:provider/provider.dart';
-
-import '../constants.dart';
-import '../services/settings_provider.dart';
-import '../strings.dart';
-import '../widgets/app_drawer.dart';
-import '../widgets/background_gradient.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const routeName = '/settings';

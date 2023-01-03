@@ -6,13 +6,13 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../constants.dart';
-import '../strings.dart';
-import '../utils.dart';
-import '../widgets/app_drawer.dart';
-import '../widgets/background_gradient.dart';
-import '../widgets/centered_circular_progress_indicator.dart';
-import '../widgets/custom_button.dart';
+import 'package:nasa_apod_app/constants.dart';
+import 'package:nasa_apod_app/strings.dart';
+import 'package:nasa_apod_app/utils.dart';
+import 'package:nasa_apod_app/widgets/app_drawer.dart';
+import 'package:nasa_apod_app/widgets/background_gradient.dart';
+import 'package:nasa_apod_app/widgets/centered_circular_progress_indicator.dart';
+import 'package:nasa_apod_app/widgets/custom_button.dart';
 
 class SubmitScreen extends StatefulWidget {
   static const routeName = '/submit';

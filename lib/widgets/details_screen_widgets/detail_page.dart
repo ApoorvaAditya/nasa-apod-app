@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
+import 'package:nasa_apod_app/screens/image_screen.dart';
+import 'package:nasa_apod_app/services/settings_provider.dart';
+import 'package:nasa_apod_app/utils.dart';
+import 'package:nasa_apod_app/widgets/details_screen_widgets/credits_date_footnote.dart';
+import 'package:nasa_apod_app/widgets/details_screen_widgets/download_button.dart';
+import 'package:nasa_apod_app/widgets/details_screen_widgets/save_button.dart';
+import 'package:nasa_apod_app/widgets/details_screen_widgets/share_button.dart';
+import 'package:nasa_apod_app/widgets/details_screen_widgets/wallpaper_button.dart';
+import 'package:nasa_apod_app/widgets/space_display_image.dart';
 import 'package:provider/provider.dart';
-
-import '../../models/space_media.dart';
-import '../../screens/image_screen.dart';
-import '../../services/settings_provider.dart';
-import '../../utils.dart';
-import '../../widgets/space_display_image.dart';
-import '../details_screen_widgets/download_button.dart';
-import '../details_screen_widgets/share_button.dart';
-import 'credits_date_footnote.dart';
-import 'save_button.dart';
-import 'wallpaper_button.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
+import 'package:nasa_apod_app/services/saved_provider.dart';
+import 'package:nasa_apod_app/strings.dart';
+import 'package:nasa_apod_app/widgets/app_drawer.dart';
+import 'package:nasa_apod_app/widgets/background_gradient.dart';
+import 'package:nasa_apod_app/widgets/image_card.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-
-import '../models/space_media.dart';
-import '../services/saved_provider.dart';
-import '../strings.dart';
-import '../widgets/app_drawer.dart';
-import '../widgets/background_gradient.dart';
-import '../widgets/image_card.dart';
 
 class SavedScreen extends StatelessWidget {
   static const routeName = '/saved';

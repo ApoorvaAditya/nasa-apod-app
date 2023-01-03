@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
+import 'package:nasa_apod_app/screens/all_pictures_screen.dart';
+import 'package:nasa_apod_app/services/media.dart' show Media;
+import 'package:nasa_apod_app/services/saved_provider.dart';
+import 'package:nasa_apod_app/widgets/background_gradient.dart';
+import 'package:nasa_apod_app/widgets/centered_circular_progress_indicator.dart';
+import 'package:nasa_apod_app/widgets/details_screen_widgets/detail_page.dart';
 import 'package:provider/provider.dart' show Provider;
-
-import '../models/space_media.dart';
-import '../services/media.dart' show Media;
-import '../services/saved_provider.dart';
-import '../widgets/background_gradient.dart';
-import '../widgets/centered_circular_progress_indicator.dart';
-import '../widgets/details_screen_widgets/detail_page.dart';
-import 'all_pictures_screen.dart';
 
 class DetailsScreen extends StatefulWidget {
   static const routeName = '/details-screen';

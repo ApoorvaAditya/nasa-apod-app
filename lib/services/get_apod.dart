@@ -1,12 +1,11 @@
 import 'dart:io';
 
 import 'package:date_format/date_format.dart' show formatDate, yy, mm, dd;
-import 'package:html/parser.dart' show parse;
 import 'package:html/dom.dart' show Document;
+import 'package:html/parser.dart' show parse;
 import 'package:http/http.dart' show Response, get;
-
-import '../models/space_media.dart';
-import '../utils.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
+import 'package:nasa_apod_app/utils.dart';
 
 Future<SpaceMedia> getAPOD({DateTime date}) async {
   String type, url, hdImageUrl, title, credits, description;

@@ -1,14 +1,13 @@
 import 'package:date_format/date_format.dart' show formatDate, dd, MM, yyyy;
 import 'package:flutter/material.dart';
-
-import '../constants.dart' show earliestPossibleDate, whiteTextStyle;
-import '../models/space_media.dart';
-import '../services/get_apod.dart';
-import '../strings.dart';
-import '../widgets/app_drawer.dart' show AppDrawer;
-import '../widgets/background_gradient.dart';
-import '../widgets/custom_button.dart';
-import 'details_screen.dart';
+import 'package:nasa_apod_app/constants.dart' show earliestPossibleDate, whiteTextStyle;
+import 'package:nasa_apod_app/models/space_media.dart';
+import 'package:nasa_apod_app/screens/details_screen.dart';
+import 'package:nasa_apod_app/services/get_apod.dart';
+import 'package:nasa_apod_app/strings.dart';
+import 'package:nasa_apod_app/widgets/app_drawer.dart' show AppDrawer;
+import 'package:nasa_apod_app/widgets/background_gradient.dart';
+import 'package:nasa_apod_app/widgets/custom_button.dart';
 
 class PastPicturesScreen extends StatelessWidget {
   static const routeName = '/time-machine';

@@ -4,18 +4,17 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:nasa_apod_app/constants.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
+import 'package:nasa_apod_app/services/media.dart';
+import 'package:nasa_apod_app/strings.dart';
+import 'package:nasa_apod_app/utils.dart';
+import 'package:nasa_apod_app/widgets/app_drawer.dart';
+import 'package:nasa_apod_app/widgets/background_gradient.dart';
+import 'package:nasa_apod_app/widgets/centered_circular_progress_indicator.dart';
+import 'package:nasa_apod_app/widgets/creation_aware_widget.dart';
+import 'package:nasa_apod_app/widgets/image_card.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-
-import '../models/space_media.dart';
-import '../services/media.dart';
-import '../strings.dart';
-import '../utils.dart';
-import '../widgets/app_drawer.dart';
-import '../widgets/background_gradient.dart';
-import '../widgets/centered_circular_progress_indicator.dart';
-import '../widgets/creation_aware_widget.dart';
-import '../widgets/image_card.dart';
 
 class AllPicturesScreeen extends StatefulWidget {
   static const routeName = '/all-pics';

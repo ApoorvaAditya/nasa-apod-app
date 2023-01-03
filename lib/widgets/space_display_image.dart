@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:flutter/material.dart';
+import 'package:nasa_apod_app/utils.dart';
 import 'package:nasa_apod_app/widgets/centered_circular_progress_indicator.dart';
-
-import '../utils.dart';
 
 class SpaceDisplayImage extends StatelessWidget {
   final String url;

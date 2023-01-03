@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/space_media.dart';
-import '../utils.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
+import 'package:nasa_apod_app/utils.dart';
 
 class SavedProvider with ChangeNotifier {
   static const String savedBoxName = 'saved';

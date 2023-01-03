@@ -3,23 +3,21 @@ import 'dart:io';
 import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:html/parser.dart';
-import 'package:provider/provider.dart';
-import 'package:path_provider/path_provider.dart' show getApplicationDocumentsDirectory;
 import 'package:http/http.dart' show Response, get;
+import 'package:nasa_apod_app/constants.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
+import 'package:nasa_apod_app/screens/all_pictures_screen.dart';
+import 'package:nasa_apod_app/services/get_apod.dart';
+import 'package:nasa_apod_app/services/saved_provider.dart';
+import 'package:nasa_apod_app/services/settings_provider.dart';
+import 'package:nasa_apod_app/utils.dart';
+import 'package:nasa_apod_app/widgets/background_gradient.dart';
+import 'package:nasa_apod_app/widgets/centered_circular_progress_indicator.dart';
 import 'package:path/path.dart' show join;
-
-import '../constants.dart';
-import '../models/space_media.dart';
-import '../services/get_apod.dart';
-import '../services/saved_provider.dart';
-import '../services/settings_provider.dart';
-import '../utils.dart';
-import '../widgets/background_gradient.dart';
-import '../widgets/centered_circular_progress_indicator.dart';
-import 'all_pictures_screen.dart';
+import 'package:path_provider/path_provider.dart' show getApplicationDocumentsDirectory;
+import 'package:provider/provider.dart';
 
 class LoadingScreen extends StatefulWidget {
   static const routeName = '/loading';

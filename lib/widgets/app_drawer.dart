@@ -1,14 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../screens/all_pictures_screen.dart';
-import '../screens/past_pictures_screen.dart';
-import '../screens/saved_screen.dart';
-import '../screens/settings_screen.dart';
-import '../screens/submit_screen.dart';
-import '../strings.dart';
-import 'background_gradient.dart';
+import 'package:nasa_apod_app/constants.dart';
+import 'package:nasa_apod_app/screens/all_pictures_screen.dart';
+import 'package:nasa_apod_app/screens/past_pictures_screen.dart';
+import 'package:nasa_apod_app/screens/saved_screen.dart';
+import 'package:nasa_apod_app/screens/settings_screen.dart';
+import 'package:nasa_apod_app/screens/submit_screen.dart';
+import 'package:nasa_apod_app/strings.dart';
+import 'package:nasa_apod_app/widgets/background_gradient.dart';
 
 class AppDrawer extends StatelessWidget {
   final String prevScreen;

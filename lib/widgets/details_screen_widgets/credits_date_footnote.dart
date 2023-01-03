@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' show DateFormat;
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:intl/intl.dart' show DateFormat;
 
-import '../../models/space_media.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
 
 class CreditsDateFootnote extends StatelessWidget {
   const CreditsDateFootnote({

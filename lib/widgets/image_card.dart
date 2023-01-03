@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart' show parseFragment;
 
-import '../models/space_media.dart';
-import '../screens/details_screen.dart' show DetailsScreen;
-import 'space_display_image.dart';
+import 'package:nasa_apod_app/models/space_media.dart';
+import 'package:nasa_apod_app/screens/details_screen.dart' show DetailsScreen;
+import 'package:nasa_apod_app/widgets/space_display_image.dart';
 
 class ImageCard extends StatelessWidget {
   static const double cardBorderRadius = 10;
