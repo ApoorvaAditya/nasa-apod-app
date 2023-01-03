@@ -3,9 +3,8 @@ import 'dart:io';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart' hide ImageSource;
 import 'package:image_picker/image_picker.dart';
-
 import 'package:nasa_apod_app/constants.dart';
 import 'package:nasa_apod_app/strings.dart';
 import 'package:nasa_apod_app/utils.dart';
@@ -36,7 +35,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
-    final PickedFile pickedImage = await picker.getImage(source: ImageSource.gallery);
+    final XFile pickedImage = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       _selectedImage = File(pickedImage.path);
       _imageUrlController.clear();
@@ -45,11 +44,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
 
   Future<void> _submitImage() async {
     final String emailBody =
-        'Title: ${_titleController.text}<br><br>Description: ${_desriptionController.text}<br><br>' +
-            (_imageUrlController.text.isEmpty
-                ? 'The image is attached to this email'
-                : 'Image: <a href="${_imageUrlController.text}">${_imageUrlController.text}</a>') +
-            '<br><br>Time taken: ${_timeController.text}<br>Location Taken: ${_locationController.text}';
+        'Title: ${_titleController.text}<br><br>Description: ${_desriptionController.text}<br><br>${_imageUrlController.text.isEmpty ? 'The image is attached to this email' : 'Image: <a href="${_imageUrlController.text}">${_imageUrlController.text}</a>'}<br><br>Time taken: ${_timeController.text}<br>Location Taken: ${_locationController.text}';
     final Email email = Email(
       recipients: recipients,
       subject: Strings.emailSubject,
@@ -136,11 +131,9 @@ class _SubmitScreenState extends State<SubmitScreen> {
                           setState(() {});
                           _titleFocusNode.requestFocus();
                         },
-                        textCapitalization: TextCapitalization.none,
                         style: whiteTextStyle,
                         keyboardType: TextInputType.url,
                         controller: _imageUrlController,
-                        maxLines: 1,
                         decoration: buildInputDecoration(context, Strings.imageUrlLabel),
                       ),
                     ),
@@ -163,10 +156,8 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   style: whiteTextStyle,
                   textCapitalization: TextCapitalization.words,
                   autocorrect: false,
-                  enableSuggestions: true,
                   keyboardType: TextInputType.text,
                   controller: _titleController,
-                  maxLines: 1,
                   decoration: buildInputDecoration(context, Strings.titleLabel),
                 ),
 
@@ -186,8 +177,6 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   },
                   style: whiteTextStyle,
                   textCapitalization: TextCapitalization.sentences,
-                  autocorrect: true,
-                  enableSuggestions: true,
                   keyboardType: TextInputType.text,
                   controller: _desriptionController,
                   maxLines: 3,
@@ -210,10 +199,8 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   style: whiteTextStyle,
                   textCapitalization: TextCapitalization.sentences,
                   autocorrect: false,
-                  enableSuggestions: true,
                   keyboardType: TextInputType.text,
                   controller: _timeController,
-                  maxLines: 1,
                   decoration: buildInputDecoration(context, Strings.timeLabel),
                 ),
                 const SizedBox(height: 20),
@@ -229,10 +216,8 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   style: whiteTextStyle,
                   textCapitalization: TextCapitalization.sentences,
                   autocorrect: false,
-                  enableSuggestions: true,
                   keyboardType: TextInputType.text,
                   controller: _locationController,
-                  maxLines: 1,
                   decoration: buildInputDecoration(context, Strings.locationLabel),
                 ),
                 const SizedBox(height: 20),
@@ -248,7 +233,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                             style: whiteTextStyle,
                           ),
                           actions: <Widget>[
-                            FlatButton(
+                            TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
@@ -257,7 +242,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                                 style: whiteTextStyle,
                               ),
                             ),
-                            FlatButton(
+                            TextButton(
                               onPressed: _submitImage,
                               child: const Text(
                                 'Continue',
@@ -268,14 +253,13 @@ class _SubmitScreenState extends State<SubmitScreen> {
                           content: SingleChildScrollView(
                             child: HtmlWidget(
                               Strings.methodsTosubmit,
-                              hyperlinkColor: Colors.blue,
                               textStyle: whiteTextStyle,
                               customStylesBuilder: (element) {
                                 switch (element.localName) {
                                   case 'a':
-                                    return ['text-decoration', 'none'];
+                                    return {'text-decoration': 'none', 'color': 'blue'};
                                   case 'p':
-                                    return ['text-align', 'justify'];
+                                    return {'text-align': 'justify'};
                                 }
                                 return null;
                               },
@@ -303,7 +287,7 @@ class PickImageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButton(
-      icon: Icon(Icons.photo_library),
+      icon: const Icon(Icons.photo_library),
       text: Strings.pickImage,
       onPressed: onPressed,
     );
@@ -327,10 +311,10 @@ class FileImageForPreview extends StatelessWidget {
       loadStateChanged: (ExtendedImageState state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
-            return Container(
+            return const SizedBox(
               height: 300,
               width: double.infinity,
-              child: const CenteredCircularProgressIndicator(),
+              child: CenteredCircularProgressIndicator(),
             );
             break;
           case LoadState.completed:
@@ -344,8 +328,8 @@ class FileImageForPreview extends StatelessWidget {
                 state.reLoadImage();
               },
               child: Column(
-                children: <Widget>[
-                  const Text(
+                children: const <Widget>[
+                  Text(
                     Strings.imagePreviewFailed,
                     style: whiteTextStyle,
                   ),
@@ -381,10 +365,10 @@ class NetworkImageForPreview extends StatelessWidget {
       loadStateChanged: (ExtendedImageState state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
-            return Container(
+            return const SizedBox(
               height: 300,
               width: double.infinity,
-              child: const CenteredCircularProgressIndicator(),
+              child: CenteredCircularProgressIndicator(),
             );
             break;
           case LoadState.completed:
@@ -397,17 +381,17 @@ class NetworkImageForPreview extends StatelessWidget {
               onTap: () {
                 state.reLoadImage();
               },
-              child: Container(
+              child: SizedBox(
                 height: 300,
                 width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text(
+                  children: const <Widget>[
+                    Text(
                       Strings.imagePreviewFailed,
                       style: whiteTextStyle,
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     Icon(Icons.replay),
                   ],
                 ),
@@ -432,7 +416,7 @@ InputDecoration buildInputDecoration(BuildContext context, String labelText) {
         color: Colors.white,
       ),
     ),
-    focusedBorder: OutlineInputBorder(
+    focusedBorder: const OutlineInputBorder(
       borderSide: BorderSide(
         color: Colors.blue,
       ),
