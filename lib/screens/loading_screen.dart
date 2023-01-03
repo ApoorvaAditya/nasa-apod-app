@@ -45,14 +45,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   Future<void> intializeNotifications() async {
     const androidInitializationSettings = AndroidInitializationSettings('notif_icon');
-    const iosInitializationSettings = IOSInitializationSettings();
-    const initializationSettings = InitializationSettings(androidInitializationSettings, iosInitializationSettings);
+    const iosInitializationSettings = DarwinInitializationSettings();
+    const initializationSettings =
+        InitializationSettings(android: androidInitializationSettings, iOS: iosInitializationSettings);
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: onSelectNotification);
+        onDidReceiveNotificationResponse: onSelectNotification);
   }
 
-  Future<void> onSelectNotification(String payload) async {
+  Future<void> onSelectNotification(NotificationResponse notificationResponse) async {
     Navigator.of(context).pushReplacementNamed(AllPicturesScreeen.routeName);
   }
 
@@ -64,14 +65,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'Astronomy Picture of the Day',
       'Daily Astronomy Picture Notification',
-      'Notification for whenever a new image is available',
+      channelDescription: 'Notification for whenever a new image is available',
       playSound: false,
-      importance: Importance.Max,
-      priority: Priority.High,
+      importance: Importance.max,
+      priority: Priority.high,
       styleInformation: bigPictureStyleInformation,
     );
-    const iOSPlatformChannelSpecifics = IOSNotificationDetails();
-    final platformChannelSpecifics = NotificationDetails(androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
+    final platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
 
     await flutterLocalNotificationsPlugin.show(
       0,
@@ -113,7 +115,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           settings.setLatestDate(value: currentDate);
 
           final SpaceMedia spaceMedia = await getAPOD(date: currentDate);
-          final Response response = await get(spaceMedia.url);
+          final Response response = await get(Uri(path: spaceMedia.url));
           final Directory documentDirectory = await getApplicationDocumentsDirectory();
           final File file = File(join(documentDirectory.path, 'daily.png'));
           await file.writeAsBytes(response.bodyBytes);
