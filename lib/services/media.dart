@@ -10,8 +10,8 @@ import 'package:nasa_apod_app/utils.dart';
 class Media with ChangeNotifier {
   bool _isLoading = false;
   List<SpaceMedia> _spaceMedias = <SpaceMedia>[];
-  DateTime _today;
-  int startIndex;
+  late DateTime _today;
+  late int startIndex;
 
   final int initialIndex;
   final int lengthToLoad;
@@ -51,7 +51,7 @@ class Media with ChangeNotifier {
       final DateTime currentDate = _today.subtract(Duration(days: i));
 
       if (currentDate.isAfter(earliestPossibleDate)) {
-        SpaceMedia spaceMedia;
+        SpaceMedia? spaceMedia;
         try {
           spaceMedia = await getAPOD(date: currentDate);
         } on SocketException {
@@ -66,7 +66,7 @@ class Media with ChangeNotifier {
 
   Future<void> clearCachedData() async {
     // Get today's date
-    final DateTime latestDate = await Utils.getLatesetPostDate;
+    final DateTime? latestDate = await Utils.getLatesetPostDate;
     _today = latestDate ?? DateTime.now().subtract(const Duration(days: 1));
     _spaceMedias = <SpaceMedia>[];
     startIndex = initialIndex;

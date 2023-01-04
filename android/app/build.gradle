@@ -33,7 +33,7 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion 33
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -46,10 +46,11 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.apoorvaditya.nasa_apod_app"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
    signingConfigs {
@@ -75,4 +76,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     androidTestImplementation 'androidx.test:runner:1.1.1'                   // or higher
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'   // or higher
+    implementation 'com.android.support:multidex:1.0.3'
 }

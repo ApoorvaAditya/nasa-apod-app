@@ -33,8 +33,8 @@ class Utils {
     }
   }
 
-  static Future<DateTime> get getLatesetPostDate async {
-    final Response repsonse = await get(Uri(path: 'https://apod.nasa.gov/apod/astropix.html'));
+  static Future<DateTime?> get getLatesetPostDate async {
+    final Response repsonse = await get(Uri.parse('https://apod.nasa.gov/apod/astropix.html'));
     if (repsonse.statusCode >= 400) return null;
     final parsed = html.parse(repsonse.body);
     return DateTime.parse(convertDateToParsable(parsed.getElementsByTagName('p')[1].innerHtml.split('\n')[2]));

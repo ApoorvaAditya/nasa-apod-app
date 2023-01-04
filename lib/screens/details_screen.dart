@@ -18,21 +18,21 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  PageController _pageController;
-  double currentPageValue = 0.0;
+  PageController? _pageController;
+  double? currentPageValue = 0.0;
   bool enablePageView = false;
-  List spaceMedias;
-  SpaceMedia spaceMedia;
-  String comingFrom;
-  int index;
-  Media media;
+  List? spaceMedias;
+  late final SpaceMedia spaceMedia;
+  late final String comingFrom;
+  late final int index;
+  Media? media;
 
   bool init = true;
 
   @override
   void didChangeDependencies() {
     if (init) {
-      final Map<String, dynamic> arguments = ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
+      final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
       enablePageView = arguments['enablePageView'] as bool;
       spaceMedia = arguments['spaceMedia'] as SpaceMedia;
       index = arguments['index'] as int;
@@ -42,9 +42,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
         _pageController = PageController(
           initialPage: enablePageView ? index : 0,
         );
-        _pageController.addListener(() {
+        _pageController!.addListener(() {
           setState(() {
-            currentPageValue = _pageController.page;
+            currentPageValue = _pageController!.page;
           });
         });
       }
@@ -57,7 +57,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   void dispose() {
     _pageController?.removeListener(() {
       setState(() {
-        currentPageValue = _pageController.page;
+        currentPageValue = _pageController!.page;
       });
     });
     _pageController?.dispose();
@@ -71,7 +71,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     bool pageViewWasSetup = false;
 
     if (_pageController != null) {
-      pageViewWasSetup = _pageController.hasClients;
+      pageViewWasSetup = _pageController!.hasClients;
     }
     if (enablePageView) {
       if (comingFrom == AllPicturesScreeen.routeName) {
@@ -86,7 +86,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       onWillPop: () async {
         Navigator.pop(
           context,
-          currentPageValue.floor(),
+          currentPageValue!.floor(),
         );
         return true;
       },
@@ -98,27 +98,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
           scaffoldKey: _scaffoldKey,
           spaceMedia: pageViewWasSetup
               ? (media != null
-                  ? currentPageValue < media.spaceMedias.length
-                      ? media.spaceMedias[currentPageValue.floor()]
-                      : media.spaceMedias.last
-                  : currentPageValue < spaceMedias.length
-                      ? spaceMedias[currentPageValue.floor()] as SpaceMedia
-                      : spaceMedias.last as SpaceMedia)
+                  ? currentPageValue! < media!.spaceMedias.length
+                      ? media!.spaceMedias[currentPageValue!.floor()]
+                      : media!.spaceMedias.last
+                  : currentPageValue! < spaceMedias!.length
+                      ? spaceMedias![currentPageValue!.floor()] as SpaceMedia
+                      : spaceMedias!.last as SpaceMedia)
               : spaceMedia,
           comingFrom: comingFrom,
-          index: currentPageValue.floor(),
+          index: currentPageValue!.floor(),
         ),
         body: BackgroundGradient(
           height: MediaQuery.of(context).size.height,
           child: enablePageView
               ? (media != null
                   ? PageView.builder(
-                      itemCount: media.spaceMedias.length + 1,
+                      itemCount: media!.spaceMedias.length + 1,
                       controller: _pageController,
                       itemBuilder: (_, i) {
-                        if (i < media.spaceMedias.length) {
+                        if (i < media!.spaceMedias.length) {
                           return DetailPage(
-                            spaceMedia: media.spaceMedias[i],
+                            spaceMedia: media!.spaceMedias[i],
                             topPadding: topPadding,
                             titleTheme: titleTheme,
                             index: i,
@@ -127,18 +127,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         return const CenteredCircularProgressIndicator();
                       },
                       onPageChanged: (page) {
-                        if (page > media.spaceMedias.length - 3) {
-                          media.loadMore();
+                        if (page > media!.spaceMedias.length - 3) {
+                          media!.loadMore();
                         }
                       },
                     )
                   : PageView.builder(
-                      itemCount: spaceMedias.length,
+                      itemCount: spaceMedias!.length,
                       controller: _pageController,
                       itemBuilder: (_, i) {
                         return DetailPage(
                           index: i,
-                          spaceMedia: spaceMedias[i] as SpaceMedia,
+                          spaceMedia: spaceMedias![i] as SpaceMedia,
                           titleTheme: titleTheme,
                           topPadding: topPadding,
                         );

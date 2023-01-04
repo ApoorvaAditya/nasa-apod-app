@@ -37,7 +37,7 @@ class PastPicturesScreen extends StatelessWidget {
 
 class TimeMachineContent extends StatefulWidget {
   final String prevScreen;
-  const TimeMachineContent({this.prevScreen});
+  const TimeMachineContent({required this.prevScreen});
   @override
   _TimeMachineContentState createState() => _TimeMachineContentState();
 }
@@ -48,7 +48,7 @@ class _TimeMachineContentState extends State<TimeMachineContent> {
   bool _isLoading = false;
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime pickedDate = await showDatePicker(
+    final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: _selectedDate,
       firstDate: earliestPossibleDate,
@@ -65,7 +65,7 @@ class _TimeMachineContentState extends State<TimeMachineContent> {
     setState(() {
       _isLoading = true;
     });
-    final SpaceMedia spaceMedia = await getAPOD(date: _selectedDate);
+    final SpaceMedia? spaceMedia = await getAPOD(date: _selectedDate);
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => DetailsScreen(),
@@ -124,8 +124,8 @@ class _TimeMachineContentState extends State<TimeMachineContent> {
 
 class DateText extends StatelessWidget {
   const DateText({
-    Key key,
-    @required DateTime selectedDate,
+    Key? key,
+    required DateTime selectedDate,
   })  : _selectedDate = selectedDate,
         super(key: key);
 

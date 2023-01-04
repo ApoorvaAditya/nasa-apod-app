@@ -21,7 +21,7 @@ class SubmitScreen extends StatefulWidget {
 }
 
 class _SubmitScreenState extends State<SubmitScreen> {
-  File _selectedImage;
+  File? _selectedImage;
   final TextEditingController _imageUrlController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _desriptionController = TextEditingController();
@@ -35,11 +35,13 @@ class _SubmitScreenState extends State<SubmitScreen> {
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _selectedImage = File(pickedImage.path);
-      _imageUrlController.clear();
-    });
+    final XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _selectedImage = File(pickedImage.path);
+        _imageUrlController.clear();
+      });
+    }
   }
 
   Future<void> _submitImage() async {
@@ -49,7 +51,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
       recipients: recipients,
       subject: Strings.emailSubject,
       body: emailBody,
-      attachmentPaths: [if (_selectedImage != null) _selectedImage.path],
+      attachmentPaths: [if (_selectedImage != null) _selectedImage!.path],
       isHTML: true,
     );
     await FlutterEmailSender.send(email);
@@ -97,7 +99,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                   child: _imageUrlController.text.isNotEmpty
                       ? NetworkImageForPreview(imageUrlController: _imageUrlController)
                       : _selectedImage != null
-                          ? FileImageForPreview(selectedImage: _selectedImage)
+                          ? FileImageForPreview(selectedImage: _selectedImage!)
                           : const Center(
                               child: Text(
                                 Strings.noImageSelected,
@@ -120,7 +122,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                     Expanded(
                       child: TextFormField(
                         validator: (value) {
-                          if (value.isEmpty && _selectedImage == null) {
+                          if (value!.isEmpty && _selectedImage == null) {
                             return Strings.enterValidUrl;
                           }
                           return null;
@@ -143,7 +145,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                 //* Image Title
                 TextFormField(
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return Strings.enterTitle;
                     }
                     return null;
@@ -165,7 +167,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                 //* Image Description
                 TextFormField(
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return Strings.enterDescription;
                     }
                     return null;
@@ -186,7 +188,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                 //* Image Time
                 TextFormField(
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return Strings.enterTime;
                     }
                     return null;
@@ -207,7 +209,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                 //* Image Location
                 TextFormField(
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return Strings.enterLocation;
                     }
                     return null;
@@ -224,7 +226,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
                 CustomButton(
                   text: Strings.submit,
                   onPressed: () {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       showDialog(
                         context: context,
                         builder: (_) => AlertDialog(
@@ -281,9 +283,9 @@ class _SubmitScreenState extends State<SubmitScreen> {
 }
 
 class PickImageButton extends StatelessWidget {
-  final void Function() onPressed;
+  final void Function()? onPressed;
 
-  const PickImageButton({Key key, this.onPressed}) : super(key: key);
+  const PickImageButton({Key? key, this.onPressed}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return CustomButton(
@@ -296,8 +298,8 @@ class PickImageButton extends StatelessWidget {
 
 class FileImageForPreview extends StatelessWidget {
   const FileImageForPreview({
-    Key key,
-    @required File selectedImage,
+    Key? key,
+    required File selectedImage,
   })  : _selectedImage = selectedImage,
         super(key: key);
 
@@ -350,8 +352,8 @@ class FileImageForPreview extends StatelessWidget {
 
 class NetworkImageForPreview extends StatelessWidget {
   const NetworkImageForPreview({
-    Key key,
-    @required TextEditingController imageUrlController,
+    Key? key,
+    required TextEditingController imageUrlController,
   })  : _imageUrlController = imageUrlController,
         super(key: key);
 

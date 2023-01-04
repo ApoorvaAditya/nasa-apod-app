@@ -9,9 +9,9 @@ class SaveButton extends StatefulWidget {
   final String comingFrom;
 
   const SaveButton({
-    Key key,
-    @required this.spaceMedia,
-    @required this.comingFrom,
+    Key? key,
+    required this.spaceMedia,
+    required this.comingFrom,
   }) : super(key: key);
   @override
   _SaveButtonState createState() => _SaveButtonState();

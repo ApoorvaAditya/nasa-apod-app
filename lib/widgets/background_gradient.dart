@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BackgroundGradient extends StatelessWidget {
-  final Widget child;
-  final EdgeInsetsGeometry padding;
-  final double height;
+  final Widget? child;
+  final EdgeInsetsGeometry? padding;
+  final double? height;
 
   const BackgroundGradient({
     this.child,

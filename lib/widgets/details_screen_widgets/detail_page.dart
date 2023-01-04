@@ -14,16 +14,16 @@ import 'package:provider/provider.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({
-    Key key,
-    @required this.spaceMedia,
-    @required this.topPadding,
-    @required this.titleTheme,
-    @required this.index,
+    Key? key,
+    required this.spaceMedia,
+    required this.topPadding,
+    required this.titleTheme,
+    required this.index,
   }) : super(key: key);
 
   final SpaceMedia spaceMedia;
   final double topPadding;
-  final TextStyle titleTheme;
+  final TextStyle? titleTheme;
   final int index;
 
   @override
@@ -54,13 +54,13 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final SpaceMedia spaceMedia;
   final String comingFrom;
-  final int index;
+  final int? index;
 
   DetailsAppBar({
-    Key key,
-    @required this.scaffoldKey,
-    @required this.spaceMedia,
-    @required this.comingFrom,
+    Key? key,
+    required this.scaffoldKey,
+    required this.spaceMedia,
+    required this.comingFrom,
     this.index,
   }) : super(key: key);
 
@@ -108,10 +108,10 @@ class SpaceMediaImage extends StatelessWidget {
   final double topPadding;
   final int index;
   const SpaceMediaImage({
-    Key key,
-    @required this.spaceMedia,
-    @required this.topPadding,
-    @required this.index,
+    Key? key,
+    required this.spaceMedia,
+    required this.topPadding,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -147,14 +147,14 @@ class SpaceMediaImage extends StatelessWidget {
 
 class SpaceTextColumn extends StatelessWidget {
   const SpaceTextColumn({
-    Key key,
-    @required this.spaceMedia,
-    @required this.titleTheme,
-    @required this.index,
+    Key? key,
+    required this.spaceMedia,
+    required this.titleTheme,
+    required this.index,
   }) : super(key: key);
 
   final SpaceMedia spaceMedia;
-  final TextStyle titleTheme;
+  final TextStyle? titleTheme;
   final int index;
 
   @override
@@ -177,15 +177,15 @@ class SpaceTextColumn extends StatelessWidget {
 
 class SpaceMediaTitle extends StatelessWidget {
   const SpaceMediaTitle({
-    Key key,
-    @required this.title,
-    @required this.titleTheme,
-    @required this.index,
+    Key? key,
+    required this.title,
+    required this.titleTheme,
+    required this.index,
   }) : super(key: key);
 
   final String title;
   final int index;
-  final TextStyle titleTheme;
+  final TextStyle? titleTheme;
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +199,7 @@ class SpaceMediaTitle extends StatelessWidget {
           fontSize: 30,
           decoration: TextDecoration.none,
           fontWeight: FontWeight.normal,
-          fontFamily: Theme.of(context).textTheme.headline1.fontFamily,
+          fontFamily: Theme.of(context).textTheme.headline1!.fontFamily,
         ),
       ),
     );
@@ -208,8 +208,8 @@ class SpaceMediaTitle extends StatelessWidget {
 
 class SpaceMediaDescription extends StatelessWidget {
   const SpaceMediaDescription({
-    Key key,
-    @required this.description,
+    Key? key,
+    required this.description,
   }) : super(key: key);
 
   final String description;

@@ -12,7 +12,7 @@ class SpaceMedia {
   @HiveField(2)
   final String url;
   @HiveField(3)
-  final String hdImageUrl;
+  final String? hdImageUrl;
   @HiveField(4)
   final String description;
   @HiveField(5)
@@ -21,12 +21,12 @@ class SpaceMedia {
   final String credits;
 
   SpaceMedia({
-    @required this.date,
-    @required this.type,
-    @required this.url,
-    @required this.description,
-    @required this.title,
-    @required this.credits,
+    required this.date,
+    required this.type,
+    required this.url,
+    required this.description,
+    required this.title,
+    required this.credits,
     this.hdImageUrl,
   });
 }

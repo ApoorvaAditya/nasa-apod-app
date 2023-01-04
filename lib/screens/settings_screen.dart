@@ -184,7 +184,7 @@ class SettingsScreen extends StatelessWidget {
 class FontListTile extends StatelessWidget {
   final String title;
   final int selectedFontIndex;
-  final void Function(int index) onTap;
+  final void Function(int index)? onTap;
   static const List<double> fontSizes = [
     10,
     12,
@@ -197,9 +197,9 @@ class FontListTile extends StatelessWidget {
   ];
 
   const FontListTile({
-    Key key,
-    this.title,
-    this.selectedFontIndex,
+    Key? key,
+    required this.title,
+    required this.selectedFontIndex,
     this.onTap,
   }) : super(key: key);
 
@@ -215,7 +215,7 @@ class FontListTile extends StatelessWidget {
             color: Colors.white,
             fontSize: fontSizes[i],
           ),
-          onTap: onTap,
+          onTap: onTap!,
         ),
       );
     }
@@ -274,8 +274,8 @@ class SettingsGroupListTile extends StatelessWidget {
   final String title;
 
   const SettingsGroupListTile({
-    Key key,
-    this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -297,15 +297,15 @@ class ListSettingsListTile extends StatelessWidget {
   final String subtitle;
   final Map enumToStrings;
   final int index;
-  final List<IconData> icons;
-  final void Function(int index) onTap;
+  final List<IconData>? icons;
+  final void Function(int index)? onTap;
 
   const ListSettingsListTile({
-    Key key,
-    this.title,
-    this.subtitle,
-    this.enumToStrings,
-    this.index,
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.enumToStrings,
+    required this.index,
     this.icons,
     this.onTap,
   }) : super(key: key);
@@ -316,10 +316,10 @@ class ListSettingsListTile extends StatelessWidget {
     for (var i = 0; i < enumToStrings.length; i++) {
       widgets.add(
         ListTileWithIndex(
-          icons: icons,
+          icons: icons!,
           index: i,
           title: strings[i] as String,
-          onTap: onTap,
+          onTap: onTap!,
         ),
       );
     }
@@ -397,26 +397,26 @@ class ListSettingsListTile extends StatelessWidget {
 
 class ListTileWithIndex extends StatelessWidget {
   const ListTileWithIndex({
-    Key key,
-    @required this.icons,
-    @required this.index,
-    @required this.title,
-    this.onTap,
+    Key? key,
+    this.icons,
+    required this.index,
+    required this.title,
+    required this.onTap,
     this.style,
   }) : super(key: key);
 
-  final List<IconData> icons;
+  final List<IconData>? icons;
   final int index;
   final String title;
   final void Function(int index) onTap;
-  final TextStyle style;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: icons != null
           ? Icon(
-              icons[index],
+              icons![index],
               color: Colors.white,
             )
           : null,
@@ -439,11 +439,11 @@ class SwitchSettingsListTile extends StatelessWidget {
   final void Function(bool value) onChanged;
 
   const SwitchSettingsListTile({
-    Key key,
-    @required this.title,
-    @required this.subtitle,
-    @required this.onChanged,
-    @required this.value,
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.onChanged,
+    required this.value,
     this.enabled = true,
   }) : super(key: key);
 
@@ -478,17 +478,17 @@ class TextSettingsListTile extends StatelessWidget {
   final TextEditingController controller;
   final String title;
   final String subtitle;
-  final String hint;
+  final String? hint;
   final String value;
-  final void Function(String value) onSubmitted;
+  final void Function(String value)? onSubmitted;
 
   const TextSettingsListTile({
-    Key key,
-    this.controller,
-    this.title,
-    this.subtitle,
+    Key? key,
+    required this.controller,
+    required this.title,
+    required this.subtitle,
     this.hint,
-    this.value,
+    required this.value,
     this.onSubmitted,
   }) : super(key: key);
 
@@ -562,12 +562,12 @@ class TextSettingsListTile extends StatelessWidget {
 
 class ButtonListTile extends StatelessWidget {
   final String title;
-  final String subtitle;
-  final void Function() onTap;
+  final String? /*!*/ subtitle;
+  final void Function()? onTap;
 
   const ButtonListTile({
-    Key key,
-    this.title,
+    Key? key,
+    required this.title,
     this.subtitle,
     this.onTap,
   }) : super(key: key);
@@ -580,7 +580,7 @@ class ButtonListTile extends StatelessWidget {
       ),
       subtitle: subtitle != null
           ? Text(
-              subtitle,
+              subtitle!,
               style: const TextStyle(
                 color: Colors.grey,
               ),
@@ -593,17 +593,17 @@ class ButtonListTile extends StatelessWidget {
 
 class BottomSheetTextField extends StatelessWidget {
   const BottomSheetTextField({
-    Key key,
-    @required this.label,
-    @required this.controller,
+    Key? key,
+    required this.label,
+    required this.controller,
     this.hint,
     this.onSubmited,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String label;
-  final String hint;
-  final void Function(String value) onSubmited;
+  final String? hint;
+  final void Function(String value)? onSubmited;
 
   @override
   Widget build(BuildContext context) {

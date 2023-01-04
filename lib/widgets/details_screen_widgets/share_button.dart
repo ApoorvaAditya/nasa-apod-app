@@ -3,8 +3,8 @@ import 'package:share/share.dart' show Share;
 
 class ShareButton extends StatelessWidget {
   const ShareButton({
-    Key key,
-    @required this.url,
+    Key? key,
+    required this.url,
   }) : super(key: key);
 
   final String url;

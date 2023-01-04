@@ -8,9 +8,9 @@ class SpaceDisplayImage extends StatelessWidget {
   final String type;
 
   const SpaceDisplayImage({
-    Key key,
-    this.url,
-    this.type,
+    Key? key,
+    required this.url,
+    required this.type,
   }) : super(key: key);
 
   @override

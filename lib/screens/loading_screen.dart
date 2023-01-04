@@ -27,7 +27,7 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   Future<void> initializeApp() async {
     BackgroundFetch.registerHeadlessTask(backgroundTask);
@@ -60,9 +60,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Future<void> showNotification({
-    @required String title,
-    @required String body,
-    BigPictureStyleInformation bigPictureStyleInformation,
+    required String title,
+    required String body,
+    BigPictureStyleInformation? bigPictureStyleInformation,
   }) async {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'Astronomy Picture of the Day',
@@ -110,30 +110,34 @@ class _LoadingScreenState extends State<LoadingScreen> {
       // If notifications enabled
       if (settings.getDailyNotifications()) {
         // Get the latest post date
-        final DateTime currentDate = await Utils.getLatesetPostDate;
-        // Check if there is a new post
-        if (currentDate.isAfter(settings.getLatestDate())) {
-          // If new post, save it as latest date
-          settings.setLatestDate(value: currentDate);
+        final DateTime? currentDate = await Utils.getLatesetPostDate;
+        if (currentDate != null) {
+          // Check if there is a new post
+          if (currentDate.isAfter(settings.getLatestDate())) {
+            // If new post, save it as latest date
+            settings.setLatestDate(value: currentDate);
 
-          final SpaceMedia spaceMedia = await getAPOD(date: currentDate);
-          final Response response = await get(Uri(path: spaceMedia.url));
-          final Directory documentDirectory = await getApplicationDocumentsDirectory();
-          final File file = File(join(documentDirectory.path, 'daily.png'));
-          await file.writeAsBytes(response.bodyBytes);
-          final FilePathAndroidBitmap fileBitmap = FilePathAndroidBitmap(file.path);
+            final SpaceMedia? spaceMedia = await getAPOD(date: currentDate);
+            if (spaceMedia != null) {
+              final Response response = await get(Uri.parse(spaceMedia.url));
+              final Directory documentDirectory = await getApplicationDocumentsDirectory();
+              final File file = File(join(documentDirectory.path, 'daily.png'));
+              await file.writeAsBytes(response.bodyBytes);
+              final FilePathAndroidBitmap fileBitmap = FilePathAndroidBitmap(file.path);
 
-          showNotification(
-            title: 'New Image Available',
-            body: spaceMedia.title,
-            bigPictureStyleInformation: BigPictureStyleInformation(
-              fileBitmap,
-              largeIcon: fileBitmap,
-              hideExpandedLargeIcon: true,
-              contentTitle: spaceMedia.title,
-              summaryText: parseFragment(spaceMedia.description).text,
-            ),
-          );
+              showNotification(
+                title: 'New Image Available',
+                body: spaceMedia.title,
+                bigPictureStyleInformation: BigPictureStyleInformation(
+                  fileBitmap,
+                  largeIcon: fileBitmap,
+                  hideExpandedLargeIcon: true,
+                  contentTitle: spaceMedia.title,
+                  summaryText: parseFragment(spaceMedia.description).text,
+                ),
+              );
+            }
+          }
         }
       }
     } catch (e) {}

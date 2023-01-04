@@ -23,7 +23,7 @@ class SpaceMediaAdapter extends TypeAdapter<SpaceMedia> {
       description: fields[4] as String,
       title: fields[5] as String,
       credits: fields[6] as String,
-      hdImageUrl: fields[3] as String,
+      hdImageUrl: fields[3] as String?,
     );
   }
 

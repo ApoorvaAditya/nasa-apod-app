@@ -24,7 +24,7 @@ class AllPicturesScreeen extends StatefulWidget {
 }
 
 class _AllPicturesScreeenState extends State<AllPicturesScreeen> {
-  StreamSubscription subscription;
+  late StreamSubscription subscription;
   bool connected = true;
   final AutoScrollController _autoController = AutoScrollController();
 

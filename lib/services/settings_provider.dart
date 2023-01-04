@@ -29,7 +29,7 @@ class SettingsProvider with ChangeNotifier {
   String fontSize = 'fontSize';
   String latestDate = 'latestDate';
 
-  Box _box;
+  late Box _box;
 
   SettingsProvider() {
     _box = Hive.box(settingsBoxName);
@@ -62,51 +62,51 @@ class SettingsProvider with ChangeNotifier {
       setFontSize(value: 16.0);
     }
     if (!_box.containsKey(latestDate)) {
-      Utils.getLatesetPostDate.then((value) => setLatestDate(value: value));
+      Utils.getLatesetPostDate.then((value) => setLatestDate(value: value!));
     }
   }
 
-  void setAlbumName({@required String value}) {
+  void setAlbumName({required String value}) {
     _box.put(albumNameKey, value);
     notifyListeners();
   }
 
-  void setDownloadOnSave({@required bool value}) {
+  void setDownloadOnSave({required bool value}) {
     _box.put(downloadOnSaveKey, value);
     notifyListeners();
   }
 
-  void setDownloadHq({@required bool value}) {
+  void setDownloadHq({required bool value}) {
     _box.put(downloadHq, value);
     notifyListeners();
   }
 
-  void setWallpaperCropMethod({WallpaperCropMethod value}) {
+  void setWallpaperCropMethod({required WallpaperCropMethod value}) {
     _box.put(wallpaperCropMethod, value.index);
     notifyListeners();
   }
 
-  void setAutomaticWallpaper({bool value}) {
+  void setAutomaticWallpaper({required bool value}) {
     _box.put(automaticWallpapers, value);
     notifyListeners();
   }
 
-  void setDefaultWallpaperScreen({DefaultWallpaperScreen value}) {
+  void setDefaultWallpaperScreen({required DefaultWallpaperScreen value}) {
     _box.put(defaultWallpaperScreen, value.index);
     notifyListeners();
   }
 
-  void setDailyNotifications({bool value}) {
+  void setDailyNotifications({required bool value}) {
     _box.put(dailyNotifications, value);
     notifyListeners();
   }
 
-  void setFontSize({double value}) {
+  void setFontSize({required double value}) {
     _box.put(fontSize, value);
     notifyListeners();
   }
 
-  void setLatestDate({DateTime value}) {
+  void setLatestDate({required DateTime value}) {
     _box.put(latestDate, value);
   }
 

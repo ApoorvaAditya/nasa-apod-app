@@ -12,27 +12,28 @@ class ImageCard extends StatelessWidget {
   final void Function(int idx) scrollToFunction;
 
   const ImageCard({
-    Key key,
-    @required this.index,
-    @required this.spaceMedia,
-    @required this.comingFrom,
-    this.scrollToFunction,
+    Key? key,
+    required this.index,
+    required this.spaceMedia,
+    required this.comingFrom,
+    required this.scrollToFunction,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final indexOfViewedItem = await Navigator.of(context).pushNamed(
-          DetailsScreen.routeName,
-          arguments: {
-            'enablePageView': true,
-            'spaceMedia': spaceMedia,
-            'index': index,
-            'comingFrom': comingFrom,
-          },
-        );
-        scrollToFunction(indexOfViewedItem as int);
+        final int indexOfViewedItem = await Navigator.of(context).pushNamed(
+              DetailsScreen.routeName,
+              arguments: {
+                'enablePageView': true,
+                'spaceMedia': spaceMedia,
+                'index': index,
+                'comingFrom': comingFrom,
+              },
+            ) as int? ??
+            0;
+        scrollToFunction(indexOfViewedItem);
       },
       child: Card(
         color: Colors.black,
@@ -65,10 +66,10 @@ class CardImage extends StatelessWidget {
   final String type;
 
   const CardImage({
-    Key key,
-    this.index,
-    this.url,
-    this.type,
+    Key? key,
+    required this.index,
+    required this.url,
+    required this.type,
   }) : super(key: key);
 
   @override
@@ -88,8 +89,8 @@ class CardImage extends StatelessWidget {
 
 class TextBackground extends StatelessWidget {
   const TextBackground({
-    Key key,
-    @required this.cardBorderRadius,
+    Key? key,
+    required this.cardBorderRadius,
   }) : super(key: key);
 
   final double cardBorderRadius;
@@ -126,10 +127,10 @@ class SpaceMediaMinimizedDetails extends StatelessWidget {
   final String title;
 
   const SpaceMediaMinimizedDetails({
-    Key key,
-    this.index,
-    this.description,
-    this.title,
+    Key? key,
+    required this.index,
+    required this.description,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -160,9 +161,9 @@ class SpaceMediaMinimizedTitle extends StatelessWidget {
   final String title;
 
   const SpaceMediaMinimizedTitle({
-    Key key,
-    this.index,
-    this.title,
+    Key? key,
+    required this.index,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -170,7 +171,7 @@ class SpaceMediaMinimizedTitle extends StatelessWidget {
     return Hero(
       tag: '${index.toString()}title',
       child: Text(
-        title ?? '',
+        title,
         softWrap: false,
         overflow: TextOverflow.fade,
         maxLines: 1,
@@ -180,7 +181,7 @@ class SpaceMediaMinimizedTitle extends StatelessWidget {
           fontSize: 30,
           decoration: TextDecoration.none,
           fontWeight: FontWeight.normal,
-          fontFamily: Theme.of(context).textTheme.headline1.fontFamily,
+          fontFamily: Theme.of(context).textTheme.headline1!.fontFamily,
         ),
       ),
     );
@@ -191,8 +192,8 @@ class SpaceMediaMinimizedDescription extends StatelessWidget {
   final String description;
 
   const SpaceMediaMinimizedDescription({
-    Key key,
-    this.description,
+    Key? key,
+    required this.description,
   }) : super(key: key);
 
   @override

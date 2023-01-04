@@ -9,7 +9,7 @@ import 'package:nasa_apod_app/strings.dart';
 import 'package:nasa_apod_app/widgets/background_gradient.dart';
 
 class AppDrawer extends StatelessWidget {
-  final String prevScreen;
+  final String? prevScreen;
 
   const AppDrawer({this.prevScreen});
 
@@ -122,12 +122,12 @@ class DrawerHeaderImage extends StatelessWidget {
 class DrawerListItem extends StatelessWidget {
   final IconData icon;
   final String title;
-  final String prevScreen;
-  final String routeName;
+  final String? prevScreen;
+  final String? routeName;
   const DrawerListItem({
-    Key key,
-    this.icon,
-    this.title,
+    Key? key,
+    required this.icon,
+    required this.title,
     this.prevScreen,
     this.routeName,
   }) : super(key: key);
@@ -149,7 +149,7 @@ class DrawerListItem extends StatelessWidget {
           if (prevScreen == routeName) {
             Navigator.of(context).pop();
           } else {
-            Navigator.of(context).pushReplacementNamed(routeName);
+            Navigator.of(context).pushReplacementNamed(routeName!);
           }
         },
       ),

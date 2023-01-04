@@ -10,9 +10,9 @@ import 'package:nasa_apod_app/utils.dart';
 class SavedProvider with ChangeNotifier {
   static const String savedBoxName = 'saved';
   String dateListKey = 'dateList';
-  List<DateTime> dates;
+  List<DateTime> dates = [];
   List<SpaceMedia> spaceMedias = [];
-  Box _box;
+  late Box _box;
 
   SavedProvider() {
     _box = Hive.box(savedBoxName);
@@ -24,8 +24,7 @@ class SavedProvider with ChangeNotifier {
     if (_box.containsKey(dateListKey)) {
       dates = _box.get(dateListKey) as List<DateTime>;
     } else {
-      dates = [];
-      _box.put(dateListKey, []);
+      _box.put(dateListKey, dates);
     }
     if (_box.keys.length > 1) {
       for (final date in dates) {
@@ -45,7 +44,7 @@ class SavedProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeSpaceMedia({@required SpaceMedia spaceMedia, BuildContext context}) {
+  void removeSpaceMedia({required SpaceMedia spaceMedia, BuildContext? context}) {
     if (context != null) {
       Navigator.of(context).pop();
     }
@@ -69,7 +68,7 @@ class SavedProvider with ChangeNotifier {
   }
 
   Future<void> saveSpaceMediaImage(SpaceMedia spaceMedia) async {
-    final http.Response response = await http.get(Uri(path: spaceMedia.hdImageUrl ?? spaceMedia.url));
+    final http.Response response = await http.get(Uri.parse(spaceMedia.hdImageUrl ?? spaceMedia.url));
     final String path = await Utils.localPath;
     File('$path/${spaceMedia.date.toString()}.png').writeAsBytes(response.bodyBytes);
   }

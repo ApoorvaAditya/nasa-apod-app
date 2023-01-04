@@ -11,19 +11,19 @@ import 'package:provider/provider.dart';
 import 'package:wallpaper_manager/wallpaper_manager.dart';
 
 class WallpaperButton extends StatelessWidget {
-  final String url;
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  final BuildContext context;
+  final String? url;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+  final BuildContext? context;
 
   const WallpaperButton({
-    Key key,
+    Key? key,
     this.url,
     this.scaffoldKey,
     this.context,
   }) : super(key: key);
 
   Future<void> setWallpaper(int location) async {
-    ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.of(context!).showSnackBar(
       SnackBar(
         content: const Text('Downloading Image'),
         duration: const Duration(days: 365),
@@ -31,14 +31,14 @@ class WallpaperButton extends StatelessWidget {
         action: SnackBarAction(
           label: 'Hide',
           onPressed: () {
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(context!).hideCurrentSnackBar();
           },
         ),
       ),
     );
 
     final DefaultCacheManager cacheManager = DefaultCacheManager();
-    final FileInfo downloadedFile = await cacheManager.downloadFile(url);
+    final FileInfo downloadedFile = await cacheManager.downloadFile(url!);
     final File rawWallpaperFile = downloadedFile.file;
     final File croppedWallpaperImage = await cropWallpaper(rawWallpaperFile);
 
@@ -49,8 +49,8 @@ class WallpaperButton extends StatelessWidget {
       result = 'Failed to get wallpaper';
     }
 
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.of(context!).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context!).showSnackBar(
       SnackBar(
         content: Text(result),
         backgroundColor: Colors.black,
@@ -62,13 +62,13 @@ class WallpaperButton extends StatelessWidget {
     final Directory cacheDirectory = await getTemporaryDirectory();
     final String imagePath = '${cacheDirectory.path}/wallpaper.png';
 
-    final SettingsProvider settings = Provider.of<SettingsProvider>(context, listen: false);
+    final SettingsProvider settings = Provider.of<SettingsProvider>(context!, listen: false);
     final wallpaperCropMethod = settings.getWallpaperCropMethod();
 
-    final img.Image rawWallpaper = img.decodeImage(file.readAsBytesSync());
+    final img.Image rawWallpaper = img.decodeImage(file.readAsBytesSync())!;
     final int imageHeight = rawWallpaper.height;
     final int imageWidth = rawWallpaper.width;
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
+    final MediaQueryData mediaQuery = MediaQuery.of(context!);
     final double screenAspectRatio = mediaQuery.size.aspectRatio;
     final double imageAspectRatio = imageWidth / imageHeight;
 

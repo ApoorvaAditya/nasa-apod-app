@@ -7,8 +7,8 @@ class ImageScreen extends StatelessWidget {
   final int index;
 
   const ImageScreen({
-    this.spaceMedia,
-    this.index,
+    required this.spaceMedia,
+    required this.index,
   });
 
   @override

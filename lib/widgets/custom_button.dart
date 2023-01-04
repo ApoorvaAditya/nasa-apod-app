@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:nasa_apod_app/constants.dart';
 
 class CustomButton extends StatelessWidget {
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final String text;
-  final Icon icon;
+  final Icon? icon;
 
-  const CustomButton({this.text, this.onPressed, this.icon});
+  const CustomButton({
+    required this.text,
+    this.onPressed,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
     if (icon != null) {
       return ElevatedButton.icon(
-        icon: icon,
+        icon: icon!,
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           elevation: 10,
