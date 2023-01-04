@@ -32,7 +32,7 @@ class CreditsDateFootnote extends StatelessWidget {
               customStylesBuilder: (element) {
                 switch (element.localName) {
                   case 'a':
-                    return {'color': "FFFFFF"};
+                    return {'color': "rgba(255, 255, 255, 0.54)"};
                 }
                 return null;
               },

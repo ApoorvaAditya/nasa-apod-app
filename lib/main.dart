@@ -42,11 +42,12 @@ class _MyAppState extends State<MyApp> {
           title: Strings.appTitle,
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            colorScheme: const ColorScheme.light(
+              primary: Colors.black,
+              secondary: Colors.white,
+            ),
             primarySwatch: Colors.indigo,
             primaryColor: Colors.black,
-            primaryColorBrightness: Brightness.dark,
-            accentColor: Colors.white,
-            accentColorBrightness: Brightness.light,
             primaryTextTheme: const TextTheme(
               bodyText1: TextStyle(
                 color: Colors.white,
