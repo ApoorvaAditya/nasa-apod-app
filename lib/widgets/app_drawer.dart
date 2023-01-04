@@ -125,12 +125,12 @@ class DrawerListItem extends StatelessWidget {
   final String? prevScreen;
   final String? routeName;
   const DrawerListItem({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     this.prevScreen,
     this.routeName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -67,7 +67,7 @@ class _AllPicturesScreeenState extends State<AllPicturesScreeen> {
       extendBodyBehindAppBar: true,
       body: BackgroundGradient(
         child: LiquidPullToRefresh(
-          onRefresh: media != null ? media.refresh : () async {},
+          onRefresh: media.refresh,
           color: darkBlue,
           height: 150,
           child: CustomScrollView(

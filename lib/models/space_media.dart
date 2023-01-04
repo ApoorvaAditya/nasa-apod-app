@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:meta/meta.dart' show required;
 
 part 'space_media.g.dart';
 

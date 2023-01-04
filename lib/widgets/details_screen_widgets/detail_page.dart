@@ -14,12 +14,12 @@ import 'package:provider/provider.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({
-    Key? key,
+    super.key,
     required this.spaceMedia,
     required this.topPadding,
     required this.titleTheme,
     required this.index,
-  }) : super(key: key);
+  });
 
   final SpaceMedia spaceMedia;
   final double topPadding;
@@ -57,12 +57,12 @@ class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
   final int? index;
 
   DetailsAppBar({
-    Key? key,
+    super.key,
     required this.scaffoldKey,
     required this.spaceMedia,
     required this.comingFrom,
     this.index,
-  }) : super(key: key);
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -108,11 +108,11 @@ class SpaceMediaImage extends StatelessWidget {
   final double topPadding;
   final int index;
   const SpaceMediaImage({
-    Key? key,
+    super.key,
     required this.spaceMedia,
     required this.topPadding,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -147,11 +147,11 @@ class SpaceMediaImage extends StatelessWidget {
 
 class SpaceTextColumn extends StatelessWidget {
   const SpaceTextColumn({
-    Key? key,
+    super.key,
     required this.spaceMedia,
     required this.titleTheme,
     required this.index,
-  }) : super(key: key);
+  });
 
   final SpaceMedia spaceMedia;
   final TextStyle? titleTheme;
@@ -177,11 +177,11 @@ class SpaceTextColumn extends StatelessWidget {
 
 class SpaceMediaTitle extends StatelessWidget {
   const SpaceMediaTitle({
-    Key? key,
+    super.key,
     required this.title,
     required this.titleTheme,
     required this.index,
-  }) : super(key: key);
+  });
 
   final String title;
   final int index;
@@ -208,9 +208,9 @@ class SpaceMediaTitle extends StatelessWidget {
 
 class SpaceMediaDescription extends StatelessWidget {
   const SpaceMediaDescription({
-    Key? key,
+    super.key,
     required this.description,
-  }) : super(key: key);
+  });
 
   final String description;
 

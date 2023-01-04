@@ -12,12 +12,12 @@ class ImageCard extends StatelessWidget {
   final void Function(int idx) scrollToFunction;
 
   const ImageCard({
-    Key? key,
+    super.key,
     required this.index,
     required this.spaceMedia,
     required this.comingFrom,
     required this.scrollToFunction,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +66,11 @@ class CardImage extends StatelessWidget {
   final String type;
 
   const CardImage({
-    Key? key,
+    super.key,
     required this.index,
     required this.url,
     required this.type,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +89,9 @@ class CardImage extends StatelessWidget {
 
 class TextBackground extends StatelessWidget {
   const TextBackground({
-    Key? key,
+    super.key,
     required this.cardBorderRadius,
-  }) : super(key: key);
+  });
 
   final double cardBorderRadius;
 
@@ -127,11 +127,11 @@ class SpaceMediaMinimizedDetails extends StatelessWidget {
   final String title;
 
   const SpaceMediaMinimizedDetails({
-    Key? key,
+    super.key,
     required this.index,
     required this.description,
     required this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -161,10 +161,10 @@ class SpaceMediaMinimizedTitle extends StatelessWidget {
   final String title;
 
   const SpaceMediaMinimizedTitle({
-    Key? key,
+    super.key,
     required this.index,
     required this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -192,9 +192,9 @@ class SpaceMediaMinimizedDescription extends StatelessWidget {
   final String description;
 
   const SpaceMediaMinimizedDescription({
-    Key? key,
+    super.key,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

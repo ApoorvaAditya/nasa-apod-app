@@ -5,9 +5,9 @@ import 'package:nasa_apod_app/models/space_media.dart';
 
 class CreditsDateFootnote extends StatelessWidget {
   const CreditsDateFootnote({
-    Key? key,
+    super.key,
     required this.spaceMedia,
-  }) : super(key: key);
+  });
 
   final SpaceMedia spaceMedia;
 

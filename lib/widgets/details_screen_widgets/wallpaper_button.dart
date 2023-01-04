@@ -16,11 +16,11 @@ class WallpaperButton extends StatelessWidget {
   final BuildContext? context;
 
   const WallpaperButton({
-    Key? key,
+    super.key,
     this.url,
     this.scaffoldKey,
     this.context,
-  }) : super(key: key);
+  });
 
   Future<void> setWallpaper(int location) async {
     ScaffoldMessenger.of(context!).showSnackBar(

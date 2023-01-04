@@ -197,18 +197,17 @@ class FontListTile extends StatelessWidget {
   ];
 
   const FontListTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.selectedFontIndex,
     this.onTap,
-  }) : super(key: key);
+  });
 
   List<Widget> buildFontOfFontTiles() {
     final List<Widget> widgets = [];
     for (int i = 0; i < fontSizes.length; i++) {
       widgets.add(
         ListTileWithIndex(
-          icons: null,
           index: i,
           title: fontSizes[i].toString(),
           style: TextStyle(
@@ -274,9 +273,9 @@ class SettingsGroupListTile extends StatelessWidget {
   final String title;
 
   const SettingsGroupListTile({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -301,14 +300,14 @@ class ListSettingsListTile extends StatelessWidget {
   final void Function(int index)? onTap;
 
   const ListSettingsListTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.enumToStrings,
     required this.index,
     this.icons,
     this.onTap,
-  }) : super(key: key);
+  });
 
   List<Widget> buildOptionList() {
     final List<Widget> widgets = [];
@@ -316,7 +315,7 @@ class ListSettingsListTile extends StatelessWidget {
     for (var i = 0; i < enumToStrings.length; i++) {
       widgets.add(
         ListTileWithIndex(
-          icons: icons!,
+          icons: icons,
           index: i,
           title: strings[i] as String,
           onTap: onTap!,
@@ -397,13 +396,13 @@ class ListSettingsListTile extends StatelessWidget {
 
 class ListTileWithIndex extends StatelessWidget {
   const ListTileWithIndex({
-    Key? key,
+    super.key,
     this.icons,
     required this.index,
     required this.title,
     required this.onTap,
     this.style,
-  }) : super(key: key);
+  });
 
   final List<IconData>? icons;
   final int index;
@@ -439,13 +438,13 @@ class SwitchSettingsListTile extends StatelessWidget {
   final void Function(bool value) onChanged;
 
   const SwitchSettingsListTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.onChanged,
     required this.value,
     this.enabled = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -483,14 +482,14 @@ class TextSettingsListTile extends StatelessWidget {
   final void Function(String value)? onSubmitted;
 
   const TextSettingsListTile({
-    Key? key,
+    super.key,
     required this.controller,
     required this.title,
     required this.subtitle,
     this.hint,
     required this.value,
     this.onSubmitted,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -566,11 +565,11 @@ class ButtonListTile extends StatelessWidget {
   final void Function()? onTap;
 
   const ButtonListTile({
-    Key? key,
+    super.key,
     required this.title,
     this.subtitle,
     this.onTap,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -593,12 +592,12 @@ class ButtonListTile extends StatelessWidget {
 
 class BottomSheetTextField extends StatelessWidget {
   const BottomSheetTextField({
-    Key? key,
+    super.key,
     required this.label,
     required this.controller,
     this.hint,
     this.onSubmited,
-  }) : super(key: key);
+  });
 
   final TextEditingController controller;
   final String label;

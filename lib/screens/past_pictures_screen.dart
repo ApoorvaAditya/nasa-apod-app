@@ -124,10 +124,9 @@ class _TimeMachineContentState extends State<TimeMachineContent> {
 
 class DateText extends StatelessWidget {
   const DateText({
-    Key? key,
+    super.key,
     required DateTime selectedDate,
-  })  : _selectedDate = selectedDate,
-        super(key: key);
+  }) : _selectedDate = selectedDate;
 
   final DateTime _selectedDate;
 

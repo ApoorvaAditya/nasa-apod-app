@@ -8,10 +8,10 @@ class SpaceDisplayImage extends StatelessWidget {
   final String type;
 
   const SpaceDisplayImage({
-    Key? key,
+    super.key,
     required this.url,
     required this.type,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,6 @@ class SpaceDisplayImage extends StatelessWidget {
               width: double.infinity,
               child: CenteredCircularProgressIndicator(),
             );
-            break;
           case LoadState.completed:
             return Stack(
               children: <Widget>[
@@ -43,7 +42,6 @@ class SpaceDisplayImage extends StatelessWidget {
                   ),
               ],
             );
-            break;
           case LoadState.failed:
             return GestureDetector(
               onTap: () {
@@ -57,7 +55,6 @@ class SpaceDisplayImage extends StatelessWidget {
                 ),
               ),
             );
-            break;
           default:
             return null;
         }

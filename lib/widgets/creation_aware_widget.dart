@@ -4,10 +4,10 @@ class CreationAwareWidget extends StatefulWidget {
   final Function itemCreated;
   final Widget child;
   const CreationAwareWidget({
-    Key? key,
+    super.key,
     required this.itemCreated,
     required this.child,
-  }) : super(key: key);
+  });
   @override
   _CreationAwareWidgetState createState() => _CreationAwareWidgetState();
 }

@@ -285,7 +285,7 @@ class _SubmitScreenState extends State<SubmitScreen> {
 class PickImageButton extends StatelessWidget {
   final void Function()? onPressed;
 
-  const PickImageButton({Key? key, this.onPressed}) : super(key: key);
+  const PickImageButton({super.key, this.onPressed});
   @override
   Widget build(BuildContext context) {
     return CustomButton(
@@ -298,10 +298,9 @@ class PickImageButton extends StatelessWidget {
 
 class FileImageForPreview extends StatelessWidget {
   const FileImageForPreview({
-    Key? key,
+    super.key,
     required File selectedImage,
-  })  : _selectedImage = selectedImage,
-        super(key: key);
+  }) : _selectedImage = selectedImage;
 
   final File _selectedImage;
 
@@ -318,12 +317,10 @@ class FileImageForPreview extends StatelessWidget {
               width: double.infinity,
               child: CenteredCircularProgressIndicator(),
             );
-            break;
           case LoadState.completed:
             return ExtendedRawImage(
               image: state.extendedImageInfo?.image,
             );
-            break;
           case LoadState.failed:
             return GestureDetector(
               onTap: () {
@@ -341,7 +338,6 @@ class FileImageForPreview extends StatelessWidget {
                 ],
               ),
             );
-            break;
           default:
             return null;
         }
@@ -352,10 +348,9 @@ class FileImageForPreview extends StatelessWidget {
 
 class NetworkImageForPreview extends StatelessWidget {
   const NetworkImageForPreview({
-    Key? key,
+    super.key,
     required TextEditingController imageUrlController,
-  })  : _imageUrlController = imageUrlController,
-        super(key: key);
+  }) : _imageUrlController = imageUrlController;
 
   final TextEditingController _imageUrlController;
 
@@ -372,12 +367,10 @@ class NetworkImageForPreview extends StatelessWidget {
               width: double.infinity,
               child: CenteredCircularProgressIndicator(),
             );
-            break;
           case LoadState.completed:
             return ExtendedRawImage(
               image: state.extendedImageInfo?.image,
             );
-            break;
           case LoadState.failed:
             return GestureDetector(
               onTap: () {
@@ -399,7 +392,6 @@ class NetworkImageForPreview extends StatelessWidget {
                 ),
               ),
             );
-            break;
           default:
             return null;
         }
