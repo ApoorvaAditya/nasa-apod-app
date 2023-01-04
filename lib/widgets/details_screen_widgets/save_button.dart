@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class SaveButton extends StatefulWidget {
   final SpaceMedia spaceMedia;
-  final String comingFrom;
+  final String? comingFrom;
 
   const SaveButton({
     super.key,

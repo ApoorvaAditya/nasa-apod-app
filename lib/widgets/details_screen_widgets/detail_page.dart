@@ -53,7 +53,7 @@ class DetailPage extends StatelessWidget {
 class DetailsAppBar extends StatelessWidget with PreferredSizeWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final SpaceMedia spaceMedia;
-  final String comingFrom;
+  final String? comingFrom;
   final int? index;
 
   DetailsAppBar({
@@ -226,7 +226,7 @@ class SpaceMediaDescription extends StatelessWidget {
       customStylesBuilder: (element) {
         switch (element.localName) {
           case 'a':
-            return {'text-decoration': 'none', 'color': 'blue'};
+            return {'text-decoration': 'none', 'color': '#2196F3'};
           case 'p':
             return {'text-align': 'justify'};
         }

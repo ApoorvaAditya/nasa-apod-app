@@ -23,8 +23,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
   bool enablePageView = false;
   List? spaceMedias;
   late final SpaceMedia spaceMedia;
-  late final String comingFrom;
-  late final int index;
+  String? comingFrom;
+  int? index;
   Media? media;
 
   bool init = true;
@@ -35,12 +35,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
       final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
       enablePageView = arguments['enablePageView'] as bool;
       spaceMedia = arguments['spaceMedia'] as SpaceMedia;
-      index = arguments['index'] as int;
-      comingFrom = arguments['comingFrom'] as String;
+      index = arguments['index'] as int?;
+      comingFrom = arguments['comingFrom'] as String?;
       if (enablePageView) {
-        currentPageValue = index.toDouble();
+        currentPageValue = index!.toDouble();
         _pageController = PageController(
-          initialPage: enablePageView ? index : 0,
+          initialPage: enablePageView ? index! : 0,
         );
         _pageController!.addListener(() {
           setState(() {

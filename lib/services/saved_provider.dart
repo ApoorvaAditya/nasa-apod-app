@@ -22,7 +22,7 @@ class SavedProvider with ChangeNotifier {
 
   void initializeValues() {
     if (_box.containsKey(dateListKey)) {
-      dates = _box.get(dateListKey) as List<DateTime>;
+      dates = (_box.get(dateListKey) as List).cast<DateTime>();
     } else {
       _box.put(dateListKey, dates);
     }

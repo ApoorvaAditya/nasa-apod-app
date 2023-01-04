@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class CreationAwareWidget extends StatefulWidget {
   final Function itemCreated;
   final Widget child;
+
   const CreationAwareWidget({
     super.key,
     required this.itemCreated,
     required this.child,
   });
+
   @override
   _CreationAwareWidgetState createState() => _CreationAwareWidgetState();
 }
@@ -16,9 +18,7 @@ class _CreationAwareWidgetState extends State<CreationAwareWidget> {
   @override
   void initState() {
     super.initState();
-    if (widget.itemCreated != null) {
-      widget.itemCreated();
-    }
+    widget.itemCreated();
   }
 
   @override
