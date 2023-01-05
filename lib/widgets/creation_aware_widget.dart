@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CreationAwareWidget extends StatefulWidget {
-  final Function itemCreated;
+  final VoidCallback itemCreated;
   final Widget child;
 
   const CreationAwareWidget({

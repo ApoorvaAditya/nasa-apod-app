@@ -32,7 +32,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void didChangeDependencies() {
     if (init) {
-      final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      final Map<String, dynamic> arguments = ModalRoute.of(context)!.settings.arguments! as Map<String, dynamic>;
       enablePageView = arguments['enablePageView'] as bool;
       spaceMedia = arguments['spaceMedia'] as SpaceMedia;
       index = arguments['index'] as int?;

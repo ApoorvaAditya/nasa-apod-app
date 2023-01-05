@@ -17,7 +17,7 @@ class SpaceMedia {
   @HiveField(5)
   final String title;
   @HiveField(6)
-  final String credits;
+  final String? credits;
 
   SpaceMedia({
     required this.date,
@@ -25,7 +25,7 @@ class SpaceMedia {
     required this.url,
     required this.description,
     required this.title,
-    required this.credits,
+    this.credits,
     this.hdImageUrl,
   });
 }

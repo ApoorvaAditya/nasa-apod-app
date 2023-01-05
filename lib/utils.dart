@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 // ignore: avoid_classes_with_only_static_members
 class Utils {
   static String removeNewLinesAndExtraSpace(String text) {
-    if (text == null) return '';
     return text.replaceAll('\n', ' ').replaceAll(RegExp(r'\s{2,}'), ' ');
   }
 

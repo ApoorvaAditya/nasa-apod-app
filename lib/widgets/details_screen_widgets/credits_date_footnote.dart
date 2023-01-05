@@ -25,7 +25,7 @@ class CreditsDateFootnote extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.5,
             child: HtmlWidget(
-              spaceMedia.credits.split('<br>')[1].trim(),
+              spaceMedia.credits!.split('<br>')[1].trim(),
               textStyle: const TextStyle(
                 color: Colors.white54,
               ),
